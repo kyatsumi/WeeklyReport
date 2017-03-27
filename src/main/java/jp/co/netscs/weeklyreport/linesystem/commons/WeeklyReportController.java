@@ -22,7 +22,6 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * ‚±‚ÌƒNƒ‰ƒX‚Å‚Í
  * 
  * @author SCS036
  *
@@ -35,17 +34,17 @@ public final class WeeklyReportController {
 	private LineMessagingClient lineMessagingService;
 
 	/**
-	 * ƒeƒLƒXƒgƒƒbƒZ[ƒW‚ª“ü—Í‚³‚ê‚½‚É”­¶‚·‚éƒCƒxƒ“ƒg
+	 * ãƒ†ã‚­ã‚¹ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒå…¥åŠ›ã•ã‚ŒãŸæ™‚ã«ç™ºç”Ÿã™ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆ
 	 * @param event
 	 */
 	@EventMapping
 	public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
 		String replyToken = event.getReplyToken();
-		this.replyText(replyToken, "ƒeƒXƒgƒƒbƒZ[ƒW");
+		this.replyText(replyToken, "ãƒ†ã‚¹ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸");
 	}
 
 	/**
-	 * ƒ|ƒXƒgƒoƒbƒNƒCƒxƒ“ƒg‚ª”­¶‚µ‚½‚ÉŒÄ‚Ño‚³‚ê‚é
+	 * PostBackã‚¤ãƒ™ãƒ³ãƒˆãŒç™ºç”Ÿã—ãŸã¨ãã«å‘¼ã³å‡ºã•ã‚Œã‚‹
 	 * @param event
 	 */
 	@EventMapping
@@ -54,7 +53,7 @@ public final class WeeklyReportController {
 	}
 	
 	/**
-	 * ƒ†[ƒU‚ÉƒtƒHƒ[‚³‚ê‚½iLINE‚Å—F’B’Ç‰Áj‚É”­¶‚·‚éƒCƒxƒ“ƒg
+	 * ãƒ¦ãƒ¼ã‚¶ã«ãƒ•ã‚©ãƒ­ãƒ¼ã•ã‚ŒãŸæ™‚ã«ï¼ˆLINEã§å‹é”è¿½åŠ ï¼‰ã«ç™ºç”Ÿã™ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆ
 	 * @param event 
 	 */
     @EventMapping
@@ -64,7 +63,7 @@ public final class WeeklyReportController {
     }
 
 	/**
-	 * ‘Î‰‚µ‚Ä‚¢‚È‚¢ƒCƒxƒ“ƒg‚ª—ˆ‚½ê‡‚É”­¶‚·‚éƒCƒxƒ“ƒg
+	 * å¯¾å¿œã—ã¦ã„ãªã„ã‚¤ãƒ™ãƒ³ãƒˆãŒæ¥ãŸå ´åˆã«ç™ºç”Ÿã™ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆ
 	 * @param event
 	 */
 	@EventMapping
@@ -73,10 +72,10 @@ public final class WeeklyReportController {
 	}
 	
 	/**
-	 * ‘ÎÛ‚ÌƒƒbƒZ[ƒW‚ğƒ†[ƒU‚É•Ô‚·B<br>
-	 * 1000•¶šˆÈã‚Ìê‡‚Í‚P‚O‚O‚O•¶šˆÈã‚ğÁ‚µ‚Ä•Ô‚·B<br>
-	 * @param replyToken —LŒø‚ÈƒŠƒvƒ‰ƒCƒg[ƒNƒ“‚Å‚ ‚é‚±‚Æ
-	 * @param message ƒ†[ƒU‚É•Ô‚·ƒƒbƒZ[ƒW
+	 * å¯¾è±¡ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ãƒ¦ãƒ¼ã‚¶ã«è¿”ã™ã€‚<br>
+	 * 1000æ–‡å­—ä»¥ä¸Šã®å ´åˆã¯ï¼‘ï¼ï¼ï¼æ–‡å­—ä»¥ä¸Šã‚’æ¶ˆã—ã¦è¿”ã™ã€‚<br>
+	 * @param replyToken æœ‰åŠ¹ãªãƒªãƒ—ãƒ©ã‚¤ãƒˆãƒ¼ã‚¯ãƒ³ã§ã‚ã‚‹ã“ã¨
+	 * @param message ãƒ¦ãƒ¼ã‚¶ã«è¿”ã™ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
 	 */
 	private void replyText(@NonNull String replyToken,@NonNull String message) {
 		if (replyToken.isEmpty()) {
@@ -84,7 +83,7 @@ public final class WeeklyReportController {
 		}
 		
 		if (message.length() > 1000) { 
-			message = message.substring(0, 1000 - 2) + "cc"; 
+			message = message.substring(0, 1000 - 2) + "..."; 
 		}
 		
 		this.reply(replyToken, new TextMessage(message)); 
@@ -95,9 +94,9 @@ public final class WeeklyReportController {
     }
     
     /**
-     * ƒƒbƒZ[ƒW‚ğƒ†[ƒU‚É•Ô‚·iÅ‘å‚TŒ‚Ü‚Å‘—‚é‚±‚Æ‚ª‰Â”\j
-     * @param replyToken —LŒø‚ÈƒŠƒvƒ‰ƒCƒg[ƒNƒ“
-     * @param messages ƒ†[ƒU‚É•Ô‚µ‚½‚¢ƒƒbƒZ[ƒW
+     * ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ãƒ¦ãƒ¼ã‚¶ã«è¿”ã™ï¼ˆæœ€å¤§ï¼•ä»¶ã¾ã§é€ã‚‹ã“ã¨ãŒå¯èƒ½ï¼‰
+     * @param replyToken æœ‰åŠ¹ãªãƒªãƒ—ãƒ©ã‚¤ãƒˆãƒ¼ã‚¯ãƒ³
+     * @param messages ãƒ¦ãƒ¼ã‚¶ã«è¿”ã—ãŸã„ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
      */
     private void reply(@NonNull String replyToken, @NonNull List<Message> messages) {
         try {
