@@ -16,4 +16,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class WeeklyReportDto {
 
+	private Long time;
+	private String text;
+	private Long userId;
 }
