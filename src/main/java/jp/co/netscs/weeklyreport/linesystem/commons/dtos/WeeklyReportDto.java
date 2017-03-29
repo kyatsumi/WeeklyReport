@@ -1,4 +1,4 @@
-package jp.co.netscs.weeklyreport.linesystem.commons.entitis;
+package jp.co.netscs.weeklyreport.linesystem.commons.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
