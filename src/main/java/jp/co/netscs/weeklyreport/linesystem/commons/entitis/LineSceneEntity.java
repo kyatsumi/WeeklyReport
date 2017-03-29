@@ -33,24 +33,24 @@ public class LineSceneEntity {
 	 */
 	@Id
 	@Column(length=32, nullable = false)
-	Long lineId;
+	private Long lineId;
 	
 	/**
 	 * シーンの有効期限
 	 */
 	@Version
-	Long periodTime;
+	private Long periodTime;
 	
 	/**
 	 * 機能
 	 */
 	@Column(length=3)
-	String systemName;
+	private String systemName;
 	
 	/**
 	 * 機能状態
 	 */
 	@Column(length=3)
-	Integer systemScene;
+	private Integer systemScene;
 	
 }

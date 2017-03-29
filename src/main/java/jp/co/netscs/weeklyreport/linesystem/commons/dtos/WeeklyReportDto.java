@@ -2,8 +2,10 @@ package jp.co.netscs.weeklyreport.linesystem.commons.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * 
@@ -12,11 +14,12 @@ import lombok.NoArgsConstructor;
  */
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
+@ToString
+@EqualsAndHashCode
 public class WeeklyReportDto {
 
-	private Long time;
+	private Long periodTime;
 	private String text;
 	private Long userId;
 }
