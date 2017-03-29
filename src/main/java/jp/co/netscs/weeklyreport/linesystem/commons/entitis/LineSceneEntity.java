@@ -39,7 +39,7 @@ public class LineSceneEntity {
 	 * シーンの有効期限
 	 */
 	@Version
-	Long priodTime;
+	Long periodTime;
 	
 	/**
 	 * 機能
