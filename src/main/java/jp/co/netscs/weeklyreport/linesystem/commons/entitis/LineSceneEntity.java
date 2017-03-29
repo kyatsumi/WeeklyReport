@@ -44,11 +44,13 @@ public class LineSceneEntity {
 	/**
 	 * 機能
 	 */
+	@Column(length=3)
 	String systemName;
 	
 	/**
 	 * 機能状態
 	 */
+	@Column(length=3)
 	Integer systemScene;
 	
 }
