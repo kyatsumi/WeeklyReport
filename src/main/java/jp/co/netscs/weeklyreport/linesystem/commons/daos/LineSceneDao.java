@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import jp.co.netscs.weeklyreport.linesystem.commons.entitis.LineSceneEntity;
 
 @Repository
-public interface LineSceneDao extends JpaRepository<LineSceneEntity, Long>{
+public interface LineSceneDao extends JpaRepository<LineSceneEntity, String>{
 	
 }

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import jp.co.netscs.weeklyreport.linesystem.commons.entitis.DayReportEntity;
 
 @Repository
-public interface DayReportDao extends JpaRepository<DayReportEntity, Long> {
+public interface DayReportDao extends JpaRepository<DayReportEntity, String> {
 
 }
