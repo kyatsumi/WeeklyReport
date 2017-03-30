@@ -55,6 +55,13 @@ public final class WeeklyReportController {
 	@EventMapping
 	public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
 		String replyToken = event.getReplyToken();
+		Source source = event.getSource();
+        LinePostInfoDto lineInfo = LinePostInfoDto.builder()
+            	.periodTime(event.getTimestamp().getEpochSecond())
+            	.text(event.getMessage().getText())
+            	.userId(source.getUserId())
+            	.build();
+        this.replyMessage(replyToken, lineInfo, false);
 	}
 
 	/**
