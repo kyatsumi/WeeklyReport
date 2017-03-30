@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * 
+ * LineMessageingAPIから届いた情報を格納するクラス
  * @author SCS036
  *
  */
@@ -16,9 +16,19 @@ import lombok.ToString;
 @Getter
 @ToString
 @EqualsAndHashCode
-public class WeeklyReportDto {
+public class LinePostInfoDto {
 
+	/**
+	 * POSTした時間(UNIX時間)
+	 */
 	private Long periodTime;
+	/**
+	 * LINEでの入力内容
+	 */
 	private String text;
+	
+	/**
+	 * ユーザID
+	 */
 	private Long userId;
 }
