@@ -38,46 +38,36 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 	@Transactional
 	@Override
 	public List<Message> execute(LinePostInfoDto lineInfo, LineSectionDto section) {
-		List<Field> fieldList = Arrays.asList(this.getClass().getDeclaredFields());
+		List<AbstractSectionService> executeService = Arrays.asList(this.getClass().getDeclaredFields())
+			.stream()
+			.map(field -> {
+				try {
+					return field.get(this);
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				throw new RuntimeException("フィールドを取得できません" + " " + this.getClass());
+			})
+			.filter(object -> object instanceof AbstractSectionService)
+			.map(object -> AbstractSectionService.class.cast(object))
+			.collect(Collectors.toList());
 		
-		System.out.println(fieldList);
-		
-		List<Object> fieldObject = fieldList.stream().map(field -> {
-			try {
-				return field.get(this);
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			throw new RuntimeException("フィールドを取得できません" + " " + this.getClass());
-		}).collect(Collectors.toList());
-		
-		System.out.println(fieldObject);
-		
-		List<AbstractSectionService> sectionList = fieldObject.stream()
-				.filter(object -> object instanceof AbstractSectionService)
-				.map(object -> AbstractSectionService.class.cast(object))
-				.collect(Collectors.toList());
-		
-		System.out.println(sectionList);
 
-		if (sectionList.isEmpty()) {
-			throw new RuntimeException("対象のセクションがありません。 " + fieldList.toString());
+		if (executeService.isEmpty()) {
+			throw new RuntimeException("対象のセクションがありません。 ");
 		}
 		
-		if (sectionList.size() > 1) {
+		if (executeService.size() > 1) {
 			throw new RuntimeException("対象のセクションが重複しています。");
 		}
 		
-		/**
-		AbstractSectionService target = fieldList.get(0);
+		AbstractSectionService target = executeService.get(0);
 		List<Message> result = target.execute(section.getScene(), lineInfo);
 		return result;
-		*/
-		return null;
 	}
 
 }
