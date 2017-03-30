@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
  *
  */
 
-@Service
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Section {
