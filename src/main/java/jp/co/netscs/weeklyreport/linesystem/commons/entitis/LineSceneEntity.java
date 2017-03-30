@@ -33,7 +33,7 @@ public class LineSceneEntity {
 	 */
 	@Id
 	@Column(length=32, nullable = false)
-	private Long lineId;
+	private String lineId;
 	
 	/**
 	 * シーンの有効期限

@@ -2,6 +2,7 @@ package jp.co.netscs.weeklyreport.linesystem.commons.entitis;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -32,7 +33,8 @@ public class DayReportEntity {
 	 * Line Messageing APIのユーザID
 	 */
 	@Id
-	private Long lineId;
+	@Column(length=32, nullable = false)
+	private String lineId;
 	
 	/**
 	 * 登録日付

@@ -1,5 +1,6 @@
 package jp.co.netscs.weeklyreport.linesystem.commons.entitis;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -33,7 +34,8 @@ public class UserEntity {
 	 * Line Messageing APIのユーザID
 	 */
 	@Id
-	private Long lineId;
+	@Column(length=32, nullable = false)
+	private String lineId;
 	
 	/**
 	 * 所属グループ

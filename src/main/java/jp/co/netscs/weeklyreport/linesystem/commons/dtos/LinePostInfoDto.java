@@ -28,7 +28,7 @@ public class LinePostInfoDto {
 	private String text;
 	
 	/**
-	 * ユーザID
+	 * LINEユーザID
 	 */
-	private Long userId;
+	private String userId;
 }
