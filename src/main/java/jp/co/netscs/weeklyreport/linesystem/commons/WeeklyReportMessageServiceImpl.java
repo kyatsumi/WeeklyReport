@@ -37,6 +37,7 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 	@Transactional
 	@Override
 	public List<Message> execute(LinePostInfoDto lineInfo, LineSectionDto section) {
+		System.out.println(section);
 		List<AbstractSectionService> executeService = Arrays.asList(this.getClass().getDeclaredFields())
 			.stream()
 			.map(field -> {
