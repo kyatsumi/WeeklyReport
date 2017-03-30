@@ -31,7 +31,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Builder
-@Table(name="User")
+@Table(name="Users")
 public class UserEntity implements Serializable {
 	
 	/**
