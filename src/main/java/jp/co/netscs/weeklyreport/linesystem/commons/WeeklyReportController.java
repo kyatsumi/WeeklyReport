@@ -99,8 +99,6 @@ public final class WeeklyReportController {
             	.build();
         this.replyMessage(replyToken, lineInfo, false);
     }
-    
-    
 
     /**
      * チャットルームに招待された場合に発生するイベント
@@ -119,14 +117,7 @@ public final class WeeklyReportController {
             lineMessagingClient.leaveRoom(((RoomSource) source).getRoomId()).get();
         }
     }
-
     
-    protected void replyMessage(String replyToken, LinePostInfoDto lineInfo, boolean isPostBack) {
-        LineSectionDto section = this.sectionService.fetchUserSection(lineInfo);
-        List<Message> replyMessages = this.messageService.execute(lineInfo, section);
-        this.reply(replyToken, replyMessages);
-    }
-
 	/**
 	 * 対応していないイベントが来た場合に発生するイベント
 	 * @param event
@@ -135,6 +126,12 @@ public final class WeeklyReportController {
 	public void defaultMessageEvent(Event event) {
 		log.info("Received message(Ignored): {}", event);
 	}
+
+    protected void replyMessage(String replyToken, LinePostInfoDto lineInfo, boolean isPostBack) {
+        LineSectionDto section = this.sectionService.fetchUserSection(lineInfo);
+        List<Message> replyMessages = this.messageService.execute(lineInfo, section);
+        this.reply(replyToken, replyMessages);
+    }
 	
     private void replyText(@NonNull String replyToken, @NonNull String message) {
         this.reply(replyToken, new TextMessage(message));
