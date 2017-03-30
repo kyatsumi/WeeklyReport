@@ -50,16 +50,19 @@ public class UserEntity implements Serializable {
 	 * 所属グループ
 	 */
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = true)
 	private ScsGroup group;
 	
 	/**
 	 * ユーザ登録名
 	 */
+	@Column(nullable = true)
 	private String name;
 	
 	/**
 	 * 管理者権限
 	 */
+	@Column(nullable = true)
 	private Boolean admin;
 	
 }

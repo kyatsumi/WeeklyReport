@@ -46,15 +46,18 @@ public class DayReportEntity implements Serializable {
 	/**
 	 * 登録日付
 	 */
+	@Column(nullable = false)
 	private String date;
 	
 	/**
 	 * 内容
 	 */
+	@Column(nullable = false)
 	private String report;
 	
 	/**
 	 * 管理者コメント
 	 */
+	@Column(nullable = true)
 	private String adminComment;
 }
