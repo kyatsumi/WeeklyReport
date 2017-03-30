@@ -42,13 +42,7 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 		List<Field> targetField = fieldList.stream().filter(field -> field.getType().getSuperclass().equals(AbstractSectionService.class))
 				.collect(Collectors.toList());
 		
-		if (targetField.isEmpty()) {
-			throw new RuntimeException("対象のセクションがありません。 " + targetField.toString());
-		}
-		
-		if (targetField.size() > 1) {
-			throw new RuntimeException("対象のセクションが重複しています。");
-		}
+		System.out.println(targetField);
 		
 		List<AbstractSectionService> targetList = targetField.stream().map(field -> {
 				try {
