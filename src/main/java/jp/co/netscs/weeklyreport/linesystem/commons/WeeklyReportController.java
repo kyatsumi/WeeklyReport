@@ -67,8 +67,11 @@ public final class WeeklyReportController {
 	            	.build();
 	        this.replyMessage(replyToken, lineInfo, false);
 		} catch (Exception ex) {
+			String message = ex.getMessage();
+			String message1 = message.length() < 1000 ? message : message.substring(0,1000);
+			String message2 = message.length() > 2000 ? message.substring(1000,2000) : message.substring(1000,message.length());
 			String base = ex.getClass().getSimpleName();
-			this.replyText(replyToken, base + " " + ex.getCause().getClass().getSimpleName(), ex.getMessage());
+			this.replyText(replyToken, base + " " + ex.getCause().getClass().getSimpleName(), message1, message2 );
 		}
 	}
 
