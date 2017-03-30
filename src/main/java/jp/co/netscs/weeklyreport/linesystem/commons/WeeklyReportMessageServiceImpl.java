@@ -26,6 +26,9 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 	@Transactional
 	@Override
 	public List<Message> execute(LinePostInfoDto lineInfo, LineSectionDto section) {
+		if (section == null) {
+			section = new LineSectionDto("null", "null");
+		}
 		return Arrays.asList(
 				new TextMessage(section.toString())
 				);
