@@ -15,7 +15,7 @@ import jp.co.netscs.weeklyreport.linesystem.commons.annot.Section;
 import jp.co.netscs.weeklyreport.linesystem.commons.daos.LineSceneDao;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LineSectionDto;
-import jp.co.netscs.weeklyreport.linesystem.regist.RegistServiceImpl;
+import jp.co.netscs.weeklyreport.linesystem.regist.RegistService;
 
 /**
  * 
