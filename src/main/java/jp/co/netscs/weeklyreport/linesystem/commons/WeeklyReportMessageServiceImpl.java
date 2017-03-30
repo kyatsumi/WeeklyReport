@@ -24,15 +24,14 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 
-@Slf4j
 @Service
 public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageService {
 
 	@Autowired
-	private LineSceneDao lineSeceneDao;
+	LineSceneDao lineSeceneDao;
 	
 	@Autowired
-	private RegistService registService;
+	RegistService registService;
 	
 	/**
 	 * 
@@ -40,10 +39,21 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 	@Transactional
 	@Override
 	public List<Message> execute(LinePostInfoDto lineInfo, LineSectionDto section) {
-		log.debug(lineInfo.toString() + " " + section.toString());
 		List<Field> fieldList = Arrays.asList(this.getClass().getFields());
-		List<Field> targetField = fieldList.stream().filter(field -> field.isAnnotationPresent(Section.class))
-			.filter(field -> ((Section)field.getAnnotation(Section.class)).name().equals(section.getSection()))
+		List<AbstractSectionService> targetField = fieldList.stream().filter(field -> field.getType().equals(AbstractSectionService.class))
+			.map(field -> {
+				try {
+					return ((AbstractSectionService)field.get(this));
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				throw new RuntimeException("対象のセクションがありません。");
+			})
+			.filter(sectionService -> ((Section)sectionService.getClass().getAnnotation(Section.class)).name().equals(section.getSection()))
 			.collect(Collectors.toList());
 		if (targetField.isEmpty()) {
 			throw new RuntimeException("対象のセクションがありません。");
@@ -53,25 +63,8 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 			throw new RuntimeException("対象のセクションが重複しています。");
 		}
 		
-		Field target = targetField.get(0);
-		Object targetSection = null;
-		try {
-			targetSection = target.get(this);
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-
-		List<Message> result = null;
-		if (targetSection instanceof AbstractSectionService) {
-			AbstractSectionService sectionService = (AbstractSectionService) targetSection;
-			result = sectionService.execute(section.getScene(), lineInfo);
-		}
-		
+		AbstractSectionService target = targetField.get(0);
+		List<Message> result = target.execute(section.getScene(), lineInfo);
 		return result;
 	}
 
