@@ -31,7 +31,8 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 
+ * LineMessageingAPI仕様<br>
+ * {@link https://devdocs.line.me/ja}
  * @author SCS036
  *
  */
