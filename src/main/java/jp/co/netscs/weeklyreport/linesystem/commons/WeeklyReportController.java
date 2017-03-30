@@ -10,6 +10,7 @@ import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.FollowEvent;
+import com.linecorp.bot.model.event.JoinEvent;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.PostbackEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
@@ -63,17 +64,43 @@ public final class WeeklyReportController {
 	@EventMapping
 	public void handlePostBackEvent(PostbackEvent event) {
 		String replyToken = event.getReplyToken();
+		Source source = event.getSource();
+        LinePostInfoDto lineInfo = LinePostInfoDto.builder()
+            	.periodTime(event.getTimestamp().getEpochSecond())
+            	.text(event.getPostbackContent().getData())
+            	.userId(source.getUserId())
+            	.build();
+		
+		this.replyMessage(replyToken, lineInfo, true);
 	}
 	
 	/**
 	 * Lineでユーザにフォローされた時（LINEで友達追加）に発生するイベント
-	 * 個人チャット以外の場合は自動退出をする
 	 * @param event フォローされた時の情報
 	 * @throws ExecutionException 
 	 * @throws InterruptedException 
 	 */
     @EventMapping
     public void handleFollowEvent(FollowEvent event) throws InterruptedException, ExecutionException {
+        String replyToken = event.getReplyToken();
+        Source source = event.getSource();
+        LinePostInfoDto lineInfo = LinePostInfoDto.builder()
+            	.periodTime(event.getTimestamp().getEpochSecond())
+            	.text(LineBotConstant.SCTION_REGIST)
+            	.userId(source.getUserId())
+            	.build();
+        this.replyMessage(replyToken, lineInfo, false);
+    }
+    
+    
+
+    /**
+     * チャットルームに招待された場合に発生するイベント
+     * 個人チャット以外の場合は自動退出をする
+     * @param event
+     */
+    @EventMapping
+    public void handleJoinEvent(JoinEvent event) throws InterruptedException, ExecutionException {
         String replyToken = event.getReplyToken();
         Source source = event.getSource();
         if (source instanceof GroupSource) {
@@ -83,14 +110,8 @@ public final class WeeklyReportController {
             this.replyText(replyToken, "個人チャットのみ対応しています。");
             lineMessagingClient.leaveRoom(((RoomSource) source).getRoomId()).get();
         }
-        
-        LinePostInfoDto lineInfo = LinePostInfoDto.builder()
-        	.periodTime(event.getTimestamp().getEpochSecond())
-        	.text(LineBotConstant.SCTION_REGIST)
-        	.userId(source.getUserId())
-        	.build();
-        this.replyMessage(replyToken, lineInfo, false);
     }
+
     
     protected void replyMessage(String replyToken, LinePostInfoDto lineInfo, boolean isPostBack) {
         LineSectionDto section = this.sectionService.fetchUserSection(lineInfo);
