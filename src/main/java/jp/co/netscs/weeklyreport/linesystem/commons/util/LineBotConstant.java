@@ -88,6 +88,11 @@ public class LineBotConstant {
 	 */
 	public static final String TEAMREPORTVIEW_SCENE_VIEW = "週報確認(全体)";
 	
+	/**
+	 * 不明なセクションもしくはシーン
+	 */
+	public static final String UNKNOWN = "不明セクション";
+	
 /********************************機能名定義ここまで**********************************************************/
 	
 	/**
