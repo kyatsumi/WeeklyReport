@@ -1,7 +1,6 @@
 package jp.co.netscs.weeklyreport.linesystem.commons.entitis;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
