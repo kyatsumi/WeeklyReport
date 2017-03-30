@@ -16,12 +16,15 @@ import jp.co.netscs.weeklyreport.linesystem.commons.daos.LineSceneDao;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LineSectionDto;
 import jp.co.netscs.weeklyreport.linesystem.regist.RegistService;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
  * @author SCS036
  *
  */
+
+@Slf4j
 @Service
 public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageService {
 
@@ -37,6 +40,7 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 	@Transactional
 	@Override
 	public List<Message> execute(LinePostInfoDto lineInfo, LineSectionDto section) {
+		log.debug(lineInfo.toString() + " " + section.toString());
 		List<Field> fieldList = Arrays.asList(this.getClass().getFields());
 		List<Field> targetField = fieldList.stream().filter(field -> field.isAnnotationPresent(Section.class))
 			.filter(field -> ((Section)field.getAnnotation(Section.class)).name().equals(section.getSection()))
