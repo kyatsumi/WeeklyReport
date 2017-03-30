@@ -47,7 +47,7 @@ public class DayReportEntity implements Serializable {
 	/**
 	 * 登録日付
 	 */
-	private LocalDate date;
+	private String date;
 	
 	/**
 	 * 内容
