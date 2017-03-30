@@ -16,7 +16,6 @@ import jp.co.netscs.weeklyreport.linesystem.commons.daos.LineSceneDao;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LineSectionDto;
 import jp.co.netscs.weeklyreport.linesystem.regist.RegistService;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * 
@@ -40,7 +39,7 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 	@Override
 	public List<Message> execute(LinePostInfoDto lineInfo, LineSectionDto section) {
 		List<Field> fieldList = Arrays.asList(this.getClass().getFields());
-		List<AbstractSectionService> targetField = fieldList.stream().filter(field -> field.getType().equals(AbstractSectionService.class))
+		List<AbstractSectionService> targetField = fieldList.stream().filter(field -> field.getType().getSuperclass().equals(AbstractSectionService.class))
 			.map(field -> {
 				try {
 					return ((AbstractSectionService)field.get(this));
