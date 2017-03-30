@@ -16,7 +16,7 @@ public class LineBotConstant {
 	/**
 	 * ユーザ登録：新規登録
 	 */
-	public static final String REGIST_SCENE_ISADDMIN = "ユーザ登録新規登録";
+	public static final String REGIST_SCENE_START = "ユーザ登録新規登録";
 	
 	/**
 	 * ユーザ登録：グループ選択
