@@ -11,11 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.linecorp.bot.model.message.Message;
 
-import jp.co.netscs.weeklyreport.linesystem.commons.annot.Section;
 import jp.co.netscs.weeklyreport.linesystem.commons.daos.LineSceneDao;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LineSectionDto;
 import jp.co.netscs.weeklyreport.linesystem.regist.RegistService;
+import sun.print.resources.serviceui;
 
 /**
  * 
@@ -39,39 +39,45 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 	@Override
 	public List<Message> execute(LinePostInfoDto lineInfo, LineSectionDto section) {
 		List<Field> fieldList = Arrays.asList(this.getClass().getFields());
-		List<Field> targetField = fieldList.stream().filter(field -> field.getType().getSuperclass().equals(AbstractSectionService.class))
+		
+		System.out.println(fieldList);
+		
+		List<Object> fieldObject = fieldList.stream().map(field -> {
+			try {
+				return field.get(this);
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			throw new RuntimeException("フィールドを取得できません" + " " + this.getClass());
+		}).collect(Collectors.toList());
+		
+		System.out.println(fieldObject);
+		
+		List<AbstractSectionService> sectionList = fieldObject.stream()
+				.filter(object -> object instanceof AbstractSectionService)
+				.map(object -> AbstractSectionService.class.cast(object))
 				.collect(Collectors.toList());
 		
-		System.out.println(targetField);
-		
-		List<AbstractSectionService> targetList = targetField.stream().map(field -> {
-				try {
-					return ((AbstractSectionService)field.get(this));
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				throw new RuntimeException("対象のセクションがありません。");
-			})
-			.filter(sectionService -> ((Section)sectionService.getClass().getAnnotation(Section.class)).name().equals(section.getSection()))
-			.collect(Collectors.toList());
-		
-		System.out.println(targetList);
-		
-		if (targetList.isEmpty()) {
-			throw new RuntimeException("対象のセクションがありません。 " + targetList.toString());
+		System.out.println(sectionList);
+
+		if (sectionList.isEmpty()) {
+			throw new RuntimeException("対象のセクションがありません。 " + fieldList.toString());
 		}
 		
-		if (targetList.size() > 1) {
+		if (sectionList.size() > 1) {
 			throw new RuntimeException("対象のセクションが重複しています。");
 		}
 		
-		AbstractSectionService target = targetList.get(0);
+		/**
+		AbstractSectionService target = fieldList.get(0);
 		List<Message> result = target.execute(section.getScene(), lineInfo);
 		return result;
+		*/
+		return null;
 	}
 
 }
