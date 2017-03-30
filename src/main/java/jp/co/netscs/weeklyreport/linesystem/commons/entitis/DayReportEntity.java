@@ -1,5 +1,6 @@
 package jp.co.netscs.weeklyreport.linesystem.commons.entitis;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -29,8 +30,13 @@ import lombok.ToString;
 @EqualsAndHashCode
 @Builder
 @Table(name="DayReport")
-public class DayReportEntity {
+public class DayReportEntity implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Line Messageing APIのユーザID
 	 */

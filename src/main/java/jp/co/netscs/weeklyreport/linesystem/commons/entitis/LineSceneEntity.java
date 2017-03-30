@@ -1,5 +1,7 @@
 package jp.co.netscs.weeklyreport.linesystem.commons.entitis;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -28,8 +30,13 @@ import lombok.ToString;
 @EqualsAndHashCode
 @Builder
 @Table(name="LineScene")
-public class LineSceneEntity {
+public class LineSceneEntity implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Line Messageing APIのユーザID
 	 */
