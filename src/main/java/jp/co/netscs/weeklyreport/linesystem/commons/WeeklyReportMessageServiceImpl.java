@@ -58,6 +58,9 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 			})
 			.filter(sectionService -> ((Section)sectionService.getClass().getAnnotation(Section.class)).name().equals(section.getSection()))
 			.collect(Collectors.toList());
+		
+		System.out.println(targetList);
+		
 		if (targetList.isEmpty()) {
 			throw new RuntimeException("対象のセクションがありません。 " + targetList.toString());
 		}
