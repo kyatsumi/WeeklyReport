@@ -50,7 +50,7 @@ public class UserEntity implements Serializable {
 	 * 所属グループ
 	 */
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = true)
+	@Column(name = "scsGroup", nullable = true)
 	private ScsGroup group;
 	
 	/**
