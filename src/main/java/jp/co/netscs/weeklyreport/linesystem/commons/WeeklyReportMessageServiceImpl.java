@@ -38,7 +38,7 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 	@Transactional
 	@Override
 	public List<Message> execute(LinePostInfoDto lineInfo, LineSectionDto section) {
-		List<Field> fieldList = Arrays.asList(this.getClass().getFields());
+		List<Field> fieldList = Arrays.asList(this.getClass().getDeclaredFields());
 		
 		System.out.println(fieldList);
 		
