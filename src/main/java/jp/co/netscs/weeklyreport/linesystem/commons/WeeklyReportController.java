@@ -1,8 +1,10 @@
 package jp.co.netscs.weeklyreport.linesystem.commons;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -65,7 +67,8 @@ public final class WeeklyReportController {
 	            	.build();
 	        this.replyMessage(replyToken, lineInfo, false);
 		} catch (Exception ex) {
-			this.replyText(replyToken, ex.getMessage());
+			String base = ex.getMessage();
+			this.replyText(replyToken, base.substring(0,1000), base.substring(1000,2000), base.substring(2000,3000), base.substring(3000,4000), base.substring(4000,5000));
 		}
 	}
 
@@ -135,6 +138,11 @@ public final class WeeklyReportController {
         LineSectionDto section = this.sectionService.fetchUserSection(lineInfo);
         List<Message> replyMessages = this.messageService.execute(lineInfo, section);
         this.reply(replyToken, replyMessages);
+    }
+    
+    private void replyText(@NonNull String replyToken, @NonNull String... messages) {
+    	List<Message> mes = Arrays.asList(messages).stream().map(message -> new TextMessage(message)).collect(Collectors.toList());
+    	this.reply(replyToken, mes);
     }
 	
     private void replyText(@NonNull String replyToken, @NonNull String message) {
