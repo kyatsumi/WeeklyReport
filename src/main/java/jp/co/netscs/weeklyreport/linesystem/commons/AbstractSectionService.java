@@ -21,7 +21,7 @@ public abstract class AbstractSectionService {
 	@SuppressWarnings("unchecked")
 	public List<Message> execute(String scene, LinePostInfoDto lineInfo) {
 		
-		List<Method> methodList = Arrays.asList(this.getClass().getMethods());
+		List<Method> methodList = Arrays.asList(this.getClass().getDeclaredMethods());
 		this.vaildateMethods(methodList);
 		List<Method> targetScene = methodList.stream().filter(method -> method.isAnnotationPresent(Scene.class))
 			.filter(method -> ((Scene)method.getAnnotation(Scene.class)).name().equals(scene))

@@ -1,6 +1,5 @@
 package jp.co.netscs.weeklyreport.linesystem.commons;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,11 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.linecorp.bot.model.message.Message;
 
+import jp.co.netscs.weeklyreport.linesystem.commons.annot.Section;
 import jp.co.netscs.weeklyreport.linesystem.commons.daos.LineSceneDao;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LineSectionDto;
 import jp.co.netscs.weeklyreport.linesystem.regist.RegistService;
-import sun.print.resources.serviceui;
 
 /**
  * 
@@ -54,6 +53,7 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 			})
 			.filter(object -> object instanceof AbstractSectionService)
 			.map(object -> AbstractSectionService.class.cast(object))
+			.filter(service -> service.getClass().getDeclaredAnnotation(Section.class).name().equals(section.getSection()))
 			.collect(Collectors.toList());
 		
 
