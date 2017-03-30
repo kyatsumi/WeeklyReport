@@ -67,8 +67,8 @@ public final class WeeklyReportController {
 	            	.build();
 	        this.replyMessage(replyToken, lineInfo, false);
 		} catch (Exception ex) {
-			String base = ex.getMessage();
-			this.replyText(replyToken, base.substring(0,1000), base.substring(1000,2000), base.substring(2000,3000), base.substring(3000,4000), base.substring(4000,5000));
+			String base = ex.getClass().getSimpleName();
+			this.replyText(replyToken, base + " " + ex.getCause().getClass().getSimpleName(), ex.getMessage());
 		}
 	}
 
