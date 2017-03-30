@@ -39,8 +39,18 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 	@Override
 	public List<Message> execute(LinePostInfoDto lineInfo, LineSectionDto section) {
 		List<Field> fieldList = Arrays.asList(this.getClass().getFields());
-		List<AbstractSectionService> targetField = fieldList.stream().filter(field -> field.getType().getSuperclass().equals(AbstractSectionService.class))
-			.map(field -> {
+		List<Field> targetField = fieldList.stream().filter(field -> field.getType().getSuperclass().equals(AbstractSectionService.class))
+				.collect(Collectors.toList());
+		
+		if (targetField.isEmpty()) {
+			throw new RuntimeException("対象のセクションがありません。 " + targetField.toString());
+		}
+		
+		if (targetField.size() > 1) {
+			throw new RuntimeException("対象のセクションが重複しています。");
+		}
+		
+		List<AbstractSectionService> targetList = targetField.stream().map(field -> {
 				try {
 					return ((AbstractSectionService)field.get(this));
 				} catch (IllegalArgumentException e) {
@@ -54,15 +64,15 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 			})
 			.filter(sectionService -> ((Section)sectionService.getClass().getAnnotation(Section.class)).name().equals(section.getSection()))
 			.collect(Collectors.toList());
-		if (targetField.isEmpty()) {
-			throw new RuntimeException("対象のセクションがありません。");
+		if (targetList.isEmpty()) {
+			throw new RuntimeException("対象のセクションがありません。 " + targetList.toString());
 		}
 		
-		if (targetField.size() > 1) {
+		if (targetList.size() > 1) {
 			throw new RuntimeException("対象のセクションが重複しています。");
 		}
 		
-		AbstractSectionService target = targetField.get(0);
+		AbstractSectionService target = targetList.get(0);
 		List<Message> result = target.execute(section.getScene(), lineInfo);
 		return result;
 	}
