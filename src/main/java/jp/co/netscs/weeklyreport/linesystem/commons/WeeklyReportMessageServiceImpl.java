@@ -53,6 +53,7 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 			})
 			.filter(object -> object instanceof AbstractSectionService)
 			.map(object -> AbstractSectionService.class.cast(object))
+			.peek(System.out::println)
 			.filter(service -> service.getClass().getDeclaredAnnotation(Section.class).name().equals(section.getSection()))
 			.collect(Collectors.toList());
 		
