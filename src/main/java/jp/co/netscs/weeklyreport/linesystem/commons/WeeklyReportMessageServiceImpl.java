@@ -18,6 +18,7 @@ import jp.co.netscs.weeklyreport.linesystem.commons.dtos.SectionResultDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.entitis.LineSceneEntity;
 import jp.co.netscs.weeklyreport.linesystem.commons.util.DateUtils;
 import jp.co.netscs.weeklyreport.linesystem.regist.RegistService;
+import jp.co.netscs.weeklyreport.linesystem.regist.RegistServiceImpl;
 
 /**
  * 
@@ -55,12 +56,11 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 			.map(object -> AbstractSectionService.class.cast(object))
 			.collect(Collectors.toList());
 		
-		System.out.println(executeService);
+		Section annot = RegistServiceImpl.class.getDeclaredAnnotation(Section.class);
+		System.out.println(annot.name());
 		
-		executeService = executeService.stream()
-			.filter(field -> field.getClass().getAnnotation(Section.class).name().equals(section.getSection()))
-			.peek(System.out::println)
-			.collect(Collectors.toList());
+		annot = executeService.get(0).getClass().getAnnotation(Section.class);
+		System.out.println(annot.name());
 		
 		if (executeService.isEmpty()) {
 			throw new RuntimeException("対象のセクションがありません。 ");
