@@ -18,27 +18,27 @@ import jp.co.netscs.weeklyreport.linesystem.commons.util.LineBotConstant;
 public class RegistServiceImpl extends RegistService {
 
 	@Override
-	@Scene(name = LineBotConstant.REGIST_SCENE_START)
+	@Scene(name = LineBotConstant.REGIST_SCENE_START, next = LineBotConstant.REGIST_SCENE_GROUPSELECT)
 	public List<Message> start(LinePostInfoDto lineInfo) {
 		return Arrays.asList( new TextMessage(lineInfo.toString()));
 	}
 
 	@Override
-	@Scene(name = LineBotConstant.REGIST_SCENE_GROUPSELECT)
+	@Scene(name = LineBotConstant.REGIST_SCENE_GROUPSELECT, next = LineBotConstant.REGIST_SCENE_INPUTNAME)
 	public List<Message> groupSelect(LinePostInfoDto lineInfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	@Scene(name = LineBotConstant.REGIST_SCENE_INPUTNAME)
+	@Scene(name = LineBotConstant.REGIST_SCENE_INPUTNAME, next = LineBotConstant.REGIST_SCENE_CONFIRMREGIST)
 	public List<Message> inputName(LinePostInfoDto lineInfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	@Scene(name = LineBotConstant.REGIST_SCENE_CONFIRMREGIST)
+	@Scene(name = LineBotConstant.REGIST_SCENE_CONFIRMREGIST, next = LineBotConstant.REGIST_SCENE_REGISTCOMP)
 	public List<Message> confrimRegist(LinePostInfoDto lineInfo) {
 		// TODO Auto-generated method stub
 		return null;

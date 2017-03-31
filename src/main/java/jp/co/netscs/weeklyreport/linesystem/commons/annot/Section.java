@@ -5,8 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.stereotype.Service;
-
 /**
  * このアノテーションはセクションサービスであることを示す<br>
  * ユーザのセクションが登録の場合このクラスが呼び出されるように設定ができる<br>
