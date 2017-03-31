@@ -40,6 +40,7 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 	@Transactional
 	@Override
 	public List<Message> execute(LinePostInfoDto lineInfo, LineSectionDto section) {
+		System.out.println(lineInfo.toString() + " " + section.toString());
 		//TODO ストリーム複雑すぎる
 		List<AbstractSectionService> executeService = Arrays.asList(this.getClass().getDeclaredFields())
 			.stream()
@@ -52,6 +53,7 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 			})
 			.filter(object -> object instanceof AbstractSectionService)
 			.map(object -> AbstractSectionService.class.cast(object))
+			.peek(System.out::println)
 			.filter(service -> service.getClass().getDeclaredAnnotation(Section.class).name().equals(section.getSection()))
 			.collect(Collectors.toList());
 		
