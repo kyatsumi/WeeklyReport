@@ -48,7 +48,7 @@ public abstract class AbstractSectionService {
 			e.printStackTrace();
 		}
 		
-		return result == null ? (List<Message>) result : null;
+		return result != null ? (List<Message>) result : null;
 	}
 	
 }
