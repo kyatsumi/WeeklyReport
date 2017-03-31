@@ -29,7 +29,7 @@ public class WeeklyReportSectionServiceImpl implements WeeklyReportSectionServic
 	public LineSectionDto fetchUserSection(LinePostInfoDto lineInfo, boolean isPostBack) {
 		LineSectionDtoBuilder result = LineSectionDto.builder();
 		
-		if (userDao.exists(lineInfo.getUserId())) {
+		if (!userDao.exists(lineInfo.getUserId())) {
 			result.section(LineBotConstant.SCTION_REGIST).scene(LineBotConstant.REGIST_SCENE_START);
 		}
 		
