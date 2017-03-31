@@ -7,13 +7,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.linecorp.bot.model.message.Message;
 
 import jp.co.netscs.weeklyreport.linesystem.commons.annot.Scene;
 import jp.co.netscs.weeklyreport.linesystem.commons.daos.LineSceneDao;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
+import jp.co.netscs.weeklyreport.linesystem.commons.dtos.SectionResultDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.exce.WeeklyReportException;
+import jp.co.netscs.weeklyreport.linesystem.commons.util.LineBotConstant;
 
 /**
  * このクラスはセクションの基底クラス
@@ -25,11 +28,12 @@ public abstract class AbstractSectionService {
 	@Autowired
 	LineSceneDao lineSceneDao;
 	
+	@Transactional
 	@SuppressWarnings("unchecked")
-	public List<Message> execute(String scene, LinePostInfoDto lineInfo) {
-		
-		List<Method> methodList = Arrays.asList(this.getClass().getDeclaredMethods());
-		List<Method> targetScene = methodList.stream()
+	public SectionResultDto execute(String scene, LinePostInfoDto lineInfo) {
+		//TODO ストリーム微妙
+		List<Method> targetScene = Arrays.asList(this.getClass().getDeclaredMethods())
+			.stream()
 			.filter(method -> method.isAnnotationPresent(Scene.class))
 			.filter(method -> ((Scene)method.getAnnotation(Scene.class)).name().equals(scene))
 			.collect(Collectors.toList());
@@ -43,15 +47,19 @@ public abstract class AbstractSectionService {
 		}
 		
 		Method targetMethod = targetScene.get(0);
-		
-		Object result = null;
+		Scene sceneOption = targetMethod.getAnnotation(Scene.class);
+		List<Message> sceneResult = null;
 		try {
-			result = targetMethod.invoke(this, lineInfo);
+			//TODO 戻り値の型検査
+			sceneResult = (List<Message>) targetMethod.invoke(this, lineInfo);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			throw new WeeklyReportException("シーンメソッドの呼び出しに失敗しました。");
 		}
 		
-		return result != null ? (List<Message>) result : null;
+		String nextScene = sceneOption.next().equals(LineBotConstant.UNKNOWN) ? 
+				LineBotConstant.UNKNOWN : sceneOption.next();
+		
+		return SectionResultDto.builder().nextScene(nextScene).messages(sceneResult).build();
 	}
 	
 }
