@@ -46,14 +46,9 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 			.map(field -> {
 				try {
 					return field.get(this);
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					throw new RuntimeException("フィールドを取得できません" + " " + field.getName());
 				}
-				throw new RuntimeException("フィールドを取得できません" + " " + this.getClass());
 			})
 			.filter(object -> object instanceof AbstractSectionService)
 			.map(object -> AbstractSectionService.class.cast(object))
