@@ -53,11 +53,15 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 			})
 			.filter(object -> object instanceof AbstractSectionService)
 			.map(object -> AbstractSectionService.class.cast(object))
-			.peek(System.out::println)
-			.filter(service -> service.getClass().getDeclaredAnnotation(Section.class).name().equals(section.getSection()))
 			.collect(Collectors.toList());
 		
-
+		System.out.println(executeService);
+		
+		executeService = executeService.stream()
+			.filter(field -> field.getClass().getAnnotation(Section.class).name().equals(section.getSection()))
+			.peek(System.out::println)
+			.collect(Collectors.toList());
+		
 		if (executeService.isEmpty()) {
 			throw new RuntimeException("対象のセクションがありません。 ");
 		}
