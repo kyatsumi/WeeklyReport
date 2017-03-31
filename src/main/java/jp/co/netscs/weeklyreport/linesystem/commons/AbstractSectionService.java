@@ -22,7 +22,8 @@ public abstract class AbstractSectionService {
 	public List<Message> execute(String scene, LinePostInfoDto lineInfo) {
 		
 		List<Method> methodList = Arrays.asList(this.getClass().getDeclaredMethods());
-		List<Method> targetScene = methodList.stream().filter(method -> method.isAnnotationPresent(Scene.class))
+		List<Method> targetScene = methodList.stream()
+			.filter(method -> method.isAnnotationPresent(Scene.class))
 			.filter(method -> ((Scene)method.getAnnotation(Scene.class)).name().equals(scene))
 			.collect(Collectors.toList());
 		
