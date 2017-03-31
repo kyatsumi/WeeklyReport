@@ -100,4 +100,9 @@ public class LineBotConstant {
 	 */
 	public static final int MESSAGE_MAX = 5;
 	
+	/**
+	 * セクションの有効期限
+	 */
+	public static final int PERIOD_BASE = 30;
+	
 }
