@@ -48,7 +48,7 @@ public abstract class AbstractSectionService {
 		try {
 			result = targetMethod.invoke(this, lineInfo);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			new WeeklyReportException("シーンメソッドの呼び出しに失敗しました。");
+			throw new WeeklyReportException("シーンメソッドの呼び出しに失敗しました。");
 		}
 		
 		return result != null ? (List<Message>) result : null;
