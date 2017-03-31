@@ -14,6 +14,9 @@ import jp.co.netscs.weeklyreport.linesystem.commons.annot.Section;
 import jp.co.netscs.weeklyreport.linesystem.commons.daos.LineSceneDao;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LineSectionDto;
+import jp.co.netscs.weeklyreport.linesystem.commons.dtos.SectionResultDto;
+import jp.co.netscs.weeklyreport.linesystem.commons.entitis.LineSceneEntity;
+import jp.co.netscs.weeklyreport.linesystem.commons.util.DateUtils;
 import jp.co.netscs.weeklyreport.linesystem.regist.RegistService;
 
 /**
@@ -37,7 +40,7 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 	@Transactional
 	@Override
 	public List<Message> execute(LinePostInfoDto lineInfo, LineSectionDto section) {
-		System.out.println(section);
+		//TODO ストリーム複雑すぎる
 		List<AbstractSectionService> executeService = Arrays.asList(this.getClass().getDeclaredFields())
 			.stream()
 			.map(field -> {
@@ -54,7 +57,6 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 			})
 			.filter(object -> object instanceof AbstractSectionService)
 			.map(object -> AbstractSectionService.class.cast(object))
-			.peek(System.out::println)
 			.filter(service -> service.getClass().getDeclaredAnnotation(Section.class).name().equals(section.getSection()))
 			.collect(Collectors.toList());
 		
@@ -68,8 +70,18 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 		}
 		
 		AbstractSectionService target = executeService.get(0);
-		List<Message> result = target.execute(section.getScene(), lineInfo);
-		return result;
+		SectionResultDto result = target.execute(section.getScene(), lineInfo);
+		
+		LineSceneEntity nextScene = LineSceneEntity.builder()
+				.lineId(lineInfo.getUserId())
+				.periodTime(DateUtils.generatePeriodTime())
+				.section(section.getSection())
+				.scene(result.getNextScene())
+				.build();
+		
+		lineSeceneDao.save(nextScene);
+		
+		return result.getMessages();
 	}
 
 }
