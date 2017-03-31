@@ -5,6 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import jp.co.netscs.weeklyreport.linesystem.commons.util.LineBotConstant;
+
 /**
  * このアノテーションは１つのシーン処理であることを示す<br>
  * ユーザのセクションが登録でシーンが新規登録の場合startメソッドが呼び出されるように設定する使い方は以下<br>
@@ -24,5 +26,13 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Scene {
-	public String name();
+	/**
+	 * 呼び出される場面名を登録する
+	 */
+	String name();
+	
+	/**
+	 * 次に実行するシーンを決定する
+	 */
+	String next() default LineBotConstant.UNKNOWN;
 }

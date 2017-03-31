@@ -6,10 +6,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.linecorp.bot.model.message.Message;
 
 import jp.co.netscs.weeklyreport.linesystem.commons.annot.Scene;
+import jp.co.netscs.weeklyreport.linesystem.commons.daos.LineSceneDao;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
+import jp.co.netscs.weeklyreport.linesystem.commons.exce.WeeklyReportException;
 
 /**
  * このクラスはセクションの基底クラス
@@ -17,6 +21,9 @@ import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
  *
  */
 public abstract class AbstractSectionService {
+	
+	@Autowired
+	LineSceneDao lineSceneDao;
 	
 	@SuppressWarnings("unchecked")
 	public List<Message> execute(String scene, LinePostInfoDto lineInfo) {
@@ -40,12 +47,8 @@ public abstract class AbstractSectionService {
 		Object result = null;
 		try {
 			result = targetMethod.invoke(this, lineInfo);
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			new WeeklyReportException("シーンメソッドの呼び出しに失敗しました。");
 		}
 		
 		return result != null ? (List<Message>) result : null;
