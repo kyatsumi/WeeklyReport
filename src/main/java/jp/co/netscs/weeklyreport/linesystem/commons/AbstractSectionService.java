@@ -22,11 +22,14 @@ public abstract class AbstractSectionService {
 	public List<Message> execute(String scene, LinePostInfoDto lineInfo) {
 		
 		List<Method> methodList = Arrays.asList(this.getClass().getDeclaredMethods());
-		this.vaildateMethods(methodList);
 		List<Method> targetScene = methodList.stream().filter(method -> method.isAnnotationPresent(Scene.class))
 			.filter(method -> ((Scene)method.getAnnotation(Scene.class)).name().equals(scene))
 			.collect(Collectors.toList());
-		this.vaildateMethods(targetScene);
+		
+		if (targetScene.isEmpty()) {
+			throw new RuntimeException("指定されたシーン名の対象メソッドが存在しません。");
+		}
+		
 		if (targetScene.size() > 1) {
 			throw new RuntimeException("シーン名が重複したメソッドが存在します : " + scene);
 		}
@@ -47,9 +50,4 @@ public abstract class AbstractSectionService {
 		return result == null ? (List<Message>) result : null;
 	}
 	
-	private void vaildateMethods(List<Method> methods) {
-		if (methods.isEmpty()) {
-			throw new RuntimeException("指定されたシーン名の対象メソッドが存在しません。");
-		}
-	}
 }
