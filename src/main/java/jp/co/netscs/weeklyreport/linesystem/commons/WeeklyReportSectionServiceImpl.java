@@ -2,6 +2,7 @@ package jp.co.netscs.weeklyreport.linesystem.commons;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.netscs.weeklyreport.linesystem.commons.daos.LineSceneDao;
 import jp.co.netscs.weeklyreport.linesystem.commons.daos.UserDao;
@@ -13,6 +14,7 @@ import jp.co.netscs.weeklyreport.linesystem.commons.util.LineBotConstant;
 import lombok.NonNull;
 
 @Service
+@Transactional
 public class WeeklyReportSectionServiceImpl implements WeeklyReportSectionService {
 	
 	@Autowired
