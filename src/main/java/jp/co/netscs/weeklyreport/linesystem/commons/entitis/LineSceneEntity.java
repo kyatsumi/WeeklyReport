@@ -47,19 +47,19 @@ public class LineSceneEntity implements Serializable {
 	/**
 	 * シーンの有効期限
 	 */
-	@Column(nullable = true)
+	@Column(length=14, nullable = false)
 	private Long periodTime;
 	
 	/**
 	 * 機能
 	 */
-	@Column(nullable = false)
+	@Column(length=32, nullable = false)
 	private String section;
 	
 	/**
 	 * 機能状態
 	 */
-	@Column(nullable = false)
+	@Column(length=32, nullable = false)
 	private String scene;
 	
 }
