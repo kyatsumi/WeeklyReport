@@ -60,7 +60,7 @@ public class RegistServiceImpl extends RegistService {
 	public List<Message> confrimRegist(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		userInfo.setName(lineInfo.getText());
 		userDao.save(userInfo);
-		Message message = LineMessageUtils.confirm("登録内容確認", "ユーザ名:" + userInfo.getName() + " グループ:" + userInfo.getGroup(), "登録", "キャンセル");
+		Message message = LineMessageUtils.confirm("登録内容確認", "ユーザ名:" + userInfo.getName() + "\n グループ:" + userInfo.getGroup(), "登録", "キャンセル");
 		return Arrays.asList(message);
 	}
 
@@ -68,7 +68,7 @@ public class RegistServiceImpl extends RegistService {
 	@Scene(name = LineBotConstant.REGIST_SCENE_REGISTCOMP)
 	public List<Message> registComplite(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		TextMessage text = null;
-		if (lineInfo.equals("登録")) {
+		if (lineInfo.getText().equals("登録")) {
 			text = new TextMessage("登録が完了しました。");
 		} else {
 			text = new TextMessage("最初からやり直してください。");
