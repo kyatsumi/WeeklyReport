@@ -6,7 +6,7 @@ import java.util.List;
 import org.hibernate.persister.walking.spi.WalkingException;
 import org.springframework.stereotype.Component;
 
-import jp.co.netscs.weeklyreport.linesystem.common.annot.Chapter;
+import jp.co.netscs.weeklyreport.linesystem.common.annotation.Chapter;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LineChapterDto;
 
 @Component

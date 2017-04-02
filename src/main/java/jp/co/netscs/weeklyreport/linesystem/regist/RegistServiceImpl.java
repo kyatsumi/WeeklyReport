@@ -10,8 +10,8 @@ import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
 
 import jp.co.netscs.weeklyreport.linesystem.common.ChapterManager;
-import jp.co.netscs.weeklyreport.linesystem.common.annot.Chapter;
-import jp.co.netscs.weeklyreport.linesystem.common.annot.Scene;
+import jp.co.netscs.weeklyreport.linesystem.common.annotation.Chapter;
+import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 
