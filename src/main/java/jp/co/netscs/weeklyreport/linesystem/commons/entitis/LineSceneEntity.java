@@ -47,7 +47,6 @@ public class LineSceneEntity implements Serializable {
 	/**
 	 * シーンの有効期限
 	 */
-	@Version
 	@Column(nullable = true)
 	private Long periodTime;
 	
