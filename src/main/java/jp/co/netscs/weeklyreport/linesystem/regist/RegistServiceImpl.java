@@ -11,12 +11,12 @@ import com.linecorp.bot.model.message.TextMessage;
 
 import jp.co.netscs.weeklyreport.linesystem.commons.SectionManager;
 import jp.co.netscs.weeklyreport.linesystem.commons.annot.Scene;
-import jp.co.netscs.weeklyreport.linesystem.commons.annot.Section;
+import jp.co.netscs.weeklyreport.linesystem.commons.annot.Chapter;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.util.LineBotConstant;
 
 @Service
-@Section(name = LineBotConstant.SCTION_REGIST, startScene = LineBotConstant.REGIST_SCENE_START)
+@Chapter(name = LineBotConstant.CHAPTER_REGIST, startScene = LineBotConstant.REGIST_SCENE_START)
 public class RegistServiceImpl extends RegistService {
 
 	protected RegistServiceImpl(@Autowired SectionManager manager) {

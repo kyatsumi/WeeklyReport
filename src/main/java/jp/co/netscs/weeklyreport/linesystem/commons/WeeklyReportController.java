@@ -25,7 +25,7 @@ import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
-import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LineSectionDto;
+import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LineChapterDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.exce.LineValidatException;
 import jp.co.netscs.weeklyreport.linesystem.commons.exce.LineValidatException.Validate;
 import jp.co.netscs.weeklyreport.linesystem.commons.util.LineBotConstant;
@@ -46,10 +46,10 @@ public final class WeeklyReportController {
 	private LineMessagingClient lineMessagingClient;
 	
 	@Autowired
-	private WeeklyReportSectionService sectionService;
+	private WeeklyReportChapterService sectionService;
 	
 	@Autowired
-	private WeeklyReportMessageService messageService;
+	private WeeklyReportSceneExecuteService messageService;
 
 	/**
 	 * テキストメッセージが入力された時に発生するイベント
@@ -100,7 +100,7 @@ public final class WeeklyReportController {
         Source source = event.getSource();
         LinePostInfoDto lineInfo = LinePostInfoDto.builder()
             	.periodTime(event.getTimestamp().getEpochSecond())
-            	.text(LineBotConstant.SCTION_REGIST)
+            	.text(LineBotConstant.CHAPTER_REGIST)
             	.userId(source.getUserId())
             	.build();
         this.replyMessage(replyToken, lineInfo, false);
@@ -134,7 +134,7 @@ public final class WeeklyReportController {
 	}
 
     protected void replyMessage(String replyToken, LinePostInfoDto lineInfo, boolean isPostBack) {
-        LineSectionDto section = this.sectionService.fetchUserSection(lineInfo);
+        LineChapterDto section = this.sectionService.fetchUserSection(lineInfo);
         List<Message> replyMessages = this.messageService.execute(lineInfo, section);
         this.reply(replyToken, replyMessages);
     }

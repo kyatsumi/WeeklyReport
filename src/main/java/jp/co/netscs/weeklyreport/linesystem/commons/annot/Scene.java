@@ -35,5 +35,5 @@ public @interface Scene {
 	/**
 	 * 次に実行するシーンを決定する
 	 */
-	String next() default LineBotConstant.UNKNOWN;
+	String next() default LineBotConstant.CHAPTER_END;
 }

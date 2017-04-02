@@ -11,7 +11,7 @@ public class LineBotConstant {
 	/**
 	 *　機能名：ユーザ登録
 	 */
-	public static final String SCTION_REGIST = "ユーザ登録";
+	public static final String CHAPTER_REGIST = "ユーザ登録";
 	
 	/**
 	 * ユーザ登録：新規登録
@@ -41,7 +41,7 @@ public class LineBotConstant {
 	/**
 	 * 機能名：週報登録
 	 */
-	public static final String SCTION_REPORT = "週報登録";
+	public static final String CHAPTER_REPORT = "週報登録";
 	
 	/**
 	 * 週報登録:週報登録日付選択
@@ -66,7 +66,7 @@ public class LineBotConstant {
 	/**
 	 * 機能名：週報確認
 	 */
-	public static final String SCTION_REPORTVIEW = "週報確認";
+	public static final String CHAPTER_REPORTVIEW = "週報確認";
 	
 	/**
 	 * 週報確認:週報内容表示
@@ -76,7 +76,7 @@ public class LineBotConstant {
 	/**
 	 * 機能名：全体の週報確認
 	 */
-	public static final String SCTION_TEAMREPORTVIEW = "全体の週報確認";
+	public static final String CHAPTER_TEAMREPORTVIEW = "全体の週報確認";
 	
 	/**
 	 * 全体の週報確認:確認対象者一覧
@@ -89,9 +89,9 @@ public class LineBotConstant {
 	public static final String TEAMREPORTVIEW_SCENE_VIEW = "週報確認(全体)";
 	
 	/**
-	 * 不明なセクションもしくはシーン
+	 * 終了したチャプター
 	 */
-	public static final String UNKNOWN = "不明セクション";
+	public static final String CHAPTER_END = "終了したチャプター";
 	
 /********************************機能名定義ここまで**********************************************************/
 	

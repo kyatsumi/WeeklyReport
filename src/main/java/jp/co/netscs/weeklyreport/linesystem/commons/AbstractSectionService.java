@@ -58,8 +58,8 @@ public abstract class AbstractSectionService {
 			throw new WeeklyReportException("シーンメソッドの呼び出しに失敗しました。");
 		}
 		
-		String nextScene = sceneOption.next().equals(LineBotConstant.UNKNOWN) ? 
-				LineBotConstant.UNKNOWN : sceneOption.next();
+		String nextScene = sceneOption.next().equals(LineBotConstant.CHAPTER_END) ? 
+				LineBotConstant.CHAPTER_END : sceneOption.next();
 		
 		return SectionResultDto.builder().nextScene(nextScene).messages(sceneResult).build();
 	}

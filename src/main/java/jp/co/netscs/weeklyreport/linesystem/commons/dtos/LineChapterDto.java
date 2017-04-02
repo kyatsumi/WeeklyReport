@@ -16,12 +16,12 @@ import lombok.ToString;
 @Getter
 @ToString
 @EqualsAndHashCode
-public class LineSectionDto {
+public class LineChapterDto {
 
 	/**
-	 * 機能名を格納する
+	 * チャプター名を格納
 	 */
-	private String section;
+	private String chapter;
 	
 	/**
 	 * 機能の状態を格納する

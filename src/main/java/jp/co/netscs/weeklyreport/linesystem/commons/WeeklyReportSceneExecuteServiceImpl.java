@@ -10,7 +10,7 @@ import com.linecorp.bot.model.message.Message;
 
 import jp.co.netscs.weeklyreport.linesystem.commons.daos.LineSceneDao;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
-import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LineSectionDto;
+import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LineChapterDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.SectionResultDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.entitis.LineSceneEntity;
 import jp.co.netscs.weeklyreport.linesystem.commons.util.DateUtils;
@@ -22,7 +22,7 @@ import jp.co.netscs.weeklyreport.linesystem.commons.util.DateUtils;
  */
 
 @Service
-public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageService {
+public class WeeklyReportSceneExecuteServiceImpl implements WeeklyReportSceneExecuteService {
 
 	@Autowired
 	LineSceneDao lineSeceneDao;
@@ -35,15 +35,15 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 	 */
 	@Transactional
 	@Override
-	public List<Message> execute(LinePostInfoDto lineInfo, LineSectionDto section) {
-		System.out.println(lineInfo.toString() + " " + section.toString());
-		AbstractSectionService target = manager.targetSection(section.getSection());
-		SectionResultDto result = target.execute(section.getScene(), lineInfo);
+	public List<Message> execute(LinePostInfoDto lineInfo, LineChapterDto chapter) {
+		System.out.println(lineInfo.toString() + " " + chapter.toString());
+		AbstractSectionService target = manager.targetSection(chapter.getChapter());
+		SectionResultDto result = target.execute(chapter.getScene(), lineInfo);
 		
 		LineSceneEntity nextScene = LineSceneEntity.builder()
 				.lineId(lineInfo.getUserId())
 				.periodTime(DateUtils.generatePeriodTime())
-				.section(section.getSection())
+				.chapter(chapter.getChapter())
 				.scene(result.getNextScene())
 				.build();
 		

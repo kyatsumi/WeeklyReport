@@ -1,7 +1,7 @@
 package jp.co.netscs.weeklyreport.linesystem.commons;
 
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
-import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LineSectionDto;
+import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LineChapterDto;
 import lombok.NonNull;
 
 /**
@@ -9,7 +9,7 @@ import lombok.NonNull;
  * @author SCS036
  *
  */
-public interface WeeklyReportSectionService {
+public interface WeeklyReportChapterService {
 	
 	/**
 	 * LineInfoを元にユーザのセクション情報を取得する
@@ -18,15 +18,15 @@ public interface WeeklyReportSectionService {
 	 * @param isPostBack postbackから届いたか
 	 * @return セクション情報
 	 */
-	public LineSectionDto fetchUserSection(@NonNull LinePostInfoDto lineInfo, boolean isPostBack);
+	public LineChapterDto fetchUserSection(@NonNull LinePostInfoDto lineInfo, boolean isPostBack);
 	
 	/**
 	 * LineInfoを元にユーザのセクション情報を取得する
-	 * PostBackからの情報の場合は{@link WeeklyReportSectionService#fetchUserSection(LinePostInfoDto, boolean)}を使う
+	 * PostBackからの情報の場合は{@link WeeklyReportChapterService#fetchUserSection(LinePostInfoDto, boolean)}を使う
 	 * @param lineInfo Line情報
 	 * @return セクション情報
 	 */
-	default LineSectionDto fetchUserSection(@NonNull LinePostInfoDto lineInfo) {
+	default LineChapterDto fetchUserSection(@NonNull LinePostInfoDto lineInfo) {
 		return this.fetchUserSection(lineInfo,false);
 	}
 }

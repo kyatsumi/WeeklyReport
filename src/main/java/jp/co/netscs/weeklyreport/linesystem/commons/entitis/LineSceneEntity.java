@@ -53,7 +53,7 @@ public class LineSceneEntity implements Serializable {
 	 * 機能
 	 */
 	@Column(length=32, nullable = false)
-	private String section;
+	private String chapter;
 	
 	/**
 	 * 機能状態

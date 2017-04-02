@@ -6,7 +6,7 @@ import java.util.List;
 import org.hibernate.persister.walking.spi.WalkingException;
 import org.springframework.stereotype.Component;
 
-import jp.co.netscs.weeklyreport.linesystem.commons.annot.Section;
+import jp.co.netscs.weeklyreport.linesystem.commons.annot.Chapter;
 
 @Component
 public class SectionManagerImpl implements SectionManager {
@@ -16,7 +16,7 @@ public class SectionManagerImpl implements SectionManager {
 	@Override
 	public AbstractSectionService targetSection(String targetSection) {
 		AbstractSectionService service = sectionList.stream()
-			.filter(section -> section.getClass().getDeclaredAnnotation(Section.class).name().equals(targetSection))
+			.filter(section -> section.getClass().getDeclaredAnnotation(Chapter.class).name().equals(targetSection))
 			.findAny()
 			.orElseThrow( () -> new WalkingException("対象のセクションが存在しません。 " + targetSection));
 		return service;
@@ -25,14 +25,14 @@ public class SectionManagerImpl implements SectionManager {
 	@Override
 	public void registSection(AbstractSectionService target) {
 		
-		Section targetAnno = target.getClass().getDeclaredAnnotation(Section.class);
+		Chapter targetAnno = target.getClass().getDeclaredAnnotation(Chapter.class);
 		
 		if (targetAnno == null) {
 			throw new WalkingException("セクションアノテーションが付与されていません。 " + target.getClass().getName());
 		}
 		
 		boolean isOverlap  = sectionList.stream()
-			.anyMatch(src -> src.getClass().getDeclaredAnnotation(Section.class).name().equals(targetAnno.name()));
+			.anyMatch(src -> src.getClass().getDeclaredAnnotation(Chapter.class).name().equals(targetAnno.name()));
 		
 		if(isOverlap) {
 			throw new WalkingException("登録されるセクションが重複しています。 " + targetAnno.name());
