@@ -2,21 +2,17 @@ package jp.co.netscs.weeklyreport.linesystem.common;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.linecorp.bot.model.message.Message;
 
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
-import jp.co.netscs.weeklyreport.linesystem.common.daos.UserDao;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.ChapterResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
-import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.exception.WeeklyReportException;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 
@@ -28,9 +24,6 @@ import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
  *
  */
 public abstract class AbstractChapterSceneService {
-	
-	@Autowired
-	UserDao userDao;
 	
 	protected AbstractChapterSceneService(ChapterManager manager) {
 		if (manager == null) {
@@ -64,6 +57,7 @@ public abstract class AbstractChapterSceneService {
 			//TODO 戻り値の型検査
 			sceneResult = (List<Message>) targetMethod.invoke(this, lineInfo);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			System.out.println(e.getMessage());
 			throw new WeeklyReportException("シーンメソッドの呼び出しに失敗しました。");
 		}
 		
