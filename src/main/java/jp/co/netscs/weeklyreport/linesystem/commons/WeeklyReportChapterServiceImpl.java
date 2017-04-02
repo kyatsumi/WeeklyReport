@@ -11,7 +11,6 @@ import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LineChapterDto.LineChap
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.entitis.LineSceneEntity;
 import jp.co.netscs.weeklyreport.linesystem.commons.util.LineBotConstant;
-import lombok.NonNull;
 
 @Service
 @Transactional
@@ -38,7 +37,7 @@ public class WeeklyReportChapterServiceImpl implements WeeklyReportChapterServic
 			return result.chapter(LineBotConstant.CHAPTER_REGIST).scene(LineBotConstant.REGIST_SCENE_START).build();
 		}
 		
-		LineChapterDto keyword = fetchKeyWordSection(lineInfo.getText());
+		LineChapterDto keyword = manager.keywordMatchCapchar(lineInfo.getText());
 		if (keyword != null) {
 			return keyword;
 		}
@@ -46,20 +45,6 @@ public class WeeklyReportChapterServiceImpl implements WeeklyReportChapterServic
 		LineSceneEntity sectionInfo =  lineSceneDao.getOne(lineInfo.getUserId());
 		result.scene(sectionInfo.getScene()).chapter(sectionInfo.getChapter());
 		return result.build();
-	}
-	
-	protected LineChapterDto fetchKeyWordSection(@NonNull String text) {
-		LineChapterDtoBuilder result = LineChapterDto.builder();
-		
-		switch (text) {
-			case LineBotConstant.CHAPTER_REPORT:
-				return result.chapter(LineBotConstant.CHAPTER_REPORT).scene(LineBotConstant.REPORT_SCENE_DATE).build();
-			case LineBotConstant.CHAPTER_REPORTVIEW:
-				return result.chapter(LineBotConstant.CHAPTER_REPORTVIEW).scene(LineBotConstant.REPORTVIEW_SCENE_VIEW).build();
-			case LineBotConstant.CHAPTER_TEAMREPORTVIEW:
-				return result.chapter(LineBotConstant.CHAPTER_TEAMREPORTVIEW).scene(LineBotConstant.TEAMREPORTVIEW_SCENE_SELECTUSER).build();
-		}
-		return null;
 	}
 
 }
