@@ -17,7 +17,9 @@ import jp.co.netscs.weeklyreport.linesystem.commons.exce.WeeklyReportException;
 import jp.co.netscs.weeklyreport.linesystem.commons.util.LineBotConstant;
 
 /**
- * このクラスはセクションの基底クラス
+ * このクラスを継承して一つのチャプター（Chapter)を作ることができる
+ * このクラスに作ったメソッドに{@code @Sccene}を付与することでシーンとして扱うことができる
+ * 
  * @author SCS036
  *
  */

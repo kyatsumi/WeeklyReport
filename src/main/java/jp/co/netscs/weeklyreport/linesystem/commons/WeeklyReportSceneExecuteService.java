@@ -8,7 +8,7 @@ import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LineChapterDto;
 
 /**
- * 役割：ユーザのセクションのサービスに振り分ける
+ * 役割：ラインポスト情報からチャプターサービスに振り分ける
  * キャプチャーは現在以下の通り
  * <li>
  * ユーザ登録
