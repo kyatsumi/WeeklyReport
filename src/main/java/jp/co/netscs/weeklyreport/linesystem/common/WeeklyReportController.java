@@ -24,8 +24,8 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LineChapterDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
-import jp.co.netscs.weeklyreport.linesystem.common.exce.LineValidatException;
-import jp.co.netscs.weeklyreport.linesystem.common.exce.LineValidatException.Validate;
+import jp.co.netscs.weeklyreport.linesystem.common.exception.LineValidatException;
+import jp.co.netscs.weeklyreport.linesystem.common.exception.LineValidatException.Validate;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;

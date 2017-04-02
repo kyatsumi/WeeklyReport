@@ -1,4 +1,4 @@
-package jp.co.netscs.weeklyreport.linesystem.common.exce;
+package jp.co.netscs.weeklyreport.linesystem.common.exception;
 
 /**
  * 返却メッセージがLineMessageAPIの仕様にあっていない場合に発生する

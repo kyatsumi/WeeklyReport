@@ -1,4 +1,4 @@
-package jp.co.netscs.weeklyreport.linesystem.common.exce;
+package jp.co.netscs.weeklyreport.linesystem.common.exception;
 
 public class WeeklyReportException extends RuntimeException{
 
