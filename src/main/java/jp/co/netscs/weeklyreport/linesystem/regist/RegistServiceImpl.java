@@ -19,40 +19,41 @@ import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 @Chapter(name = LineBotConstant.CHAPTER_REGIST, startScene = LineBotConstant.REGIST_SCENE_START)
 public class RegistServiceImpl extends RegistService {
 
-	protected RegistServiceImpl(@Autowired ChapterManager manager) {
+	public RegistServiceImpl(@Autowired ChapterManager manager) {
 		super(manager);
 	}
 
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_START, next = LineBotConstant.REGIST_SCENE_GROUPSELECT)
-	public List<Message> start(LinePostInfoDto lineInfo) {
+	protected List<Message> start(LinePostInfoDto lineInfo) {
+		
 		return Arrays.asList( new TextMessage(lineInfo.toString()));
 	}
 
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_GROUPSELECT, next = LineBotConstant.REGIST_SCENE_INPUTNAME)
-	public List<Message> groupSelect(LinePostInfoDto lineInfo) {
+	protected List<Message> groupSelect(LinePostInfoDto lineInfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_INPUTNAME, next = LineBotConstant.REGIST_SCENE_CONFIRMREGIST)
-	public List<Message> inputName(LinePostInfoDto lineInfo) {
+	protected List<Message> inputName(LinePostInfoDto lineInfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_CONFIRMREGIST, next = LineBotConstant.REGIST_SCENE_REGISTCOMP)
-	public List<Message> confrimRegist(LinePostInfoDto lineInfo) {
+	protected List<Message> confrimRegist(LinePostInfoDto lineInfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_REGISTCOMP)
-	public List<Message> registComplite(LinePostInfoDto lineInfo) {
+	protected List<Message> registComplite(LinePostInfoDto lineInfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}

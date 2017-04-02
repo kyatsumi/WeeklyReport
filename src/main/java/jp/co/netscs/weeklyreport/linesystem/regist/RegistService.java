@@ -19,35 +19,35 @@ public abstract class RegistService extends AbstractChapterSceneService{
 	 * @param lineInfo
 	 * @return
 	 */
-	public abstract List<Message> start(LinePostInfoDto lineInfo);
+	protected abstract List<Message> start(LinePostInfoDto lineInfo);
 	
 	/**
 	 * グループ選択メソッド
 	 * @param lineInfo
 	 * @return
 	 */
-	public abstract List<Message> groupSelect(LinePostInfoDto lineInfo);
+	protected abstract List<Message> groupSelect(LinePostInfoDto lineInfo);
 	
 	/**
 	 * ユーザ名入力メソッド
 	 * @param lineInfo
 	 * @return
 	 */
-	public abstract List<Message> inputName(LinePostInfoDto lineInfo);
+	protected abstract List<Message> inputName(LinePostInfoDto lineInfo);
 	
 	/**
 	 * ユーザ入力内容確認メソッド
 	 * @param lineInfo
 	 * @return
 	 */
-	public abstract List<Message> confrimRegist(LinePostInfoDto lineInfo);
+	protected abstract List<Message> confrimRegist(LinePostInfoDto lineInfo);
 	
 	/**
 	 * ユーザ登録完了メソッド
 	 * @param lineInfo
 	 * @return
 	 */
-	public abstract List<Message> registComplite(LinePostInfoDto lineInfo);
+	protected abstract List<Message> registComplite(LinePostInfoDto lineInfo);
 	
 	
 	
