@@ -1,5 +1,6 @@
 package jp.co.netscs.weeklyreport.linesystem.commons;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.persister.walking.spi.WalkingException;
@@ -10,7 +11,7 @@ import jp.co.netscs.weeklyreport.linesystem.commons.annot.Section;
 @Component
 public class SectionManagerImpl implements SectionManager {
 	
-	private List<AbstractSectionService> sectionList;
+	private List<AbstractSectionService> sectionList = new ArrayList<>();
 
 	@Override
 	public AbstractSectionService targetSection(String targetSection) {

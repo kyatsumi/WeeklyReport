@@ -29,8 +29,8 @@ public abstract class AbstractSectionService {
 	
 	
 	protected AbstractSectionService() {
-		System.out.println("インスタンス化されました" + this.getClass().getName());
 		manager.registSection(this);
+		System.out.println("インスタンス化されました" + this.getClass().getName());
 	}
 	
 	@Transactional
