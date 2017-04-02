@@ -48,7 +48,6 @@ public class UserEntity implements Serializable {
 	/**
 	 * 所属グループ
 	 */
-	@Enumerated(EnumType.STRING)
 	@Column(name = "scsGroup", nullable = true)
 	private String group;
 	
