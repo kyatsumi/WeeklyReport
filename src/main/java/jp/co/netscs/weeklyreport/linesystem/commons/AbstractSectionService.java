@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.linecorp.bot.model.message.Message;
@@ -24,16 +23,11 @@ import jp.co.netscs.weeklyreport.linesystem.commons.util.LineBotConstant;
  */
 public abstract class AbstractSectionService {
 	
-	@Autowired
-	protected SectionManager manager;
-	
-	
-	protected AbstractSectionService() {
+	protected AbstractSectionService(SectionManager manager) {
 		if (manager == null) {
-			System.out.println("マネージャーがnull");
+			throw new NullPointerException("マネージャーがnull");
 		}
 		manager.registSection(this);
-		System.out.println("インスタンス化されました" + this.getClass().getName());
 	}
 	
 	@Transactional

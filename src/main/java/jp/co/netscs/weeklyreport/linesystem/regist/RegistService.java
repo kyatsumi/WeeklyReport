@@ -5,9 +5,14 @@ import java.util.List;
 import com.linecorp.bot.model.message.Message;
 
 import jp.co.netscs.weeklyreport.linesystem.commons.AbstractSectionService;
+import jp.co.netscs.weeklyreport.linesystem.commons.SectionManager;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
 
 public abstract class RegistService extends AbstractSectionService{
+
+	protected RegistService(SectionManager manager) {
+		super(manager);
+	}
 
 	/**
 	 * 新規登録メソッド

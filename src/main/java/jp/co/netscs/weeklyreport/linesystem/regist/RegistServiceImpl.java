@@ -3,11 +3,13 @@ package jp.co.netscs.weeklyreport.linesystem.regist;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
 
+import jp.co.netscs.weeklyreport.linesystem.commons.SectionManager;
 import jp.co.netscs.weeklyreport.linesystem.commons.annot.Scene;
 import jp.co.netscs.weeklyreport.linesystem.commons.annot.Section;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
@@ -16,6 +18,10 @@ import jp.co.netscs.weeklyreport.linesystem.commons.util.LineBotConstant;
 @Service
 @Section(name = LineBotConstant.SCTION_REGIST)
 public class RegistServiceImpl extends RegistService {
+
+	protected RegistServiceImpl(@Autowired SectionManager manager) {
+		super(manager);
+	}
 
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_START, next = LineBotConstant.REGIST_SCENE_GROUPSELECT)
