@@ -16,7 +16,7 @@ import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.util.LineBotConstant;
 
 @Service
-@Section(name = LineBotConstant.SCTION_REGIST)
+@Section(name = LineBotConstant.SCTION_REGIST, startScene = LineBotConstant.REGIST_SCENE_START)
 public class RegistServiceImpl extends RegistService {
 
 	protected RegistServiceImpl(@Autowired SectionManager manager) {

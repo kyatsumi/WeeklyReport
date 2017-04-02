@@ -25,4 +25,6 @@ public @interface Section {
 	 * @return　セクション名
 	 */
 	public String name();
+	
+	public String startScene();
 }
