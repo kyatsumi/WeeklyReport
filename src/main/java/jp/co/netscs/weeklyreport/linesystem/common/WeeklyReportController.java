@@ -26,6 +26,7 @@ import jp.co.netscs.weeklyreport.linesystem.common.dtos.LineChapterDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.common.exception.LineValidatException;
 import jp.co.netscs.weeklyreport.linesystem.common.exception.LineValidatException.Validate;
+import jp.co.netscs.weeklyreport.linesystem.common.exception.WeeklyReportException;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -134,9 +135,13 @@ public final class WeeklyReportController {
 	}
 
     protected void replyMessage(String replyToken, LinePostInfoDto lineInfo, boolean isPostBack) {
-        LineChapterDto section = this.sectionService.fetchUserSection(lineInfo);
-        List<Message> replyMessages = this.messageService.execute(lineInfo, section);
-        this.reply(replyToken, replyMessages);
+        try {
+	        LineChapterDto section = this.sectionService.fetchUserSection(lineInfo);
+	        List<Message> replyMessages = this.messageService.execute(lineInfo, section);
+            this.reply(replyToken, replyMessages);
+        } catch (WeeklyReportException ex) {
+        	this.replyText(replyToken, "管理者に連絡してください" + ex.getMessage());
+        }
     }
     
     private void replyText(@NonNull String replyToken, @NonNull String message) {
