@@ -5,7 +5,7 @@ package jp.co.netscs.weeklyreport.linesystem.common.exception;
  * @author SCS036
  *
  */
-public class LineValidatException extends RuntimeException {
+public class LineValidatException extends WeeklyReportException {
 
 	/**
 	 * 
