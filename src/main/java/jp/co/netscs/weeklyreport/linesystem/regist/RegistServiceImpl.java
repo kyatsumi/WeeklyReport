@@ -30,7 +30,7 @@ public class RegistServiceImpl extends RegistService {
 
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_START, next = LineBotConstant.REGIST_SCENE_GROUPSELECT)
-	protected List<Message> start(LinePostInfoDto lineInfo) {
+	public List<Message> start(LinePostInfoDto lineInfo) {
 		UserEntity userInfo = UserEntity.builder().admin(false).group(null).lineId(lineInfo.getUserId()).name(null).build();
 		userDao.save(userInfo);
 		Message message = LineMessageUtils.confirm("ユーザ登録", "管理者権限が必要ですか？", "はい", "いいえ");
@@ -39,7 +39,7 @@ public class RegistServiceImpl extends RegistService {
 
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_GROUPSELECT, next = LineBotConstant.REGIST_SCENE_INPUTNAME)
-	protected List<Message> groupSelect(LinePostInfoDto lineInfo) {
+	public List<Message> groupSelect(LinePostInfoDto lineInfo) {
 		lineInfo.getText().equals("はい");
 		Message message = LineMessageUtils.confirm("グループ選択", "所属グループを選択してください。", "第１グループ", "第２グループ");
 		return Arrays.asList(message);
@@ -47,7 +47,7 @@ public class RegistServiceImpl extends RegistService {
 
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_INPUTNAME, next = LineBotConstant.REGIST_SCENE_CONFIRMREGIST)
-	protected List<Message> inputName(LinePostInfoDto lineInfo) {
+	public List<Message> inputName(LinePostInfoDto lineInfo) {
 		
 		return null;
 	}
@@ -61,7 +61,7 @@ public class RegistServiceImpl extends RegistService {
 
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_REGISTCOMP)
-	protected List<Message> registComplite(LinePostInfoDto lineInfo) {
+	public List<Message> registComplite(LinePostInfoDto lineInfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
