@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
 
-import jp.co.netscs.weeklyreport.linesystem.commons.SectionManager;
+import jp.co.netscs.weeklyreport.linesystem.commons.ChapterManager;
 import jp.co.netscs.weeklyreport.linesystem.commons.annot.Scene;
 import jp.co.netscs.weeklyreport.linesystem.commons.annot.Chapter;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
@@ -19,7 +19,7 @@ import jp.co.netscs.weeklyreport.linesystem.commons.util.LineBotConstant;
 @Chapter(name = LineBotConstant.CHAPTER_REGIST, startScene = LineBotConstant.REGIST_SCENE_START)
 public class RegistServiceImpl extends RegistService {
 
-	protected RegistServiceImpl(@Autowired SectionManager manager) {
+	protected RegistServiceImpl(@Autowired ChapterManager manager) {
 		super(manager);
 	}
 

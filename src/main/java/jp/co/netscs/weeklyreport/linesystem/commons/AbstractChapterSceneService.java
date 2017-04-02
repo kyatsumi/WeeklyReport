@@ -25,7 +25,7 @@ import jp.co.netscs.weeklyreport.linesystem.commons.util.LineBotConstant;
  */
 public abstract class AbstractChapterSceneService {
 	
-	protected AbstractChapterSceneService(SectionManager manager) {
+	protected AbstractChapterSceneService(ChapterManager manager) {
 		if (manager == null) {
 			throw new NullPointerException("マネージャーがnull");
 		}

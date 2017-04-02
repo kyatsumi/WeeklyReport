@@ -11,7 +11,7 @@ import jp.co.netscs.weeklyreport.linesystem.commons.util.LineBotConstant;
 /**
  * このアノテーションは１つのシーン処理であることを示す<br>
  * ユーザのセクションが登録でシーンが新規登録の場合startメソッドが呼び出されるように設定する使い方は以下<br>
- * {@code @Section(LineBotConstant.SCTION_REGIST)}<br>
+ * {@code @Section(LineBotConstant.CHAPTER_REGIST)}<br>
  * public class RegstService {<br>
  * 
  *  {@code @Scene(LineBotConstant.REGIST_SCENE_START) }<br>
@@ -34,6 +34,7 @@ public @interface Scene {
 	
 	/**
 	 * 次に実行するシーンを決定する
+	 * 初期値は{@code LineBotConstant.CHAPTER_END}
 	 */
 	String next() default LineBotConstant.CHAPTER_END;
 }

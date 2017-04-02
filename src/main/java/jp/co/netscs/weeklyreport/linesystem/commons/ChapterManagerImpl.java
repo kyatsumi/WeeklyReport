@@ -9,16 +9,16 @@ import org.springframework.stereotype.Component;
 import jp.co.netscs.weeklyreport.linesystem.commons.annot.Chapter;
 
 @Component
-public class SectionManagerImpl implements SectionManager {
+public class ChapterManagerImpl implements ChapterManager {
 	
-	private List<AbstractChapterSceneService> sectionList = new ArrayList<>();
+	private List<AbstractChapterSceneService> chapterList = new ArrayList<>();
 
 	@Override
-	public AbstractChapterSceneService targetSection(String targetSection) {
-		AbstractChapterSceneService service = sectionList.stream()
-			.filter(section -> section.getClass().getDeclaredAnnotation(Chapter.class).name().equals(targetSection))
+	public AbstractChapterSceneService targetSection(String targetChapter) {
+		AbstractChapterSceneService service = chapterList.stream()
+			.filter(section -> section.getClass().getDeclaredAnnotation(Chapter.class).name().equals(targetChapter))
 			.findAny()
-			.orElseThrow( () -> new WalkingException("対象のセクションが存在しません。 " + targetSection));
+			.orElseThrow( () -> new WalkingException("対象のセクションが存在しません。 " + targetChapter));
 		return service;
 	}
 
@@ -31,14 +31,14 @@ public class SectionManagerImpl implements SectionManager {
 			throw new WalkingException("セクションアノテーションが付与されていません。 " + target.getClass().getName());
 		}
 		
-		boolean isOverlap  = sectionList.stream()
+		boolean isOverlap  = chapterList.stream()
 			.anyMatch(src -> src.getClass().getDeclaredAnnotation(Chapter.class).name().equals(targetAnno.name()));
 		
 		if(isOverlap) {
 			throw new WalkingException("登録されるセクションが重複しています。 " + targetAnno.name());
 		}
 		
-		sectionList.add(target);
+		chapterList.add(target);
 	}
 
 }

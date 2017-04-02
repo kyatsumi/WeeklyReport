@@ -22,6 +22,9 @@ public class WeeklyReportChapterServiceImpl implements WeeklyReportChapterServic
 	
 	@Autowired
 	private LineSceneDao lineSceneDao;
+	
+	@Autowired
+	private ChapterManager manager;
 
 	/** 
 	 * TODO 本番実装

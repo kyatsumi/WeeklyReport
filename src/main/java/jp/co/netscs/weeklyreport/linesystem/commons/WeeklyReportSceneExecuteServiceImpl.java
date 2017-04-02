@@ -28,7 +28,7 @@ public class WeeklyReportSceneExecuteServiceImpl implements WeeklyReportSceneExe
 	LineSceneDao lineSeceneDao;
 	
 	@Autowired
-	SectionManager manager;
+	ChapterManager manager;
 	
 	/**
 	 * 

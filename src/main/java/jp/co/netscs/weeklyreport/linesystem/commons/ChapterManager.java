@@ -1,6 +1,6 @@
 package jp.co.netscs.weeklyreport.linesystem.commons;
 
-public interface SectionManager {
+public interface ChapterManager {
 	
 	public AbstractChapterSceneService targetSection(String section);
 	

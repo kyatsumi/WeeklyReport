@@ -5,12 +5,12 @@ import java.util.List;
 import com.linecorp.bot.model.message.Message;
 
 import jp.co.netscs.weeklyreport.linesystem.commons.AbstractChapterSceneService;
-import jp.co.netscs.weeklyreport.linesystem.commons.SectionManager;
+import jp.co.netscs.weeklyreport.linesystem.commons.ChapterManager;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
 
 public abstract class RegistService extends AbstractChapterSceneService{
 
-	protected RegistService(SectionManager manager) {
+	protected RegistService(ChapterManager manager) {
 		super(manager);
 	}
 
