@@ -12,7 +12,7 @@ import com.linecorp.bot.model.message.Message;
 
 import jp.co.netscs.weeklyreport.linesystem.commons.annot.Scene;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
-import jp.co.netscs.weeklyreport.linesystem.commons.dtos.SectionResultDto;
+import jp.co.netscs.weeklyreport.linesystem.commons.dtos.ChapterResultDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.exce.WeeklyReportException;
 import jp.co.netscs.weeklyreport.linesystem.commons.util.LineBotConstant;
 
@@ -34,7 +34,7 @@ public abstract class AbstractChapterSceneService {
 	
 	@Transactional
 	@SuppressWarnings("unchecked")
-	public SectionResultDto execute(String scene, LinePostInfoDto lineInfo) {
+	public ChapterResultDto execute(String scene, LinePostInfoDto lineInfo) {
 		//TODO ストリーム微妙
 		List<Method> targetScene = Arrays.asList(this.getClass().getDeclaredMethods())
 			.stream()
@@ -63,7 +63,7 @@ public abstract class AbstractChapterSceneService {
 		String nextScene = sceneOption.next().equals(LineBotConstant.CHAPTER_END) ? 
 				LineBotConstant.CHAPTER_END : sceneOption.next();
 		
-		return SectionResultDto.builder().nextScene(nextScene).messages(sceneResult).build();
+		return ChapterResultDto.builder().nextScene(nextScene).messages(sceneResult).build();
 	}
 	
 }

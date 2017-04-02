@@ -11,7 +11,7 @@ import com.linecorp.bot.model.message.Message;
 import jp.co.netscs.weeklyreport.linesystem.commons.daos.LineSceneDao;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LineChapterDto;
-import jp.co.netscs.weeklyreport.linesystem.commons.dtos.SectionResultDto;
+import jp.co.netscs.weeklyreport.linesystem.commons.dtos.ChapterResultDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.entitis.LineSceneEntity;
 import jp.co.netscs.weeklyreport.linesystem.commons.util.DateUtils;
 
@@ -38,7 +38,7 @@ public class WeeklyReportSceneExecuteServiceImpl implements WeeklyReportSceneExe
 	public List<Message> execute(LinePostInfoDto lineInfo, LineChapterDto chapter) {
 		System.out.println(lineInfo.toString() + " " + chapter.toString());
 		AbstractChapterSceneService target = manager.targetSection(chapter.getChapter());
-		SectionResultDto result = target.execute(chapter.getScene(), lineInfo);
+		ChapterResultDto result = target.execute(chapter.getScene(), lineInfo);
 		
 		LineSceneEntity nextScene = LineSceneEntity.builder()
 				.lineId(lineInfo.getUserId())

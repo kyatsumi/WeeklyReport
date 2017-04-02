@@ -11,7 +11,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Builder
 @Getter
-public class SectionResultDto {
+public class ChapterResultDto {
 	/**
 	 * 次のシーン
 	 */
