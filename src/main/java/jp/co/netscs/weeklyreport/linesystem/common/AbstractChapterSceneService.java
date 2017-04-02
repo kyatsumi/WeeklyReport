@@ -2,17 +2,21 @@ package jp.co.netscs.weeklyreport.linesystem.common;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.linecorp.bot.model.message.Message;
 
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
+import jp.co.netscs.weeklyreport.linesystem.common.daos.UserDao;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.ChapterResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
+import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.exception.WeeklyReportException;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 
@@ -24,6 +28,9 @@ import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
  *
  */
 public abstract class AbstractChapterSceneService {
+	
+	@Autowired
+	UserDao userDao;
 	
 	protected AbstractChapterSceneService(ChapterManager manager) {
 		if (manager == null) {
@@ -51,15 +58,26 @@ public abstract class AbstractChapterSceneService {
 		}
 		
 		Method targetMethod = targetScene.get(0);
-		Scene sceneOption = targetMethod.getAnnotation(Scene.class);
+		
+		List<Object> params = new ArrayList<>();
+		UserEntity userInfo = userDao.findOne(lineInfo.getUserId()).orElse(null);
+		for (Class<?> clazz : targetMethod.getParameterTypes()) {
+			if (clazz.isInstance(lineInfo)) {
+				params.add(lineInfo);
+			} else if (clazz.isInstance(userInfo)) {
+				params.add(userInfo);
+			}
+		}
+		
 		List<Message> sceneResult = null;
 		try {
 			//TODO 戻り値の型検査
-			sceneResult = (List<Message>) targetMethod.invoke(this, lineInfo);
+			sceneResult = (List<Message>) targetMethod.invoke(this, params.toArray(new Object[0]));
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			throw new WeeklyReportException("シーンメソッドの呼び出しに失敗しました。");
 		}
 		
+		Scene sceneOption = targetMethod.getAnnotation(Scene.class);
 		String nextScene = sceneOption.next().equals(LineBotConstant.CHAPTER_END) ? 
 				LineBotConstant.CHAPTER_END : sceneOption.next();
 		

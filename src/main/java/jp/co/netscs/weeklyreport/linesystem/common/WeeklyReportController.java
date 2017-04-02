@@ -121,8 +121,6 @@ public final class WeeklyReportController {
             this.replyText(replyToken, "個人チャットのみ対応しています。");
             lineMessagingClient.leaveRoom(((RoomSource) source).getRoomId()).get();
         }
-        //個人チャットの場合
-        this.replyText(replyToken, "ようこそエス・シー・エスへ！！");
     }
     
 	/**
