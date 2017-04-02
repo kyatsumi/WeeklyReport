@@ -25,7 +25,7 @@ import jp.co.netscs.weeklyreport.linesystem.commons.util.LineBotConstant;
 public abstract class AbstractSectionService {
 	
 	@Autowired
-	private SectionManager manager;
+	protected SectionManager manager;
 	
 	
 	protected AbstractSectionService() {
