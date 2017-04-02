@@ -59,20 +59,10 @@ public abstract class AbstractChapterSceneService {
 		
 		Method targetMethod = targetScene.get(0);
 		
-		List<Object> params = new ArrayList<>();
-		UserEntity userInfo = userDao.findOne(lineInfo.getUserId()).orElse(null);
-		for (Class<?> clazz : targetMethod.getParameterTypes()) {
-			if (clazz.isInstance(lineInfo)) {
-				params.add(lineInfo);
-			} else if (clazz.isInstance(userInfo)) {
-				params.add(userInfo);
-			}
-		}
-		
 		List<Message> sceneResult = null;
 		try {
 			//TODO 戻り値の型検査
-			sceneResult = (List<Message>) targetMethod.invoke(this, params.toArray(new Object[0]));
+			sceneResult = (List<Message>) targetMethod.invoke(this, lineInfo);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			throw new WeeklyReportException("シーンメソッドの呼び出しに失敗しました。");
 		}
