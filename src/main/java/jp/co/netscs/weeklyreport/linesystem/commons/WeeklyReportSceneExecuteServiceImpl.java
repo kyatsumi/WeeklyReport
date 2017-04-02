@@ -37,7 +37,7 @@ public class WeeklyReportSceneExecuteServiceImpl implements WeeklyReportSceneExe
 	@Override
 	public List<Message> execute(LinePostInfoDto lineInfo, LineChapterDto chapter) {
 		System.out.println(lineInfo.toString() + " " + chapter.toString());
-		AbstractSectionService target = manager.targetSection(chapter.getChapter());
+		AbstractChapterSceneService target = manager.targetSection(chapter.getChapter());
 		SectionResultDto result = target.execute(chapter.getScene(), lineInfo);
 		
 		LineSceneEntity nextScene = LineSceneEntity.builder()

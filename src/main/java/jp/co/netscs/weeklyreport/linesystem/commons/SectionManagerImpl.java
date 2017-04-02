@@ -11,11 +11,11 @@ import jp.co.netscs.weeklyreport.linesystem.commons.annot.Chapter;
 @Component
 public class SectionManagerImpl implements SectionManager {
 	
-	private List<AbstractSectionService> sectionList = new ArrayList<>();
+	private List<AbstractChapterSceneService> sectionList = new ArrayList<>();
 
 	@Override
-	public AbstractSectionService targetSection(String targetSection) {
-		AbstractSectionService service = sectionList.stream()
+	public AbstractChapterSceneService targetSection(String targetSection) {
+		AbstractChapterSceneService service = sectionList.stream()
 			.filter(section -> section.getClass().getDeclaredAnnotation(Chapter.class).name().equals(targetSection))
 			.findAny()
 			.orElseThrow( () -> new WalkingException("対象のセクションが存在しません。 " + targetSection));
@@ -23,7 +23,7 @@ public class SectionManagerImpl implements SectionManager {
 	}
 
 	@Override
-	public void registSection(AbstractSectionService target) {
+	public void registSection(AbstractChapterSceneService target) {
 		
 		Chapter targetAnno = target.getClass().getDeclaredAnnotation(Chapter.class);
 		

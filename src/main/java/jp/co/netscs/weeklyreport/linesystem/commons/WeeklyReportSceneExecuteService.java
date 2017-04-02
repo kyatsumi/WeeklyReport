@@ -9,7 +9,7 @@ import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LineChapterDto;
 
 /**
  * 役割：ユーザのセクションのサービスに振り分ける
- * セクションは現在以下の通り
+ * キャプチャーは現在以下の通り
  * <li>
  * ユーザ登録
  * 週報登録
