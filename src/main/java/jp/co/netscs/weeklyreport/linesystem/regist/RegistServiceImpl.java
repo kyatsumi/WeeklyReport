@@ -63,7 +63,7 @@ public class RegistServiceImpl extends RegistService {
 	public List<Message> confrimRegist(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		userInfo.setName(lineInfo.getText());
 		userDao.save(userInfo);
-		Message message = LineMessageUtils.confirm("登録内容確認", "ユーザ名:" + userInfo.getName() + "\nグループ:" + userInfo.getGroup() + "管理者権限:" + (userInfo.getAdmin() ? "あり":"なし") , "登録", "キャンセル");
+		Message message = LineMessageUtils.confirm("登録内容確認", "ユーザ名:" + userInfo.getName() + "\nグループ:" + userInfo.getGroup() + "\n管理者権限:" + (userInfo.getAdmin() ? "あり":"なし") , "登録", "キャンセル");
 		return Arrays.asList(message);
 	}
 
