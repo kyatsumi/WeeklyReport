@@ -51,6 +51,8 @@ public class WeeklyReportMessageServiceImpl implements WeeklyReportMessageServic
 				.scene(result.getNextScene())
 				.build();
 		
+		System.out.println(nextScene);
+		
 		lineSeceneDao.save(nextScene);
 		
 		return result.getMessages();
