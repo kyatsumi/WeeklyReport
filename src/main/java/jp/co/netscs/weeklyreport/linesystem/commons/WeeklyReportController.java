@@ -122,6 +122,8 @@ public final class WeeklyReportController {
             this.replyText(replyToken, "個人チャットのみ対応しています。");
             lineMessagingClient.leaveRoom(((RoomSource) source).getRoomId()).get();
         }
+        //個人チャットの場合
+        this.replyText(replyToken, "ようこそエス・シー・エスへ！！");
     }
     
 	/**
@@ -139,11 +141,6 @@ public final class WeeklyReportController {
         this.reply(replyToken, replyMessages);
     }
     
-    private void replyText(@NonNull String replyToken, @NonNull String... messages) {
-    	List<Message> mes = Arrays.asList(messages).stream().map(message -> new TextMessage(message)).collect(Collectors.toList());
-    	this.reply(replyToken, mes);
-    }
-	
     private void replyText(@NonNull String replyToken, @NonNull String message) {
         this.reply(replyToken, new TextMessage(message));
     }
