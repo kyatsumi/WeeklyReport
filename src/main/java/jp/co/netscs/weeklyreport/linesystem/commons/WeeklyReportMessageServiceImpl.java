@@ -1,8 +1,6 @@
 package jp.co.netscs.weeklyreport.linesystem.commons;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +14,6 @@ import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LineSectionDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.SectionResultDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.entitis.LineSceneEntity;
 import jp.co.netscs.weeklyreport.linesystem.commons.util.DateUtils;
-import jp.co.netscs.weeklyreport.linesystem.regist.RegistService;
-import sun.print.resources.serviceui;
 
 /**
  * 

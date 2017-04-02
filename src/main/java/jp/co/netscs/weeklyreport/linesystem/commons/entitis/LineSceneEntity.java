@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Version;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,7 +40,7 @@ public class LineSceneEntity implements Serializable {
 	 * Line Messageing APIのユーザID
 	 */
 	@Id
-	@Column(length=32, nullable = false)
+	@Column(length=33, nullable = false)
 	private String lineId;
 	
 	/**

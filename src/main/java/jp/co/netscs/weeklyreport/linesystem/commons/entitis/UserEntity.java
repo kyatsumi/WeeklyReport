@@ -43,7 +43,7 @@ public class UserEntity implements Serializable {
 	 * Line Messageing APIのユーザID
 	 */
 	@Id
-	@Column(length=32, nullable = false)
+	@Column(length=33, nullable = false)
 	private String lineId;
 	
 	/**
