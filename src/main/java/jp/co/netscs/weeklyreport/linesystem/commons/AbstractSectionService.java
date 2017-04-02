@@ -29,6 +29,9 @@ public abstract class AbstractSectionService {
 	
 	
 	protected AbstractSectionService() {
+		if (manager == null) {
+			System.out.println("マネージャーがnull");
+		}
 		manager.registSection(this);
 		System.out.println("インスタンス化されました" + this.getClass().getName());
 	}
