@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.linecorp.bot.model.message.Message;
 
 import jp.co.netscs.weeklyreport.linesystem.commons.annot.Scene;
-import jp.co.netscs.weeklyreport.linesystem.commons.daos.LineSceneDao;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.dtos.SectionResultDto;
 import jp.co.netscs.weeklyreport.linesystem.commons.exce.WeeklyReportException;
@@ -26,7 +25,13 @@ import jp.co.netscs.weeklyreport.linesystem.commons.util.LineBotConstant;
 public abstract class AbstractSectionService {
 	
 	@Autowired
-	LineSceneDao lineSceneDao;
+	private SectionManager manager;
+	
+	
+	protected AbstractSectionService() {
+		System.out.println("インスタンス化されました" + this.getClass().getName());
+		manager.registSection(this);
+	}
 	
 	@Transactional
 	@SuppressWarnings("unchecked")
