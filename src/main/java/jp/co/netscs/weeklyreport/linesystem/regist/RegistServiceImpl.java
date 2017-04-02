@@ -57,7 +57,7 @@ public class RegistServiceImpl extends RegistService {
 
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_CONFIRMREGIST, next = LineBotConstant.REGIST_SCENE_REGISTCOMP)
-	protected List<Message> confrimRegist(LinePostInfoDto lineInfo, UserEntity userInfo) {
+	public List<Message> confrimRegist(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		userInfo.setName(lineInfo.getText());
 		userDao.save(userInfo);
 		Message message = LineMessageUtils.confirm("登録内容確認", "ユーザ名:" + userInfo.getName() + " グループ:" + userInfo.getGroup(), "登録", "キャンセル");
