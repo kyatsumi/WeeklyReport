@@ -138,7 +138,7 @@ public final class WeeklyReportController {
 	        List<Message> replyMessages = this.messageService.execute(lineInfo, section);
             this.reply(replyToken, replyMessages);
         } catch (WeeklyReportException ex) {
-        	this.replyText(replyToken, "管理者に連絡してください" + ex.getMessage());
+        	this.replyText(replyToken, "管理者に連絡してください　エラーメッセージ:" + ex.getMessage());
         }
     }
     
