@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
 
-import jp.co.netscs.weeklyreport.linesystem.commons.ChapterManager;
-import jp.co.netscs.weeklyreport.linesystem.commons.annot.Scene;
-import jp.co.netscs.weeklyreport.linesystem.commons.annot.Chapter;
-import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
-import jp.co.netscs.weeklyreport.linesystem.commons.util.LineBotConstant;
+import jp.co.netscs.weeklyreport.linesystem.common.ChapterManager;
+import jp.co.netscs.weeklyreport.linesystem.common.annot.Chapter;
+import jp.co.netscs.weeklyreport.linesystem.common.annot.Scene;
+import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
+import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 
 @Service
 @Chapter(name = LineBotConstant.CHAPTER_REGIST, startScene = LineBotConstant.REGIST_SCENE_START)

@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.linecorp.bot.model.message.Message;
 
-import jp.co.netscs.weeklyreport.linesystem.commons.AbstractChapterSceneService;
-import jp.co.netscs.weeklyreport.linesystem.commons.ChapterManager;
-import jp.co.netscs.weeklyreport.linesystem.commons.dtos.LinePostInfoDto;
+import jp.co.netscs.weeklyreport.linesystem.common.AbstractChapterSceneService;
+import jp.co.netscs.weeklyreport.linesystem.common.ChapterManager;
+import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
 
 public abstract class RegistService extends AbstractChapterSceneService{
 
