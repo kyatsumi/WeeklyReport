@@ -105,4 +105,14 @@ public class LineBotConstant {
 	 */
 	public static final int PERIOD_BASE = 30;
 	
+	/**
+	 * 第１グループ
+	 */
+	public static final String SCS_GROUP1 = "第１グループ";
+	
+	/**
+	 * 第２グループ
+	 */
+	public static final String SCS_GROUP2 = "第２グループ";
+	
 }

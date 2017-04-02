@@ -9,7 +9,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import jp.co.netscs.weeklyreport.linesystem.common.util.ScsGroup;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -20,7 +19,7 @@ import lombok.ToString;
 
 /**
  * 
- * @author katumi
+ * @author katsumi
  *
  */
 @Entity
@@ -51,7 +50,7 @@ public class UserEntity implements Serializable {
 	 */
 	@Enumerated(EnumType.STRING)
 	@Column(name = "scsGroup", nullable = true)
-	private ScsGroup group;
+	private String group;
 	
 	/**
 	 * ユーザ登録名

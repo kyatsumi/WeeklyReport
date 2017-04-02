@@ -6,13 +6,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.linecorp.bot.model.message.Message;
 
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
+import jp.co.netscs.weeklyreport.linesystem.common.daos.UserDao;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.ChapterResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
+import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.exception.WeeklyReportException;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 
@@ -24,6 +27,9 @@ import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
  *
  */
 public abstract class AbstractChapterSceneService {
+	
+	@Autowired
+	UserDao userDao;
 	
 	protected AbstractChapterSceneService(ChapterManager manager) {
 		if (manager == null) {
@@ -51,10 +57,17 @@ public abstract class AbstractChapterSceneService {
 		}
 		
 		Method targetMethod = targetScene.get(0);
+		
+		UserEntity userInfo = userDao.findOne(lineInfo.getUserId()).orElse(null);
+		
 		List<Message> sceneResult = null;
 		try {
 			//TODO 戻り値の型検査
-			sceneResult = (List<Message>) targetMethod.invoke(this, lineInfo);
+			if (targetMethod.getParameterCount() == 2) {
+				sceneResult = (List<Message>) targetMethod.invoke(this, lineInfo, userInfo);
+			} else {
+				sceneResult = (List<Message>) targetMethod.invoke(this, lineInfo);
+			}
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			System.out.println(e.getMessage());
 			throw new WeeklyReportException("シーンメソッドの呼び出しに失敗しました。");
@@ -66,5 +79,4 @@ public abstract class AbstractChapterSceneService {
 		
 		return ChapterResultDto.builder().nextScene(nextScene).messages(sceneResult).build();
 	}
-	
 }

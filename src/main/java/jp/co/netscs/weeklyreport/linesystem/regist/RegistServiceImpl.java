@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.linecorp.bot.model.message.Message;
+import com.linecorp.bot.model.message.TextMessage;
 
 import jp.co.netscs.weeklyreport.linesystem.common.ChapterManager;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Chapter;
@@ -39,31 +40,41 @@ public class RegistServiceImpl extends RegistService {
 
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_GROUPSELECT, next = LineBotConstant.REGIST_SCENE_INPUTNAME)
-	public List<Message> groupSelect(LinePostInfoDto lineInfo) {
-		lineInfo.getText().equals("はい");
+	public List<Message> groupSelect(LinePostInfoDto lineInfo, UserEntity userInfo) {
+		userInfo.setAdmin(lineInfo.getText().equals("はい"));
+		userDao.save(userInfo);
 		Message message = LineMessageUtils.confirm("グループ選択", "所属グループを選択してください。", "第１グループ", "第２グループ");
 		return Arrays.asList(message);
 	}
 
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_INPUTNAME, next = LineBotConstant.REGIST_SCENE_CONFIRMREGIST)
-	public List<Message> inputName(LinePostInfoDto lineInfo) {
-		
-		return null;
+	public List<Message> inputName(LinePostInfoDto lineInfo, UserEntity userInfo) {
+		userInfo.setGroup(lineInfo.getText());
+		userDao.save(userInfo);
+		return Arrays.asList(new TextMessage("名前を入力してください。"));
 	}
 
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_CONFIRMREGIST, next = LineBotConstant.REGIST_SCENE_REGISTCOMP)
-	protected List<Message> confrimRegist(LinePostInfoDto lineInfo) {
-		// TODO Auto-generated method stub
-		return null;
+	protected List<Message> confrimRegist(LinePostInfoDto lineInfo, UserEntity userInfo) {
+		userInfo.setName(lineInfo.getText());
+		userDao.save(userInfo);
+		Message message = LineMessageUtils.confirm("登録内容確認", "所属グループを選択してください。", "登録", "キャンセル");
+		return Arrays.asList(message);
 	}
 
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_REGISTCOMP)
-	public List<Message> registComplite(LinePostInfoDto lineInfo) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Message> registComplite(LinePostInfoDto lineInfo, UserEntity userInfo) {
+		TextMessage text = null;
+		if (lineInfo.equals("登録")) {
+			text = new TextMessage("登録が完了しました。");
+		} else {
+			text = new TextMessage("最初からやり直してください。");
+			userDao.delete(userInfo);
+		}
+		return Arrays.asList(text);
 	}
 
 }
