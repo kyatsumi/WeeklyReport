@@ -6,7 +6,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
@@ -20,7 +19,6 @@ import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineMessageUtils;
 
-@Service
 @Transactional
 @Chapter(name = LineBotConstant.CHAPTER_REGIST, startScene = LineBotConstant.REGIST_SCENE_START)
 public class RegistServiceImpl extends RegistService {
