@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.linecorp.bot.model.message.Message;
 
-import jp.co.netscs.weeklyreport.linesystem.common.dtos.LineChapterDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
 
 /**
@@ -27,5 +26,5 @@ public interface WeeklyReportSceneExecuteService {
 	 * @param section セクション情報
 	 * @return　返却用メッセージ
 	 */
-	public List<Message> execute(LinePostInfoDto lineInfo, LineChapterDto section);
+	public List<Message> execute(LinePostInfoDto lineInfo);
 }

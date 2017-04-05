@@ -61,4 +61,10 @@ public class LineSceneEntity implements Serializable {
 	@Column(length=32, nullable = false)
 	private String scene;
 	
+	/**
+	 * 前の機能状態
+	 */
+	@Column(length=32, nullable = false)
+	private String sceneAfter;
+	
 }

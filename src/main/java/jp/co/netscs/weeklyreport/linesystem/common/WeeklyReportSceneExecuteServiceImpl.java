@@ -17,6 +17,7 @@ import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.LineSceneEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.util.DateUtils;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
+import lombok.NonNull;
 
 /**
  * 
@@ -27,6 +28,10 @@ import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 @Service
 public class WeeklyReportSceneExecuteServiceImpl implements WeeklyReportSceneExecuteService {
 
+
+	@Autowired
+	WeeklyReportChapterService chapterService;
+	
 	@Autowired
 	LineSceneDao lineSeceneDao;
 	
@@ -38,8 +43,8 @@ public class WeeklyReportSceneExecuteServiceImpl implements WeeklyReportSceneExe
 	 */
 	@Transactional
 	@Override
-	public List<Message> execute(LinePostInfoDto lineInfo, LineChapterDto chapter) {
-		System.out.println(lineInfo.toString() + " " + chapter.toString());
+	public List<Message> execute(LinePostInfoDto lineInfo) {
+		LineChapterDto chapter = chapterService.fetchUserChapter(lineInfo);
 		if (chapter.getScene().equals(LineBotConstant.CHAPTER_END)) {
 			return Arrays.asList(new TextMessage("チェックから操作を選択してください。"));
 		}

@@ -30,7 +30,7 @@ public class WeeklyReportChapterServiceImpl implements WeeklyReportChapterServic
 	 * 
 	 */
 	@Override
-	public LineChapterDto fetchUserSection(LinePostInfoDto lineInfo, boolean isPostBack) {
+	public LineChapterDto fetchUserChapter(LinePostInfoDto lineInfo) {
 		LineChapterDtoBuilder result = LineChapterDto.builder();
 		
 		if (!userDao.exists(lineInfo.getUserId())) {
@@ -42,8 +42,8 @@ public class WeeklyReportChapterServiceImpl implements WeeklyReportChapterServic
 			return keyword;
 		}
 		
-		LineSceneEntity sectionInfo =  lineSceneDao.getOne(lineInfo.getUserId());
-		result.scene(sectionInfo.getScene()).chapter(sectionInfo.getChapter());
+		LineSceneEntity chapterInfo =  lineSceneDao.getOne(lineInfo.getUserId());
+		result.scene(chapterInfo.getScene()).chapter(chapterInfo.getChapter()).sceneAfter(chapterInfo.getSceneAfter());
 		return result.build();
 	}
 

@@ -22,7 +22,6 @@ import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
-import jp.co.netscs.weeklyreport.linesystem.common.dtos.LineChapterDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.common.exception.LineValidatException;
 import jp.co.netscs.weeklyreport.linesystem.common.exception.LineValidatException.Validate;
@@ -45,9 +44,6 @@ public final class WeeklyReportController {
 	private LineMessagingClient lineMessagingClient;
 	
 	@Autowired
-	private WeeklyReportChapterService sectionService;
-	
-	@Autowired
 	private WeeklyReportSceneExecuteService messageService;
 
 	/**
@@ -63,8 +59,9 @@ public final class WeeklyReportController {
 	            	.periodTime(event.getTimestamp().getEpochSecond())
 	            	.text(event.getMessage().getText())
 	            	.userId(source.getUserId())
+	            	.postback(false)
 	            	.build();
-	        this.replyMessage(replyToken, lineInfo, false);
+	        this.replyMessage(replyToken, lineInfo);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -82,9 +79,10 @@ public final class WeeklyReportController {
             	.periodTime(event.getTimestamp().getEpochSecond())
             	.text(event.getPostbackContent().getData())
             	.userId(source.getUserId())
+            	.postback(true)
             	.build();
 		
-		this.replyMessage(replyToken, lineInfo, true);
+		this.replyMessage(replyToken, lineInfo);
 	}
 	
 	/**
@@ -101,8 +99,9 @@ public final class WeeklyReportController {
             	.periodTime(event.getTimestamp().getEpochSecond())
             	.text(LineBotConstant.CHAPTER_REGIST)
             	.userId(source.getUserId())
+            	.postback(false)
             	.build();
-        this.replyMessage(replyToken, lineInfo, false);
+        this.replyMessage(replyToken, lineInfo);
     }
 
     /**
@@ -132,10 +131,9 @@ public final class WeeklyReportController {
 		log.info("Received message(Ignored): {}", event);
 	}
 
-    protected void replyMessage(String replyToken, LinePostInfoDto lineInfo, boolean isPostBack) {
+    protected void replyMessage(String replyToken, LinePostInfoDto lineInfo) {
         try {
-	        LineChapterDto section = this.sectionService.fetchUserSection(lineInfo);
-	        List<Message> replyMessages = this.messageService.execute(lineInfo, section);
+	        List<Message> replyMessages = this.messageService.execute(lineInfo);
             this.reply(replyToken, replyMessages);
         } catch (WeeklyReportException ex) {
         	this.replyText(replyToken, "管理者に連絡してください　エラーメッセージ:" + ex.getMessage());

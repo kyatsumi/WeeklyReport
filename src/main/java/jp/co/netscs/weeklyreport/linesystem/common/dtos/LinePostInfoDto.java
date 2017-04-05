@@ -22,6 +22,7 @@ public class LinePostInfoDto {
 	 * POSTした時間(UNIX時間)
 	 */
 	private Long periodTime;
+	
 	/**
 	 * LINEでの入力内容
 	 */
@@ -31,4 +32,9 @@ public class LinePostInfoDto {
 	 * LINEユーザID
 	 */
 	private String userId;
+	
+	/**
+	 * postbackかどうか
+	 */
+	private boolean postback;
 }

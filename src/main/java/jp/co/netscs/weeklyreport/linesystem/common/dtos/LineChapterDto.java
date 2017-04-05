@@ -24,7 +24,13 @@ public class LineChapterDto {
 	private String chapter;
 	
 	/**
-	 * 機能の状態を格納する
+	 * 機能の状態を格納
 	 */
 	private String scene;
+	
+	/**
+	 * 前機能の状態を格納
+	 */
+	private String sceneAfter;
+	
 }
