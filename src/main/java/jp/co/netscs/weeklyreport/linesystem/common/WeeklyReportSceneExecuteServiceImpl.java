@@ -17,7 +17,6 @@ import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.LineSceneEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.util.DateUtils;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
-import lombok.NonNull;
 
 /**
  * 
