@@ -17,4 +17,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SceneAfter {
 
+	/**
+	 * 
+	 * @return
+	 */
+	String after();
+	
 }

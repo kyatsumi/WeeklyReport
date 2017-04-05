@@ -14,6 +14,7 @@ import com.linecorp.bot.model.message.Message;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
 import jp.co.netscs.weeklyreport.linesystem.common.daos.UserDao;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.ChapterResultDto;
+import jp.co.netscs.weeklyreport.linesystem.common.dtos.LineChapterDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.exception.WeeklyReportException;
@@ -26,6 +27,7 @@ import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
  * @author SCS036
  *
  */
+@Transactional
 public abstract class AbstractChapterSceneService {
 	
 	@Autowired
@@ -38,16 +40,24 @@ public abstract class AbstractChapterSceneService {
 		manager.registSection(this);
 	}
 	
-	@Transactional
-	@SuppressWarnings("unchecked")
-	public ChapterResultDto execute(String scene, LinePostInfoDto lineInfo) {
-		//TODO ストリーム微妙
-		List<Method> targetScene = Arrays.asList(this.getClass().getDeclaredMethods())
-			.stream()
-			.filter(method -> method.isAnnotationPresent(Scene.class))
-			.filter(method -> ((Scene)method.getAnnotation(Scene.class)).name().equals(scene))
-			.collect(Collectors.toList());
+	public ChapterResultDto execute(LineChapterDto scene, LinePostInfoDto lineInfo) {
+		executeSeceneAfter();
+		return executeChapter(scene.getScene(), lineInfo);
+	}
+	
+	private void executeSeceneAfter() {
 		
+	}
+	
+
+	@SuppressWarnings("unchecked")
+	private ChapterResultDto executeChapter(String scene, LinePostInfoDto lineInfo) {
+		List<Method> targetScene = Arrays.asList(this.getClass().getDeclaredMethods())
+				.stream()
+				.filter(method -> method.isAnnotationPresent(Scene.class))
+				.filter(method -> ((Scene)method.getAnnotation(Scene.class)).name().equals(scene))
+				.collect(Collectors.toList());
+			
 		if (targetScene.isEmpty()) {
 			throw new RuntimeException("指定されたシーン名の対象メソッドが存在しません。");
 		}

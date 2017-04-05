@@ -48,7 +48,7 @@ public class WeeklyReportSceneExecuteServiceImpl implements WeeklyReportSceneExe
 			return Arrays.asList(new TextMessage("チェックから操作を選択してください。"));
 		}
 		AbstractChapterSceneService target = manager.targetSection(chapter.getChapter());
-		ChapterResultDto result = target.execute(chapter.getScene(), lineInfo);
+		ChapterResultDto result = target.execute(chapter, lineInfo);
 		
 		LineSceneEntity nextScene = LineSceneEntity.builder()
 				.lineId(lineInfo.getUserId())
