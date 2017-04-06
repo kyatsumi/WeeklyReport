@@ -78,7 +78,7 @@ public abstract class AbstractChapterSceneService {
 		
 		Method targetMethod = targetScene.get(0);
 		
-		UserEntity userInfo = userDao.findOne(lineInfo.getUserId()).orElse(null);
+		UserEntity userInfo = userDao.getOne(lineInfo.getUserId());
 		
 		AfterSceneResultDto sceneResult = null;
 		try {
@@ -115,7 +115,7 @@ public abstract class AbstractChapterSceneService {
 		
 		Method targetMethod = targetScene.get(0);
 		
-		UserEntity userInfo = userDao.findOne(lineInfo.getUserId()).orElse(null);
+		UserEntity userInfo = userDao.getOne(lineInfo.getUserId());
 		
 		List<Message> sceneResult = null;
 		try {
