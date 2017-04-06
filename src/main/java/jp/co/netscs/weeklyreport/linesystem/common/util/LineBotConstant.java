@@ -115,4 +115,14 @@ public class LineBotConstant {
 	 */
 	public static final String SCS_GROUP2 = "第２グループ";
 	
+	/**
+	 *　Lineの選択肢用定数
+	 */
+	public static final String YES = "はい";
+	
+	/**
+	 *　Lineの選択肢用定数
+	 */
+	public static final String NO = "いいえ";
+	
 }

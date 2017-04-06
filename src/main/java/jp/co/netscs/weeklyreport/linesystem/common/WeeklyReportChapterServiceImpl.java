@@ -34,7 +34,7 @@ public class WeeklyReportChapterServiceImpl implements WeeklyReportChapterServic
 		LineChapterDtoBuilder result = LineChapterDto.builder();
 		
 		if (!userDao.exists(lineInfo.getUserId())) {
-			return result.chapter(LineBotConstant.CHAPTER_REGIST).scene(LineBotConstant.REGIST_SCENE_START).build();
+			return result.chapter(LineBotConstant.CHAPTER_REGIST).scene(LineBotConstant.REGIST_SCENE_START).sceneAfter(LineBotConstant.CHAPTER_END).build();
 		}
 		
 		LineChapterDto keyword = manager.keywordMatchCapchar(lineInfo.getText());

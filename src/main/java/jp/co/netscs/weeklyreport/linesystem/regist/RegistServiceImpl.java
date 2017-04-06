@@ -11,9 +11,11 @@ import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
 
 import jp.co.netscs.weeklyreport.linesystem.common.ChapterManager;
+import jp.co.netscs.weeklyreport.linesystem.common.annotation.AfterScene;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Chapter;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
 import jp.co.netscs.weeklyreport.linesystem.common.daos.UserDao;
+import jp.co.netscs.weeklyreport.linesystem.common.dtos.AfterSceneResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
@@ -35,34 +37,58 @@ public class RegistServiceImpl extends RegistService {
 	public List<Message> start(LinePostInfoDto lineInfo) {
 		UserEntity userInfo = UserEntity.builder().admin(false).group(null).lineId(lineInfo.getUserId()).name(null).build();
 		userDao.save(userInfo);
-		Message message = LineMessageUtils.confirm("ユーザ登録", "新規登録を行います。\n管理者権限が必要ですか？", "はい", "いいえ");
+		Message message = LineMessageUtils.confirm("ユーザ登録", "新規登録を行います。\n管理者権限が必要ですか？", LineBotConstant.YES, LineBotConstant.NO);
 		return Arrays.asList(message);
+	}
+	
+	@Override
+	@AfterScene(after = LineBotConstant.REGIST_SCENE_START)
+	protected AfterSceneResultDto startAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
+		userInfo.setAdmin(lineInfo.getText().equals("はい"));
+		userDao.save(userInfo);
+		return AFTER_RESULT_NEXT;
 	}
 
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_GROUPSELECT, next = LineBotConstant.REGIST_SCENE_INPUTNAME)
 	public List<Message> groupSelect(LinePostInfoDto lineInfo, UserEntity userInfo) {
-		userInfo.setAdmin(lineInfo.getText().equals("はい"));
-		userDao.save(userInfo);
-		Message message = LineMessageUtils.confirm("グループ選択", "所属グループを選択してください。", "第１グループ", "第２グループ");
+		Message message = LineMessageUtils.confirm("グループ選択", "所属グループを選択してください。", LineBotConstant.SCS_GROUP1, LineBotConstant.SCS_GROUP2);
 		return Arrays.asList(message);
+	}
+	
+	@Override
+	@AfterScene(after = LineBotConstant.REGIST_SCENE_GROUPSELECT)
+	protected AfterSceneResultDto groupSelectAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
+		userInfo.setGroup(lineInfo.getText());
+		userDao.save(userInfo);
+		return AFTER_RESULT_NEXT;
 	}
 
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_INPUTNAME, next = LineBotConstant.REGIST_SCENE_CONFIRMREGIST)
 	public List<Message> inputName(LinePostInfoDto lineInfo, UserEntity userInfo) {
-		userInfo.setGroup(lineInfo.getText());
-		userDao.save(userInfo);
 		return Arrays.asList(new TextMessage("名前を入力してください。"));
+	}
+	
+	@Override
+	@AfterScene(after = LineBotConstant.REGIST_SCENE_INPUTNAME)
+	protected AfterSceneResultDto inputNameAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
+		userInfo.setName(lineInfo.getText());
+		userDao.save(userInfo);
+		return AFTER_RESULT_NEXT;
 	}
 
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_CONFIRMREGIST, next = LineBotConstant.REGIST_SCENE_REGISTCOMP)
 	public List<Message> confrimRegist(LinePostInfoDto lineInfo, UserEntity userInfo) {
-		userInfo.setName(lineInfo.getText());
-		userDao.save(userInfo);
 		Message message = LineMessageUtils.confirm("登録内容確認", "ユーザ名:" + userInfo.getName() + "\nグループ:" + userInfo.getGroup() + "\n管理者権限:" + (userInfo.getAdmin() ? "あり":"なし") , "登録", "キャンセル");
 		return Arrays.asList(message);
+	}
+	
+	@Override
+	@AfterScene(after = LineBotConstant.REGIST_SCENE_CONFIRMREGIST)
+	protected AfterSceneResultDto confrimRegistAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
+		return AFTER_RESULT_NEXT;
 	}
 
 	@Override

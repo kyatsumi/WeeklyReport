@@ -11,9 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.linecorp.bot.model.message.Message;
 
-import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.AfterScene;
+import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
 import jp.co.netscs.weeklyreport.linesystem.common.daos.UserDao;
+import jp.co.netscs.weeklyreport.linesystem.common.dtos.AfterSceneResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.ChapterResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LineChapterDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
@@ -31,6 +32,8 @@ import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 @Transactional
 public abstract class AbstractChapterSceneService {
 	
+	protected static final AfterSceneResultDto AFTER_RESULT_NEXT = new AfterSceneResultDto(AfterResult.NEXT, null);
+	
 	@Autowired
 	UserDao userDao;
 	
@@ -42,16 +45,55 @@ public abstract class AbstractChapterSceneService {
 	}
 	
 	public ChapterResultDto execute(LineChapterDto scene, LinePostInfoDto lineInfo) {
-		executeSceneAfter(scene.getSceneAfter());
-		return executeScene(scene.getScene(), lineInfo);
+		
+		if (scene.getSceneAfter().equals(LineBotConstant.CHAPTER_END)) {
+			return executeScene(scene.getScene(), lineInfo);
+		}
+		
+		AfterSceneResultDto afterResult = executeSceneAfter(scene.getSceneAfter(), lineInfo);
+		switch(afterResult.getResult()) {
+			case NEXT:
+				return executeScene(scene.getScene(), lineInfo);
+			case LOOP:
+				return executeScene(scene.getSceneAfter(), afterResult.getDummy());
+			default:
+				throw new WeeklyReportException("シーン処理結果で問題が発生しました");	
+		}
 	}
 	
-	private void executeSceneAfter(String sceneAfter) {
+	private AfterSceneResultDto executeSceneAfter(String afterScene, LinePostInfoDto lineInfo) {
 		List<Method> targetScene = Arrays.asList(this.getClass().getDeclaredMethods())
 				.stream()
 				.filter(method -> method.isAnnotationPresent(AfterScene.class))
-				.filter(method -> ((AfterScene)method.getAnnotation(AfterScene.class)).after().equals(sceneAfter))
+				.filter(method -> ((AfterScene)method.getAnnotation(AfterScene.class)).after().equals(afterScene))
 				.collect(Collectors.toList());
+		
+		if (targetScene.isEmpty()) {
+			throw new RuntimeException("指定されたシーン名の対象メソッドが存在しません。");
+		}
+		
+		if (targetScene.size() > 1) {
+			throw new RuntimeException("シーン名が重複したメソッドが存在します : " + afterScene);
+		}
+		
+		Method targetMethod = targetScene.get(0);
+		
+		UserEntity userInfo = userDao.findOne(lineInfo.getUserId()).orElse(null);
+		
+		AfterSceneResultDto sceneResult = null;
+		try {
+			//TODO 戻り値の型検査
+			if (targetMethod.getParameterCount() == 2) {
+				sceneResult = (AfterSceneResultDto) targetMethod.invoke(this, lineInfo, userInfo);
+			} else {
+				sceneResult = (AfterSceneResultDto) targetMethod.invoke(this, lineInfo);
+			}
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			System.out.println(e.getMessage());
+			throw new WeeklyReportException("シーンメソッドの呼び出しに失敗しました。");
+		}
+		
+		return sceneResult;
 	}
 	
 
@@ -95,7 +137,19 @@ public abstract class AbstractChapterSceneService {
 		return ChapterResultDto.builder().nextScene(nextScene).messages(sceneResult).build();
 	}
 	
-	public enum SceneAfterResult {
-		NEXT,LOOP,RESET
+	/**
+	 * AfterSceneの実行結果
+	 * @author katumi
+	 *
+	 */
+	public enum AfterResult {
+		/**
+		 * 次のシーンへ進む
+		 */
+		NEXT,
+		/**
+		 * ダミー情報を使い前回のシーンを再度実行
+		 */
+		LOOP
 	}
 }
