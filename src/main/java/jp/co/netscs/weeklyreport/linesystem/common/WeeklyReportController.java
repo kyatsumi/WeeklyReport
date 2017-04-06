@@ -53,18 +53,14 @@ public final class WeeklyReportController {
 	@EventMapping
 	public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
 		String replyToken = event.getReplyToken();
-		try {
-			Source source = event.getSource();
-	        LinePostInfoDto lineInfo = LinePostInfoDto.builder()
-	            	.periodTime(event.getTimestamp().getEpochSecond())
-	            	.text(event.getMessage().getText())
-	            	.userId(source.getUserId())
-	            	.postback(false)
-	            	.build();
-	        this.replyMessage(replyToken, lineInfo);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+		Source source = event.getSource();
+        LinePostInfoDto lineInfo = LinePostInfoDto.builder()
+            	.periodTime(event.getTimestamp().getEpochSecond())
+            	.text(event.getMessage().getText())
+            	.userId(source.getUserId())
+            	.postback(false)
+            	.build();
+        this.replyMessage(replyToken, lineInfo);
 	}
 
 	/**
@@ -136,6 +132,7 @@ public final class WeeklyReportController {
 	        List<Message> replyMessages = this.messageService.execute(lineInfo);
             this.reply(replyToken, replyMessages);
         } catch (WeeklyReportException ex) {
+        	ex.printStackTrace();
         	this.replyText(replyToken, "管理者に連絡してください　エラーメッセージ:" + ex.getMessage());
         }
     }
