@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.linecorp.bot.model.message.Message;
 
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
+import jp.co.netscs.weeklyreport.linesystem.common.annotation.AfterScene;
 import jp.co.netscs.weeklyreport.linesystem.common.daos.UserDao;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.ChapterResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LineChapterDto;
@@ -41,17 +42,21 @@ public abstract class AbstractChapterSceneService {
 	}
 	
 	public ChapterResultDto execute(LineChapterDto scene, LinePostInfoDto lineInfo) {
-		executeSeceneAfter();
-		return executeChapter(scene.getScene(), lineInfo);
+		executeSceneAfter(scene.getSceneAfter());
+		return executeScene(scene.getScene(), lineInfo);
 	}
 	
-	private void executeSeceneAfter() {
-		
+	private void executeSceneAfter(String sceneAfter) {
+		List<Method> targetScene = Arrays.asList(this.getClass().getDeclaredMethods())
+				.stream()
+				.filter(method -> method.isAnnotationPresent(AfterScene.class))
+				.filter(method -> ((AfterScene)method.getAnnotation(AfterScene.class)).after().equals(sceneAfter))
+				.collect(Collectors.toList());
 	}
 	
 
 	@SuppressWarnings("unchecked")
-	private ChapterResultDto executeChapter(String scene, LinePostInfoDto lineInfo) {
+	private ChapterResultDto executeScene(String scene, LinePostInfoDto lineInfo) {
 		List<Method> targetScene = Arrays.asList(this.getClass().getDeclaredMethods())
 				.stream()
 				.filter(method -> method.isAnnotationPresent(Scene.class))
@@ -88,5 +93,9 @@ public abstract class AbstractChapterSceneService {
 				LineBotConstant.CHAPTER_END : sceneOption.next();
 		
 		return ChapterResultDto.builder().nextScene(nextScene).messages(sceneResult).build();
+	}
+	
+	public enum SceneAfterResult {
+		NEXT,LOOP,RESET
 	}
 }

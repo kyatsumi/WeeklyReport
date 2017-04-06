@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 @Inherited
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface SceneAfter {
+public @interface AfterScene {
 
 	/**
 	 * 

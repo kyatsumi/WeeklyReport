@@ -43,7 +43,7 @@ public class WeeklyReportChapterServiceImpl implements WeeklyReportChapterServic
 		}
 		
 		LineSceneEntity chapterInfo =  lineSceneDao.getOne(lineInfo.getUserId());
-		result.scene(chapterInfo.getScene()).chapter(chapterInfo.getChapter()).sceneAfter(chapterInfo.getSceneAfter());
+		result.scene(chapterInfo.getScene()).chapter(chapterInfo.getChapter()).sceneAfter(chapterInfo.getAfterScene());
 		return result.build();
 	}
 

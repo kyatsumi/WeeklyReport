@@ -16,6 +16,12 @@ public class ChapterResultDto {
 	 * 次のシーン
 	 */
 	private String nextScene;
+
+	/**
+	 * 今回実行したシーン
+	 */
+	private String afterScene;
+	
 	
 	/**
 	 * 今回返却するメッセージ
