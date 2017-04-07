@@ -44,6 +44,12 @@ public abstract class AbstractChapterSceneService {
 		manager.registSection(this);
 	}
 	
+	/**
+	 * 呼び出しメソッド
+	 * @param scene
+	 * @param lineInfo
+	 * @return
+	 */
 	public ChapterResultDto execute(LineChapterDto scene, LinePostInfoDto lineInfo) {
 		
 		if (scene.getSceneAfter().equals(LineBotConstant.CHAPTER_REGIST)) {
@@ -78,7 +84,7 @@ public abstract class AbstractChapterSceneService {
 		
 		Method targetMethod = targetScene.get(0);
 		
-		UserEntity userInfo = userDao.getOne(lineInfo.getUserId());
+		UserEntity userInfo = userDao.findOne(lineInfo.getUserId()).orElse(null);
 		
 		AfterSceneResultDto sceneResult = null;
 		try {
@@ -115,8 +121,7 @@ public abstract class AbstractChapterSceneService {
 		
 		Method targetMethod = targetScene.get(0);
 		
-		UserEntity userInfo = userDao.getOne(lineInfo.getUserId());
-		System.out.println("userInfo = " + userInfo + " targetMethod = " + targetMethod );
+		UserEntity userInfo = userDao.findOne(lineInfo.getUserId()).orElse(null);
 		List<Message> sceneResult = null;
 		try {
 			//TODO 戻り値の型検査
