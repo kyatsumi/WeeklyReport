@@ -50,11 +50,14 @@ public class WeeklyReportSceneExecuteServiceImpl implements WeeklyReportSceneExe
 		AbstractChapterSceneService target = manager.targetSection(chapter.getChapter());
 		ChapterResultDto result = target.execute(chapter, lineInfo);
 		
+		
+		
 		LineSceneEntity nextScene = LineSceneEntity.builder()
 				.lineId(lineInfo.getUserId())
 				.periodTime(DateUtils.generatePeriodTime())
 				.chapter(chapter.getChapter())
 				.scene(result.getNextScene())
+				.afterScene(result.getAfterScene())
 				.build();
 		
 		lineSeceneDao.save(nextScene);

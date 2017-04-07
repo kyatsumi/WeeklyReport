@@ -46,7 +46,7 @@ public abstract class AbstractChapterSceneService {
 	
 	public ChapterResultDto execute(LineChapterDto scene, LinePostInfoDto lineInfo) {
 		
-		if (scene.getSceneAfter().equals(LineBotConstant.CHAPTER_END)) {
+		if (scene.getSceneAfter().equals(LineBotConstant.CHAPTER_REGIST)) {
 			return executeScene(scene.getScene(), lineInfo);
 		}
 		
@@ -69,11 +69,11 @@ public abstract class AbstractChapterSceneService {
 				.collect(Collectors.toList());
 		
 		if (targetScene.isEmpty()) {
-			throw new RuntimeException("指定されたシーン名の対象メソッドが存在しません。");
+			return AFTER_RESULT_NEXT;
 		}
 		
 		if (targetScene.size() > 1) {
-			throw new RuntimeException("シーン名が重複したメソッドが存在します : " + afterScene);
+			throw new RuntimeException("アフターシーン名が重複して存在します : " + afterScene);
 		}
 		
 		Method targetMethod = targetScene.get(0);
@@ -106,7 +106,7 @@ public abstract class AbstractChapterSceneService {
 				.collect(Collectors.toList());
 			
 		if (targetScene.isEmpty()) {
-			throw new RuntimeException("指定されたシーン名の対象メソッドが存在しません。");
+			throw new RuntimeException("指定されたシーンメソッドが存在しません。");
 		}
 		
 		if (targetScene.size() > 1) {
@@ -134,7 +134,7 @@ public abstract class AbstractChapterSceneService {
 		String nextScene = sceneOption.next().equals(LineBotConstant.CHAPTER_END) ? 
 				LineBotConstant.CHAPTER_END : sceneOption.next();
 		
-		return ChapterResultDto.builder().nextScene(nextScene).messages(sceneResult).build();
+		return ChapterResultDto.builder().afterScene(scene).nextScene(nextScene).messages(sceneResult).build();
 	}
 	
 	/**
