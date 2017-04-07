@@ -84,7 +84,7 @@ public abstract class AbstractChapterSceneService {
 		
 		Method targetMethod = targetScene.get(0);
 		
-		UserEntity userInfo = userDao.findOne(lineInfo.getUserId()).orElse(null);
+		UserEntity userInfo = userDao.findOne(lineInfo.getUserId()).orElse(new UserEntity());
 		
 		AfterSceneResultDto sceneResult = null;
 		try {
@@ -121,7 +121,7 @@ public abstract class AbstractChapterSceneService {
 		
 		Method targetMethod = targetScene.get(0);
 		
-		UserEntity userInfo = userDao.findOne(lineInfo.getUserId()).orElse(null);
+		UserEntity userInfo = userDao.findOne(lineInfo.getUserId()).orElse(new UserEntity());
 		List<Message> sceneResult = null;
 		try {
 			//TODO 戻り値の型検査
