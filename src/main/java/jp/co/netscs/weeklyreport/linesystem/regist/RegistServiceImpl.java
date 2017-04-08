@@ -43,7 +43,7 @@ public class RegistServiceImpl extends RegistService {
 	
 	@Override
 	@AfterScene(after = LineBotConstant.REGIST_SCENE_START)
-	protected AfterSceneResultDto startAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
+	public AfterSceneResultDto startAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		userInfo.setAdmin(lineInfo.getText().equals("はい"));
 		userDao.save(userInfo);
 		return AFTER_RESULT_NEXT;
@@ -58,7 +58,7 @@ public class RegistServiceImpl extends RegistService {
 	
 	@Override
 	@AfterScene(after = LineBotConstant.REGIST_SCENE_GROUPSELECT)
-	protected AfterSceneResultDto groupSelectAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
+	public AfterSceneResultDto groupSelectAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		userInfo.setGroup(lineInfo.getText());
 		userDao.save(userInfo);
 		return AFTER_RESULT_NEXT;
@@ -72,7 +72,7 @@ public class RegistServiceImpl extends RegistService {
 	
 	@Override
 	@AfterScene(after = LineBotConstant.REGIST_SCENE_INPUTNAME)
-	protected AfterSceneResultDto inputNameAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
+	public AfterSceneResultDto inputNameAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		userInfo.setName(lineInfo.getText());
 		userDao.save(userInfo);
 		return AFTER_RESULT_NEXT;
@@ -87,7 +87,7 @@ public class RegistServiceImpl extends RegistService {
 	
 	@Override
 	@AfterScene(after = LineBotConstant.REGIST_SCENE_CONFIRMREGIST)
-	protected AfterSceneResultDto confrimRegistAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
+	public AfterSceneResultDto confrimRegistAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		return AFTER_RESULT_NEXT;
 	}
 
