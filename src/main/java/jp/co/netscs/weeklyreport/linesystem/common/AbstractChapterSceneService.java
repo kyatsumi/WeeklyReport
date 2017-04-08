@@ -124,6 +124,8 @@ public abstract class AbstractChapterSceneService {
 		
 		UserEntity userInfo = userDao.getOne(lineInfo.getUserId());
 		
+		System.out.println(userInfo);
+		
 		List<Message> sceneResult = null;
 		try {
 			//TODO 戻り値の型検査
