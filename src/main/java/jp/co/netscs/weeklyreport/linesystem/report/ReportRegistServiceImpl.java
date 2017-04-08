@@ -60,7 +60,7 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 	@Override
 	@Scene(name = LineBotConstant.REPORT_SCENE_CONFIRMREGIST, next = LineBotConstant.REPORT_SCENE_REGISTCOMP)
 	public List<Message> confrimReport(LinePostInfoDto lineInfo) {
-		Message message = LineMessageUtils.generateConfirm("登録内容確認", "日付:YYYY/MM/DD\n内容:テスト内容を", "登録", "キャンセル");
+		Message message = LineMessageUtils.generateConfirm("登録内容確認", "日付:YYYY/MM/DD\n内容:" + lineInfo.getText(), "登録", "キャンセル");
 		return Arrays.asList(message);
 	}
 	
