@@ -43,14 +43,15 @@ public final class LineMessageUtils {
 				Arrays.asList(
                         new CarouselColumn(null, null, "登録する日付を選んでください。", Arrays.asList(
                                 new PostbackAction("2017/04/08",
-                                                   "2017/04/08")
+                                                   "2017/04/08"),
+                                new PostbackAction("2017/04/09",
+                                					"2017/04/09")
                         )),
                         new CarouselColumn(null, null, "登録する日付を選んでください。", Arrays.asList(
                                 new PostbackAction("言 hello2",
-                                                   "hello こんにちは",
                                                    "hello こんにちは"),
-                                new MessageAction("Say message",
-                                                  "Rice=米")
+                                new PostbackAction("次の週",
+                    								"次の週")
                 		))
 				));
 		
