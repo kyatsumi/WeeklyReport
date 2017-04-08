@@ -52,7 +52,7 @@ public abstract class AbstractChapterSceneService {
 	 */
 	public ChapterResultDto execute(LineChapterDto scene, LinePostInfoDto lineInfo) {
 		System.out.println("scene = " + scene + " lineInfo = " + lineInfo);
-		if (scene.getSceneAfter().equals(LineBotConstant.CHAPTER_REGIST)) {
+		if (scene.getSceneAfter().equals(LineBotConstant.CHAPTER_REGIST) || scene.getSceneAfter().equals(LineBotConstant.CHAPTER_END)) {
 			return executeScene(scene.getScene(), lineInfo);
 		}
 		

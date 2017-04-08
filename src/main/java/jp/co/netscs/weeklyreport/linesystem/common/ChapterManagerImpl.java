@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Chapter;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LineChapterDto;
+import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 
 @Component
 public class ChapterManagerImpl implements ChapterManager {
@@ -58,7 +59,7 @@ public class ChapterManagerImpl implements ChapterManager {
 			return null;
 		}
 		
-		return LineChapterDto.builder().chapter(chapterInfo.name()).scene(chapterInfo.startScene()).build();
+		return LineChapterDto.builder().chapter(chapterInfo.name()).scene(chapterInfo.startScene()).sceneAfter(LineBotConstant.CHAPTER_END).build();
 	}
 
 }

@@ -37,8 +37,9 @@ public class RegistServiceImpl extends RegistService {
 	public List<Message> start(LinePostInfoDto lineInfo) {
 		UserEntity userInfo = UserEntity.builder().admin(false).group(null).lineId(lineInfo.getUserId()).name(null).build();
 		userDao.save(userInfo);
+		Message welcome = new TextMessage("ようこそエス・シー・エス週報BOTへ");
 		Message message = LineMessageUtils.confirm("ユーザ登録", "新規登録を行います。\n管理者権限が必要ですか？", LineBotConstant.YES, LineBotConstant.NO);
-		return Arrays.asList(message);
+		return Arrays.asList(welcome, message);
 	}
 	
 	@Override
