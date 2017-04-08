@@ -85,13 +85,13 @@ public abstract class AbstractChapterSceneService {
 		
 		Method targetMethod = targetScene.get(0);
 		
-		Optional<UserEntity> userInfo = userDao.findOne(lineInfo.getUserId());
+		UserEntity userInfo = userDao.getOne(lineInfo.getUserId());
 		
 		AfterSceneResultDto sceneResult = null;
 		try {
 			//TODO 戻り値の型検査
 			if (targetMethod.getParameterCount() == 2) {
-				sceneResult = (AfterSceneResultDto) targetMethod.invoke(this, lineInfo, userInfo.orElse(new UserEntity()));
+				sceneResult = (AfterSceneResultDto) targetMethod.invoke(this, lineInfo, userInfo);
 			} else {
 				sceneResult = (AfterSceneResultDto) targetMethod.invoke(this, lineInfo);
 			}
@@ -122,13 +122,13 @@ public abstract class AbstractChapterSceneService {
 		
 		Method targetMethod = targetScene.get(0);
 		
-		Optional<UserEntity> userInfo = userDao.findOne(lineInfo.getUserId());
+		UserEntity userInfo = userDao.getOne(lineInfo.getUserId());
 		
 		List<Message> sceneResult = null;
 		try {
 			//TODO 戻り値の型検査
 			if (targetMethod.getParameterCount() == 2) {
-				sceneResult = (List<Message>) targetMethod.invoke(this, lineInfo, userInfo.orElse(new UserEntity()));
+				sceneResult = (List<Message>) targetMethod.invoke(this, lineInfo, userInfo);
 			} else {
 				sceneResult = (List<Message>) targetMethod.invoke(this, lineInfo);
 			}
