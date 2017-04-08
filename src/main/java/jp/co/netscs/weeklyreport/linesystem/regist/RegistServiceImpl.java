@@ -38,7 +38,7 @@ public class RegistServiceImpl extends RegistService {
 		UserEntity userInfo = UserEntity.builder().admin(false).group(null).lineId(lineInfo.getUserId()).name(null).build();
 		userDao.save(userInfo);
 		Message welcome = new TextMessage("ようこそエス・シー・エス週報BOTへ");
-		Message message = LineMessageUtils.confirm("ユーザ登録", "新規登録を行います。\n管理者権限が必要ですか？", LineBotConstant.YES, LineBotConstant.NO);
+		Message message = LineMessageUtils.generateConfirm("ユーザ登録", "新規登録を行います。\n管理者権限が必要ですか？", LineBotConstant.YES, LineBotConstant.NO);
 		return Arrays.asList(welcome, message);
 	}
 	
@@ -53,7 +53,7 @@ public class RegistServiceImpl extends RegistService {
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_GROUPSELECT, next = LineBotConstant.REGIST_SCENE_INPUTNAME)
 	public List<Message> groupSelect(LinePostInfoDto lineInfo, UserEntity userInfo) {
-		Message message = LineMessageUtils.confirm("グループ選択", "所属グループを選択してください。", LineBotConstant.SCS_GROUP1, LineBotConstant.SCS_GROUP2);
+		Message message = LineMessageUtils.generateConfirm("グループ選択", "所属グループを選択してください。", LineBotConstant.SCS_GROUP1, LineBotConstant.SCS_GROUP2);
 		return Arrays.asList(message);
 	}
 	
@@ -82,7 +82,7 @@ public class RegistServiceImpl extends RegistService {
 	@Override
 	@Scene(name = LineBotConstant.REGIST_SCENE_CONFIRMREGIST, next = LineBotConstant.REGIST_SCENE_REGISTCOMP)
 	public List<Message> confrimRegist(LinePostInfoDto lineInfo, UserEntity userInfo) {
-		Message message = LineMessageUtils.confirm("登録内容確認", "ユーザ名:" + userInfo.getName() + "\nグループ:" + userInfo.getGroup() + "\n管理者権限:" + (userInfo.getAdmin() ? "あり":"なし") , "登録", "キャンセル");
+		Message message = LineMessageUtils.generateConfirm("登録内容確認", "ユーザ名:" + userInfo.getName() + "\nグループ:" + userInfo.getGroup() + "\n管理者権限:" + (userInfo.getAdmin() ? "あり":"なし") , "登録", "キャンセル");
 		return Arrays.asList(message);
 	}
 	

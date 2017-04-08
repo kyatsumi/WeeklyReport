@@ -1,8 +1,14 @@
 package jp.co.netscs.weeklyreport.linesystem.common.util;
 
+import java.time.LocalDate;
+import java.util.Arrays;
+
 import com.linecorp.bot.model.action.MessageAction;
+import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TemplateMessage;
+import com.linecorp.bot.model.message.template.CarouselColumn;
+import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.message.template.ConfirmTemplate;
 
 /**
@@ -12,7 +18,15 @@ import com.linecorp.bot.model.message.template.ConfirmTemplate;
  */
 public final class LineMessageUtils {
 	
-	public static Message confirm(String title, String subTitle, String yes, String no) {
+	/**
+	 * 
+	 * @param title
+	 * @param subTitle
+	 * @param yes
+	 * @param no
+	 * @return
+	 */
+	public static Message generateConfirm(String title, String subTitle, String yes, String no) {
 		
         ConfirmTemplate confirmTemplate = new ConfirmTemplate(
         		subTitle,
@@ -24,7 +38,22 @@ public final class LineMessageUtils {
 		return templateMessage;
 	}
 	
-	public static Message generateRegistGroup() {
-		return null;
+	public static Message generateOneWeekCarousel(LocalDate date) {
+		CarouselTemplate oneWeek = new CarouselTemplate(
+				Arrays.asList(
+                        new CarouselColumn(null, null, "登録する日付を選んでください。", Arrays.asList(
+                                new PostbackAction("2017/04/08",
+                                                   "2017/04/08")
+                        )),
+                        new CarouselColumn(null, null, "登録する日付を選んでください。", Arrays.asList(
+                                new PostbackAction("言 hello2",
+                                                   "hello こんにちは",
+                                                   "hello こんにちは"),
+                                new MessageAction("Say message",
+                                                  "Rice=米")
+))
+				));
+		
+		return new TemplateMessage("", oneWeek);
 	}
 }
