@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.linecorp.bot.model.message.Message;
+import com.linecorp.bot.model.message.TextMessage;
 
 import jp.co.netscs.weeklyreport.linesystem.common.ChapterManager;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.AfterScene;
@@ -38,40 +39,39 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 	@Override
 	@AfterScene(after = LineBotConstant.REPORT_SCENE_DATE)
 	protected AfterSceneResultDto selectDateAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
-		// TODO Auto-generated method stub
-		return null;
+		if (lineInfo.getText().equals("先週の日付を表示")) {
+			return AfterSceneResultDto.builder().dummy(lineInfo).result(AfterResult.LOOP).build();
+		}
+		return AFTER_RESULT_NEXT;
 	}
 
 	@Override
 	@Scene(name = LineBotConstant.REPORT_SCENE_INPUTREPORT, next = LineBotConstant.REPORT_SCENE_CONFIRMREGIST)
 	public List<Message> inputReport(LinePostInfoDto lineInfo) {
-		// TODO Auto-generated method stub
-		return null;
+		return Arrays.asList(new TextMessage("内容を入力してください。"));
 	}
 	
 	@Override
+	@AfterScene(after = LineBotConstant.REPORT_SCENE_INPUTREPORT)
 	protected AfterSceneResultDto inputReportAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
-		// TODO Auto-generated method stub
-		return null;
+		return AFTER_RESULT_NEXT;
 	}
 
 	@Override
 	@Scene(name = LineBotConstant.REPORT_SCENE_CONFIRMREGIST, next = LineBotConstant.REPORT_SCENE_REGISTCOMP)
 	public List<Message> confrimReport(LinePostInfoDto lineInfo) {
-		// TODO Auto-generated method stub
-		return null;
+		Message message = LineMessageUtils.generateConfirm("登録内容確認", "日付:YYYY/MM/DD\n内容:テスト内容を", "登録", "キャンセル");
+		return Arrays.asList(message);
 	}
 	
 	@Override
 	protected AfterSceneResultDto confrimReportAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
-		// TODO Auto-generated method stub
-		return null;
+		return AFTER_RESULT_NEXT;
 	}
 
 	@Override
 	@Scene(name = LineBotConstant.REPORT_SCENE_REGISTCOMP)
 	public List<Message> registComplite(LinePostInfoDto lineInfo) {
-		// TODO Auto-generated method stub
-		return null;
+		return Arrays.asList( new TextMessage("登録しました。"));
 	}
 }
