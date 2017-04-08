@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +51,7 @@ public abstract class AbstractChapterSceneService {
 	 * @return
 	 */
 	public ChapterResultDto execute(LineChapterDto scene, LinePostInfoDto lineInfo) {
-		
+		System.out.println("scene = " + scene + " lineInfo = " + lineInfo);
 		if (scene.getSceneAfter().equals(LineBotConstant.CHAPTER_REGIST)) {
 			return executeScene(scene.getScene(), lineInfo);
 		}

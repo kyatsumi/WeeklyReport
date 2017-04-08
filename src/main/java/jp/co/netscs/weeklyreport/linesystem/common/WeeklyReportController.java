@@ -134,6 +134,9 @@ public final class WeeklyReportController {
         } catch (WeeklyReportException ex) {
         	ex.printStackTrace();
         	this.replyText(replyToken, "管理者に連絡してください　エラーメッセージ:" + ex.getMessage());
+        } catch (RuntimeException ex) {
+        	ex.printStackTrace();
+        	this.replyText(replyToken, "重大なエラー:" + ex.getMessage());
         }
     }
     
