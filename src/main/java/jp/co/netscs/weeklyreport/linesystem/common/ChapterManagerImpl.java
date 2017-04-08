@@ -59,7 +59,7 @@ public class ChapterManagerImpl implements ChapterManager {
 			return null;
 		}
 		
-		return LineChapterDto.builder().chapter(chapterInfo.name()).scene(chapterInfo.startScene()).sceneAfter(LineBotConstant.CHAPTER_END).build();
+		return LineChapterDto.builder().chapter(chapterInfo.name()).scene(chapterInfo.startScene()).sceneAfter(LineBotConstant.UNKNOWN_SCENE).build();
 	}
 
 }

@@ -93,6 +93,11 @@ public class LineBotConstant {
 	 */
 	public static final String CHAPTER_END = "終了したチャプター";
 	
+	/**
+	 * 不明なシーン
+	 */
+	public static final String UNKNOWN_SCENE = "不明なシーン";
+	
 /********************************機能名定義ここまで**********************************************************/
 	
 	/**

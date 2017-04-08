@@ -52,7 +52,7 @@ public abstract class AbstractChapterSceneService {
 	 */
 	public ChapterResultDto execute(LineChapterDto scene, LinePostInfoDto lineInfo) {
 		System.out.println("scene = " + scene + " lineInfo = " + lineInfo);
-		if (scene.getSceneAfter().equals(LineBotConstant.CHAPTER_REGIST) || scene.getSceneAfter().equals(LineBotConstant.CHAPTER_END)) {
+		if (scene.getSceneAfter().equals(LineBotConstant.CHAPTER_REGIST) || scene.getSceneAfter().equals(LineBotConstant.UNKNOWN_SCENE)) {
 			return executeScene(scene.getScene(), lineInfo);
 		}
 		
@@ -145,8 +145,10 @@ public abstract class AbstractChapterSceneService {
 		Scene sceneOption = targetMethod.getAnnotation(Scene.class);
 		String nextScene = sceneOption.next().equals(LineBotConstant.CHAPTER_END) ? 
 				LineBotConstant.CHAPTER_END : sceneOption.next();
+		String afterScene = nextScene.equals(LineBotConstant.CHAPTER_END) ?
+				LineBotConstant.UNKNOWN_SCENE : scene;
 		
-		return ChapterResultDto.builder().afterScene(scene).nextScene(nextScene).messages(sceneResult).build();
+		return ChapterResultDto.builder().afterScene(afterScene).nextScene(nextScene).messages(sceneResult).build();
 	}
 	
 	/**
