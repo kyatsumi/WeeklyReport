@@ -54,6 +54,6 @@ public final class LineMessageUtils {
 ))
 				));
 		
-		return new TemplateMessage("", oneWeek);
+		return new TemplateMessage("表示できません。", oneWeek);
 	}
 }
