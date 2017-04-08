@@ -38,7 +38,7 @@ public final class LineMessageUtils {
 		return templateMessage;
 	}
 	
-	public static Message generateOneWeekCarousel(LocalDate date) {
+	public static Message generateOneWeekCarousel(LocalDate date, int offset) {
 		CarouselTemplate oneWeek = new CarouselTemplate(
 				Arrays.asList(
                         new CarouselColumn(null, null, "登録する日付を選んでください。", Arrays.asList(
@@ -51,7 +51,7 @@ public final class LineMessageUtils {
                                                    "hello こんにちは"),
                                 new MessageAction("Say message",
                                                   "Rice=米")
-))
+                		))
 				));
 		
 		return new TemplateMessage("表示できません。", oneWeek);
