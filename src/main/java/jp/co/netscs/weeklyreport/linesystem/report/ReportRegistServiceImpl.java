@@ -38,7 +38,7 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 	
 	@Override
 	@AfterScene(after = LineBotConstant.REPORT_SCENE_DATE)
-	protected AfterSceneResultDto selectDateAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
+	public AfterSceneResultDto selectDateAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		if (lineInfo.getText().equals("先週の日付を表示")) {
 			return AfterSceneResultDto.builder().dummy(lineInfo).result(AfterResult.LOOP).build();
 		}
@@ -53,7 +53,7 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 	
 	@Override
 	@AfterScene(after = LineBotConstant.REPORT_SCENE_INPUTREPORT)
-	protected AfterSceneResultDto inputReportAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
+	public AfterSceneResultDto inputReportAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		return AFTER_RESULT_NEXT;
 	}
 
@@ -65,7 +65,7 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 	}
 	
 	@Override
-	protected AfterSceneResultDto confrimReportAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
+	public AfterSceneResultDto confrimReportAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		return AFTER_RESULT_NEXT;
 	}
 
