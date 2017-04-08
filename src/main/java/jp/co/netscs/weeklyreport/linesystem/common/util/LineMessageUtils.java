@@ -47,17 +47,13 @@ public final class LineMessageUtils {
                                 new PostbackAction("2017/04/09",
                                 					"2017/04/09"),
                                 new PostbackAction("2017/04/10",
-                    								"2017/04/10"),
-                                new PostbackAction("2017/04/11",
-                    								"2017/04/11")
+                    								"2017/04/10")
                         )),
                         new CarouselColumn(null, null, "登録する日付を選んでください。", Arrays.asList(
-                        		 new PostbackAction("2017/04/12",
-                        							"2017/04/12"),
-			                     new PostbackAction("2017/04/13",
-			                     					"2017/04/13"),
-			                     new PostbackAction("2017/04/14",
-			         								"2017/04/14"),
+                        		 new PostbackAction("2017/04/11",
+                        							"2017/04/11"),
+			                     new PostbackAction("2017/04/12",
+			                     					"2017/04/12"),
 			                     new PostbackAction("先週の日付を表示",
 			         								"先週の日付を表示")
                 		))
