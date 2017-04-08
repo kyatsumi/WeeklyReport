@@ -24,7 +24,7 @@ public class ReportViewServiceImpl extends ReportViewService {
 
 	@Override
 	@Scene(name = LineBotConstant.REPORTVIEW_SCENE_VIEW)
-	protected List<Message> myReportView(LinePostInfoDto lineInfo, UserEntity userInfo) {
+	public List<Message> myReportView(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		Message message = new TextMessage("日付:2017/04/08\n----内容---\n17:30~18:00 自社にてミーティング\n18:30~20:30 新人歓迎会\n----------\n日付:2017/04/XX\n----内容---\nサンプルデータです\nサンプルデータその２");
 		return Arrays.asList(message);
 	}
