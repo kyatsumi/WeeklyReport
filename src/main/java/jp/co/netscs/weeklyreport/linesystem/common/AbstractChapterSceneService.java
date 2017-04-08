@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,13 +85,13 @@ public abstract class AbstractChapterSceneService {
 		
 		Method targetMethod = targetScene.get(0);
 		
-		UserEntity userInfo = userDao.findOne(lineInfo.getUserId()).orElse(new UserEntity());
+		Optional<UserEntity> userInfo = userDao.findOne(lineInfo.getUserId());
 		
 		AfterSceneResultDto sceneResult = null;
 		try {
 			//TODO 戻り値の型検査
 			if (targetMethod.getParameterCount() == 2) {
-				sceneResult = (AfterSceneResultDto) targetMethod.invoke(this, lineInfo, userInfo);
+				sceneResult = (AfterSceneResultDto) targetMethod.invoke(this, lineInfo, userInfo.orElse(new UserEntity()));
 			} else {
 				sceneResult = (AfterSceneResultDto) targetMethod.invoke(this, lineInfo);
 			}
@@ -121,12 +122,13 @@ public abstract class AbstractChapterSceneService {
 		
 		Method targetMethod = targetScene.get(0);
 		
-		UserEntity userInfo = userDao.findOne(lineInfo.getUserId()).orElse(new UserEntity());
+		Optional<UserEntity> userInfo = userDao.findOne(lineInfo.getUserId());
+		
 		List<Message> sceneResult = null;
 		try {
 			//TODO 戻り値の型検査
 			if (targetMethod.getParameterCount() == 2) {
-				sceneResult = (List<Message>) targetMethod.invoke(this, lineInfo, userInfo);
+				sceneResult = (List<Message>) targetMethod.invoke(this, lineInfo, userInfo.orElse(new UserEntity()));
 			} else {
 				sceneResult = (List<Message>) targetMethod.invoke(this, lineInfo);
 			}
