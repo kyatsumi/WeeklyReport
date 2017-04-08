@@ -84,7 +84,10 @@ public abstract class AbstractChapterSceneService {
 		
 		Method targetMethod = targetScene.get(0);
 		
-		UserEntity userInfo = userDao.getOne(lineInfo.getUserId());
+		UserEntity userInfo = new UserEntity();
+		if (userDao.exists(lineInfo.getUserId())) {
+			userInfo = userDao.getOne(lineInfo.getUserId());
+		}
 		
 		AfterSceneResultDto sceneResult = null;
 		try {
@@ -121,9 +124,10 @@ public abstract class AbstractChapterSceneService {
 		
 		Method targetMethod = targetScene.get(0);
 		
-		UserEntity userInfo = userDao.getOne(lineInfo.getUserId());
-		
-		System.out.println(userInfo);
+		UserEntity userInfo = new UserEntity();
+		if (userDao.exists(lineInfo.getUserId())) {
+			userInfo = userDao.getOne(lineInfo.getUserId());
+		}
 		
 		List<Message> sceneResult = null;
 		try {
