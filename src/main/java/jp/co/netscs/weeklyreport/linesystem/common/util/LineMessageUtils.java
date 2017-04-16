@@ -50,17 +50,13 @@ public final class LineMessageUtils {
                                 new PostbackAction(startDay.plusDays(1).toString(),
                     					startDay.plusDays(1).toString()),
                                 new PostbackAction(startDay.plusDays(2).toString(),
-                    					startDay.plusDays(2).toString()),
-                                new PostbackAction(startDay.plusDays(3).toString(),
-                    					startDay.plusDays(3).toString())
+                    					startDay.plusDays(2).toString())
                         )),
                         new CarouselColumn(null, null, "登録する日付を選んでください。", Arrays.asList(
+                                new PostbackAction(startDay.plusDays(3).toString(),
+                    					startDay.plusDays(3).toString()),
                                 new PostbackAction(startDay.plusDays(4).toString(),
                     					startDay.plusDays(4).toString()),
-                                new PostbackAction(startDay.plusDays(5).toString(),
-                    					startDay.plusDays(5).toString()),
-                                new PostbackAction(startDay.plusDays(6).toString(),
-                    					startDay.plusDays(6).toString()),
 			                     new PostbackAction("先週の日付を表示",
 			         								"先週の日付を表示")
                 		))
