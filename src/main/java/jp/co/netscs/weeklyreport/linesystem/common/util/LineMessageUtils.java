@@ -13,6 +13,8 @@ import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.message.template.ConfirmTemplate;
 
+import jp.co.netscs.weeklyreport.linesystem.common.entitis.DayReportEntity;
+
 /**
  * このクラスはLineに返却するメッセージの作成を行うユーティリテクラスです
  * @author SCS036
@@ -63,5 +65,9 @@ public final class LineMessageUtils {
 				));
 		
 		return new TemplateMessage("登録する日付を選んでください。", oneWeek);
+	}
+	
+	public static String generateDayReportMessage(DayReportEntity report) {
+		return "日付:" + report.getReportEntity().getDate() + "\n内容:" + report.getReport();
 	}
 }
