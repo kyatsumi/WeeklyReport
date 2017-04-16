@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.linecorp.bot.model.message.Message;
 
+import jp.co.netscs.weeklyreport.linesystem.common.annotation.Chapter;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.ResponseScene;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
 import jp.co.netscs.weeklyreport.linesystem.common.daos.UserDao;
@@ -45,33 +46,36 @@ public abstract class BaseChapterService {
 	}
 	
 	/**
-	 * 呼び出しメソッド
-	 * @param scene
+	 * 章の状態から実行するシーンを決定する
+	 * ただし以下の場合はユーザ登録が実行される
+	 * 
+	 * @param chapterInfo
 	 * @param lineInfo
 	 * @return
 	 */
-	public ChapterResultDto execute(LineChapterDto scene, LinePostInfoDto lineInfo) {
-		System.out.println("scene = " + scene + " lineInfo = " + lineInfo);
-		if (scene.getResponseScene().equals(LineBotConstant.CHAPTER_REGIST) || scene.getResponseScene().equals(LineBotConstant.UNKNOWN_SCENE)) {
-			return executeScene(scene.getScene(), lineInfo);
+	public ChapterResultDto execute(LineChapterDto chapterInfo, LinePostInfoDto lineInfo) {
+		System.out.println("chapterInfo = " + chapterInfo + " lineInfo = " + lineInfo);
+		
+		if (chapterInfo.getScene().equals(this.getStartSceneName()) || chapterInfo.getResponseScene().equals(LineBotConstant.CHAPTER_END)) {
+			return executeScene(chapterInfo.getScene(), lineInfo);
 		}
 		
-		ResponseSceneResultDto afterResult = executeSceneAfter(scene.getResponseScene(), lineInfo);
+		ResponseSceneResultDto afterResult = executeResponseScene(chapterInfo.getResponseScene(), lineInfo);
 		switch(afterResult.getResult()) {
 			case NEXT:
-				return executeScene(scene.getScene(), lineInfo);
+				return executeScene(chapterInfo.getScene(), lineInfo);
 			case LOOP:
-				return executeScene(scene.getResponseScene(), afterResult.getDummy());
+				return executeScene(chapterInfo.getResponseScene(), afterResult.getDummy());
 			default:
-				throw new WeeklyReportException("シーン処理結果で問題が発生しました");	
+				throw new WeeklyReportException("シーン処理結果に不正な値が入っています。");	
 		}
 	}
 	
-	private ResponseSceneResultDto executeSceneAfter(String afterScene, LinePostInfoDto lineInfo) {
+	private ResponseSceneResultDto executeResponseScene(String responseSceneName, LinePostInfoDto lineInfo) {
 		List<Method> targetScene = Arrays.asList(this.getClass().getDeclaredMethods())
 				.stream()
 				.filter(method -> method.isAnnotationPresent(ResponseScene.class))
-				.filter(method -> ((ResponseScene)method.getAnnotation(ResponseScene.class)).scene().equals(afterScene))
+				.filter(method -> ((ResponseScene)method.getAnnotation(ResponseScene.class)).scene().equals(responseSceneName))
 				.collect(Collectors.toList());
 		
 		if (targetScene.isEmpty()) {
@@ -79,7 +83,7 @@ public abstract class BaseChapterService {
 		}
 		
 		if (targetScene.size() > 1) {
-			throw new RuntimeException("アフターシーン名が重複して存在します : " + afterScene);
+			throw new RuntimeException("結果処理シーン名が重複して存在します : " + responseSceneName);
 		}
 		
 		Method targetMethod = targetScene.get(0);
@@ -107,11 +111,11 @@ public abstract class BaseChapterService {
 	
 
 	@SuppressWarnings("unchecked")
-	private ChapterResultDto executeScene(String scene, LinePostInfoDto lineInfo) {
+	private ChapterResultDto executeScene(String sceneName, LinePostInfoDto lineInfo) {
 		List<Method> targetScene = Arrays.asList(this.getClass().getDeclaredMethods())
 				.stream()
 				.filter(method -> method.isAnnotationPresent(Scene.class))
-				.filter(method -> ((Scene)method.getAnnotation(Scene.class)).name().equals(scene))
+				.filter(method -> ((Scene)method.getAnnotation(Scene.class)).name().equals(sceneName))
 				.collect(Collectors.toList());
 			
 		if (targetScene.isEmpty()) {
@@ -119,7 +123,7 @@ public abstract class BaseChapterService {
 		}
 		
 		if (targetScene.size() > 1) {
-			throw new RuntimeException("シーン名が重複したメソッドが存在します : " + scene);
+			throw new RuntimeException("シーン名が重複したメソッドが存在します : " + sceneName);
 		}
 		
 		Method targetMethod = targetScene.get(0);
@@ -142,13 +146,17 @@ public abstract class BaseChapterService {
 			throw new WeeklyReportException("シーンメソッドの呼び出しに失敗しました。");
 		}
 		
-		Scene sceneOption = targetMethod.getAnnotation(Scene.class);
-		String nextScene = sceneOption.next().equals(LineBotConstant.CHAPTER_END) ? 
-				LineBotConstant.CHAPTER_END : sceneOption.next();
-		String afterScene = nextScene.equals(LineBotConstant.CHAPTER_END) ?
-				LineBotConstant.UNKNOWN_SCENE : scene;
+		Scene sceneMetaData = targetMethod.getAnnotation(Scene.class);
+		String nextSceneName = sceneMetaData.next();
+		String responseSceneName = nextSceneName.equals(LineBotConstant.CHAPTER_END) ?
+				LineBotConstant.CHAPTER_END : sceneName;
 		
-		return ChapterResultDto.builder().responseScene(afterScene).nextScene(nextScene).messages(sceneResult).build();
+		return ChapterResultDto.builder().responseScene(responseSceneName).nextScene(nextSceneName).messages(sceneResult).build();
+	}
+	
+	
+	private final String getStartSceneName() {
+		return this.getClass().getDeclaredAnnotation(Chapter.class).startScene();
 	}
 	
 	/**
