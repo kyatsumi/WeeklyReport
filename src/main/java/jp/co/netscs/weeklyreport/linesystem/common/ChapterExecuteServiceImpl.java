@@ -38,19 +38,19 @@ public class ChapterExecuteServiceImpl implements ChapterExecuteService {
 	ChapterManager manager;
 	
 	/**
-	 * 
+	 * 章の進行状況を判定して実行する章を決める
 	 */
 	@Transactional
 	@Override
 	public List<Message> execute(LinePostInfoDto lineInfo) {
 		LineChapterDto chapter = chapterService.fetchUserChapter(lineInfo);
+		
 		if (chapter.getScene().equals(LineBotConstant.CHAPTER_END)) {
 			return Arrays.asList(new TextMessage("チェックから操作を選択してください。"));
 		}
-		BaseChapterService target = manager.targetSection(chapter.getChapter());
+		
+		BaseChapterService target = manager.targetChapter(chapter.getChapter());
 		ChapterResultDto result = target.execute(chapter, lineInfo);
-		
-		
 		
 		LineSceneEntity nextScene = LineSceneEntity.builder()
 				.lineId(lineInfo.getUserId())

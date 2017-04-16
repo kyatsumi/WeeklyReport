@@ -16,7 +16,7 @@ public class ChapterManagerImpl implements ChapterManager {
 	private List<BaseChapterService> chapterList = new ArrayList<>();
 
 	@Override
-	public BaseChapterService targetSection(String targetChapter) {
+	public BaseChapterService targetChapter(String targetChapter) {
 		BaseChapterService service = chapterList.stream()
 			.filter(section -> section.getClass().getDeclaredAnnotation(Chapter.class).name().equals(targetChapter))
 			.findAny()

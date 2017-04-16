@@ -4,7 +4,7 @@ import jp.co.netscs.weeklyreport.linesystem.common.dtos.LineChapterDto;
 
 public interface ChapterManager {
 	
-	public BaseChapterService targetSection(String section);
+	public BaseChapterService targetChapter(String chapterName);
 	
 	public void registSection(BaseChapterService target);
 	
