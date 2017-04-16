@@ -18,9 +18,8 @@ import java.lang.annotation.Target;
 public @interface ResponseScene {
 
 	/**
-	 * 
-	 * @return
+	 * targetの表示後ユーザから返答があった場合に呼び出される。
 	 */
-	String scene();
+	String target();
 	
 }

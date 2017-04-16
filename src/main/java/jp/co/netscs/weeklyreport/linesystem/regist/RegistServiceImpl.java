@@ -43,7 +43,7 @@ public class RegistServiceImpl extends RegistService {
 	}
 	
 	@Override
-	@ResponseScene(scene = LineBotConstant.REGIST_SCENE_START)
+	@ResponseScene(target = LineBotConstant.REGIST_SCENE_START)
 	public ResponseSceneResultDto startAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		userInfo.setAdmin(lineInfo.getText().equals("はい"));
 		userDao.save(userInfo);
@@ -58,7 +58,7 @@ public class RegistServiceImpl extends RegistService {
 	}
 	
 	@Override
-	@ResponseScene(scene = LineBotConstant.REGIST_SCENE_GROUPSELECT)
+	@ResponseScene(target = LineBotConstant.REGIST_SCENE_GROUPSELECT)
 	public ResponseSceneResultDto groupSelectAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		userInfo.setGroup(lineInfo.getText());
 		userDao.save(userInfo);
@@ -72,7 +72,7 @@ public class RegistServiceImpl extends RegistService {
 	}
 	
 	@Override
-	@ResponseScene(scene = LineBotConstant.REGIST_SCENE_INPUTNAME)
+	@ResponseScene(target = LineBotConstant.REGIST_SCENE_INPUTNAME)
 	public ResponseSceneResultDto inputNameAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		userInfo.setName(lineInfo.getText());
 		userDao.save(userInfo);
@@ -87,7 +87,7 @@ public class RegistServiceImpl extends RegistService {
 	}
 	
 	@Override
-	@ResponseScene(scene = LineBotConstant.REGIST_SCENE_CONFIRMREGIST)
+	@ResponseScene(target = LineBotConstant.REGIST_SCENE_CONFIRMREGIST)
 	public ResponseSceneResultDto confrimRegistAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		return AFTER_RESULT_NEXT;
 	}

@@ -37,7 +37,7 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 	}
 	
 	@Override
-	@ResponseScene(scene = LineBotConstant.REPORT_SCENE_DATE)
+	@ResponseScene(target = LineBotConstant.REPORT_SCENE_DATE)
 	public ResponseSceneResultDto selectDateAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		if (lineInfo.getText().equals("先週の日付を表示")) {
 			return ResponseSceneResultDto.builder().dummy(lineInfo).result(ResponseResult.LOOP).build();
@@ -52,7 +52,7 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 	}
 	
 	@Override
-	@ResponseScene(scene = LineBotConstant.REPORT_SCENE_INPUTREPORT)
+	@ResponseScene(target = LineBotConstant.REPORT_SCENE_INPUTREPORT)
 	public ResponseSceneResultDto inputReportAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		return AFTER_RESULT_NEXT;
 	}
