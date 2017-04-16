@@ -1,6 +1,6 @@
 package jp.co.netscs.weeklyreport.linesystem.common.dtos;
 
-import jp.co.netscs.weeklyreport.linesystem.common.AbstractChapterSceneService;
+import jp.co.netscs.weeklyreport.linesystem.common.BaseChapterService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public class ResponseSceneResultDto {
 	/**
 	 * シーン実行後の処理結果
 	 */
-	private AbstractChapterSceneService.ResponseResult result;
+	private BaseChapterService.ResponseResult result;
 	
 	/**
 	 * 処理結果がLOOPの場合に使用するLineからのダミー情報を指定できる

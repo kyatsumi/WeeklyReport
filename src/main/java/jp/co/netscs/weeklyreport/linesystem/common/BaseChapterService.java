@@ -23,21 +23,21 @@ import jp.co.netscs.weeklyreport.linesystem.common.exception.WeeklyReportExcepti
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 
 /**
- * このクラスを継承して一つのチャプター（Chapter)を作ることができる
+ * このクラスを継承して一つのチャプター（章)を作ることができる
  * このクラスに作ったメソッドに{@code @Sccene}を付与することでシーンとして扱うことができる
  * 
  * @author SCS036
  *
  */
 @Transactional
-public abstract class AbstractChapterSceneService {
+public abstract class BaseChapterService {
 	
 	protected static final ResponseSceneResultDto AFTER_RESULT_NEXT = new ResponseSceneResultDto(ResponseResult.NEXT, null);
 	
 	@Autowired
 	UserDao userDao;
 	
-	protected AbstractChapterSceneService(ChapterManager manager) {
+	protected BaseChapterService(ChapterManager manager) {
 		if (manager == null) {
 			throw new NullPointerException("マネージャーがnull");
 		}

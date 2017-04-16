@@ -4,9 +4,9 @@ import jp.co.netscs.weeklyreport.linesystem.common.dtos.LineChapterDto;
 
 public interface ChapterManager {
 	
-	public AbstractChapterSceneService targetSection(String section);
+	public BaseChapterService targetSection(String section);
 	
-	public void registSection(AbstractChapterSceneService target);
+	public void registSection(BaseChapterService target);
 	
 	public LineChapterDto keywordMatchCapchar(String keyword);
 

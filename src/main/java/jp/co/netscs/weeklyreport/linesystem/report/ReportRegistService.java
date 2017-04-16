@@ -4,13 +4,13 @@ import java.util.List;
 
 import com.linecorp.bot.model.message.Message;
 
-import jp.co.netscs.weeklyreport.linesystem.common.AbstractChapterSceneService;
+import jp.co.netscs.weeklyreport.linesystem.common.BaseChapterService;
 import jp.co.netscs.weeklyreport.linesystem.common.ChapterManager;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.ResponseSceneResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
 
-public abstract class ReportRegistService extends AbstractChapterSceneService {
+public abstract class ReportRegistService extends BaseChapterService {
 
 	protected ReportRegistService(ChapterManager manager) {
 		super(manager);

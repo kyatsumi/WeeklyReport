@@ -47,7 +47,7 @@ public class WeeklyReportSceneExecuteServiceImpl implements WeeklyReportSceneExe
 		if (chapter.getScene().equals(LineBotConstant.CHAPTER_END)) {
 			return Arrays.asList(new TextMessage("チェックから操作を選択してください。"));
 		}
-		AbstractChapterSceneService target = manager.targetSection(chapter.getChapter());
+		BaseChapterService target = manager.targetSection(chapter.getChapter());
 		ChapterResultDto result = target.execute(chapter, lineInfo);
 		
 		

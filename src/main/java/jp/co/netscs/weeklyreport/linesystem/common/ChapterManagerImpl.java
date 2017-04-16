@@ -13,11 +13,11 @@ import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 @Component
 public class ChapterManagerImpl implements ChapterManager {
 	
-	private List<AbstractChapterSceneService> chapterList = new ArrayList<>();
+	private List<BaseChapterService> chapterList = new ArrayList<>();
 
 	@Override
-	public AbstractChapterSceneService targetSection(String targetChapter) {
-		AbstractChapterSceneService service = chapterList.stream()
+	public BaseChapterService targetSection(String targetChapter) {
+		BaseChapterService service = chapterList.stream()
 			.filter(section -> section.getClass().getDeclaredAnnotation(Chapter.class).name().equals(targetChapter))
 			.findAny()
 			.orElseThrow( () -> new WalkingException("対象のChapterが存在しません。 " + targetChapter));
@@ -25,7 +25,7 @@ public class ChapterManagerImpl implements ChapterManager {
 	}
 
 	@Override
-	public void registSection(AbstractChapterSceneService target) {
+	public void registSection(BaseChapterService target) {
 		
 		Chapter targetAnno = target.getClass().getAnnotation(Chapter.class);
 		
