@@ -25,7 +25,7 @@ import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
  */
 
 @Service
-public class WeeklyReportSceneExecuteServiceImpl implements WeeklyReportSceneExecuteService {
+public class ChapterExecuteServiceImpl implements ChapterExecuteService {
 
 
 	@Autowired

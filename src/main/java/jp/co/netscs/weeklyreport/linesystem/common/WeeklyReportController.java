@@ -44,7 +44,7 @@ public final class WeeklyReportController {
 	private LineMessagingClient lineMessagingClient;
 	
 	@Autowired
-	private WeeklyReportSceneExecuteService messageService;
+	private ChapterExecuteService messageService;
 
 	/**
 	 * テキストメッセージが入力された時に発生するイベント

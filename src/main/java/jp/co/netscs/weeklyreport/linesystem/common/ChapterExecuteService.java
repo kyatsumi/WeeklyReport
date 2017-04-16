@@ -18,7 +18,7 @@ import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
  * @author SCS036
  *
  */
-public interface WeeklyReportSceneExecuteService {
+public interface ChapterExecuteService {
 	
 	/**
 	 * セクション情報にあったサービスを呼び出し返却用メッセージを生成する
