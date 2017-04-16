@@ -43,6 +43,8 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 		if (lineInfo.getText().equals("先週の日付を表示")) {
 			return ResponseSceneResultDto.builder().dummy(lineInfo).result(ResponseResult.LOOP).build();
 		}
+		
+		
 		return AFTER_RESULT_NEXT;
 	}
 

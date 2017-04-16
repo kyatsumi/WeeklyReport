@@ -3,9 +3,8 @@ package jp.co.netscs.weeklyreport.linesystem.common.entitis;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,11 +14,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/**
- * 日報テーブルのマッピングクラス
- * @author katumi
- *
- */
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,29 +22,23 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Builder
-@Table(name="DayReport")
-public class DayReportEntity implements Serializable {
-	
+@Embeddable
+public class ReportEntity implements Serializable{
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5816435950322651953L;
 
 	/**
 	 * Line Messageing APIのユーザID
 	 */
-	@EmbeddedId
-	private ReportEntity reportEntity;
+	@Column(length=33, nullable = false)
+	private String lineId;
 	
 	/**
-	 * 内容
+	 * 登録日付
 	 */
 	@Column(nullable = false)
-	private String report;
-	
-	/**
-	 * 管理者コメント
-	 */
-	@Column(nullable = true)
-	private String adminComment;
+	private String date;
 }
