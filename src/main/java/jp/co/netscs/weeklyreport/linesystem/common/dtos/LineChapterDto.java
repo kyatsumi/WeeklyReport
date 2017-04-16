@@ -31,6 +31,6 @@ public class LineChapterDto {
 	/**
 	 * 前機能の状態を格納
 	 */
-	private String sceneAfter;
+	private String responseScene;
 	
 }

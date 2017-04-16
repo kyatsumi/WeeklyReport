@@ -11,10 +11,10 @@ import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
 
 import jp.co.netscs.weeklyreport.linesystem.common.ChapterManager;
-import jp.co.netscs.weeklyreport.linesystem.common.annotation.AfterScene;
+import jp.co.netscs.weeklyreport.linesystem.common.annotation.ResponseScene;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Chapter;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
-import jp.co.netscs.weeklyreport.linesystem.common.dtos.AfterSceneResultDto;
+import jp.co.netscs.weeklyreport.linesystem.common.dtos.ResponseSceneResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
@@ -37,10 +37,10 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 	}
 	
 	@Override
-	@AfterScene(after = LineBotConstant.REPORT_SCENE_DATE)
-	public AfterSceneResultDto selectDateAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
+	@ResponseScene(scene = LineBotConstant.REPORT_SCENE_DATE)
+	public ResponseSceneResultDto selectDateAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		if (lineInfo.getText().equals("先週の日付を表示")) {
-			return AfterSceneResultDto.builder().dummy(lineInfo).result(AfterResult.LOOP).build();
+			return ResponseSceneResultDto.builder().dummy(lineInfo).result(ResponseResult.LOOP).build();
 		}
 		return AFTER_RESULT_NEXT;
 	}
@@ -52,8 +52,8 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 	}
 	
 	@Override
-	@AfterScene(after = LineBotConstant.REPORT_SCENE_INPUTREPORT)
-	public AfterSceneResultDto inputReportAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
+	@ResponseScene(scene = LineBotConstant.REPORT_SCENE_INPUTREPORT)
+	public ResponseSceneResultDto inputReportAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		return AFTER_RESULT_NEXT;
 	}
 
@@ -65,7 +65,7 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 	}
 	
 	@Override
-	public AfterSceneResultDto confrimReportAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
+	public ResponseSceneResultDto confrimReportAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		return AFTER_RESULT_NEXT;
 	}
 

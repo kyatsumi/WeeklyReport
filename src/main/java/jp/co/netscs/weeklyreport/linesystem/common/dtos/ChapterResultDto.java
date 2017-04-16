@@ -20,7 +20,7 @@ public class ChapterResultDto {
 	/**
 	 * 今回実行したシーン
 	 */
-	private String afterScene;
+	private String responseScene;
 	
 	
 	/**

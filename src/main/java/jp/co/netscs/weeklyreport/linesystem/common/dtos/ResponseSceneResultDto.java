@@ -10,12 +10,12 @@ import lombok.Setter;
 @Builder
 @Setter
 @Getter
-public class AfterSceneResultDto {
+public class ResponseSceneResultDto {
 	
 	/**
 	 * シーン実行後の処理結果
 	 */
-	private AbstractChapterSceneService.AfterResult result;
+	private AbstractChapterSceneService.ResponseResult result;
 	
 	/**
 	 * 処理結果がLOOPの場合に使用するLineからのダミー情報を指定できる

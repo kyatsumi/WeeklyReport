@@ -11,11 +11,11 @@ import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
 
 import jp.co.netscs.weeklyreport.linesystem.common.ChapterManager;
-import jp.co.netscs.weeklyreport.linesystem.common.annotation.AfterScene;
+import jp.co.netscs.weeklyreport.linesystem.common.annotation.ResponseScene;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Chapter;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
 import jp.co.netscs.weeklyreport.linesystem.common.daos.UserDao;
-import jp.co.netscs.weeklyreport.linesystem.common.dtos.AfterSceneResultDto;
+import jp.co.netscs.weeklyreport.linesystem.common.dtos.ResponseSceneResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
@@ -43,8 +43,8 @@ public class RegistServiceImpl extends RegistService {
 	}
 	
 	@Override
-	@AfterScene(after = LineBotConstant.REGIST_SCENE_START)
-	public AfterSceneResultDto startAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
+	@ResponseScene(scene = LineBotConstant.REGIST_SCENE_START)
+	public ResponseSceneResultDto startAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		userInfo.setAdmin(lineInfo.getText().equals("はい"));
 		userDao.save(userInfo);
 		return AFTER_RESULT_NEXT;
@@ -58,8 +58,8 @@ public class RegistServiceImpl extends RegistService {
 	}
 	
 	@Override
-	@AfterScene(after = LineBotConstant.REGIST_SCENE_GROUPSELECT)
-	public AfterSceneResultDto groupSelectAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
+	@ResponseScene(scene = LineBotConstant.REGIST_SCENE_GROUPSELECT)
+	public ResponseSceneResultDto groupSelectAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		userInfo.setGroup(lineInfo.getText());
 		userDao.save(userInfo);
 		return AFTER_RESULT_NEXT;
@@ -72,8 +72,8 @@ public class RegistServiceImpl extends RegistService {
 	}
 	
 	@Override
-	@AfterScene(after = LineBotConstant.REGIST_SCENE_INPUTNAME)
-	public AfterSceneResultDto inputNameAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
+	@ResponseScene(scene = LineBotConstant.REGIST_SCENE_INPUTNAME)
+	public ResponseSceneResultDto inputNameAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		userInfo.setName(lineInfo.getText());
 		userDao.save(userInfo);
 		return AFTER_RESULT_NEXT;
@@ -87,8 +87,8 @@ public class RegistServiceImpl extends RegistService {
 	}
 	
 	@Override
-	@AfterScene(after = LineBotConstant.REGIST_SCENE_CONFIRMREGIST)
-	public AfterSceneResultDto confrimRegistAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
+	@ResponseScene(scene = LineBotConstant.REGIST_SCENE_CONFIRMREGIST)
+	public ResponseSceneResultDto confrimRegistAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		return AFTER_RESULT_NEXT;
 	}
 

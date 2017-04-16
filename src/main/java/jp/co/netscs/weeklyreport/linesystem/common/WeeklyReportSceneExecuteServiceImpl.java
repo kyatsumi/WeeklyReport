@@ -57,7 +57,7 @@ public class WeeklyReportSceneExecuteServiceImpl implements WeeklyReportSceneExe
 				.periodTime(DateUtils.generatePeriodTime())
 				.chapter(chapter.getChapter())
 				.scene(result.getNextScene())
-				.afterScene(result.getAfterScene())
+				.responseScene(result.getResponseScene())
 				.build();
 		
 		lineSeceneDao.save(nextScene);

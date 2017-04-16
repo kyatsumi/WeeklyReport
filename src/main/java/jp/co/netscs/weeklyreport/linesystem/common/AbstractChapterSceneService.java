@@ -11,10 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.linecorp.bot.model.message.Message;
 
-import jp.co.netscs.weeklyreport.linesystem.common.annotation.AfterScene;
+import jp.co.netscs.weeklyreport.linesystem.common.annotation.ResponseScene;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
 import jp.co.netscs.weeklyreport.linesystem.common.daos.UserDao;
-import jp.co.netscs.weeklyreport.linesystem.common.dtos.AfterSceneResultDto;
+import jp.co.netscs.weeklyreport.linesystem.common.dtos.ResponseSceneResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.ChapterResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LineChapterDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
@@ -32,7 +32,7 @@ import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 @Transactional
 public abstract class AbstractChapterSceneService {
 	
-	protected static final AfterSceneResultDto AFTER_RESULT_NEXT = new AfterSceneResultDto(AfterResult.NEXT, null);
+	protected static final ResponseSceneResultDto AFTER_RESULT_NEXT = new ResponseSceneResultDto(ResponseResult.NEXT, null);
 	
 	@Autowired
 	UserDao userDao;
@@ -52,26 +52,26 @@ public abstract class AbstractChapterSceneService {
 	 */
 	public ChapterResultDto execute(LineChapterDto scene, LinePostInfoDto lineInfo) {
 		System.out.println("scene = " + scene + " lineInfo = " + lineInfo);
-		if (scene.getSceneAfter().equals(LineBotConstant.CHAPTER_REGIST) || scene.getSceneAfter().equals(LineBotConstant.UNKNOWN_SCENE)) {
+		if (scene.getResponseScene().equals(LineBotConstant.CHAPTER_REGIST) || scene.getResponseScene().equals(LineBotConstant.UNKNOWN_SCENE)) {
 			return executeScene(scene.getScene(), lineInfo);
 		}
 		
-		AfterSceneResultDto afterResult = executeSceneAfter(scene.getSceneAfter(), lineInfo);
+		ResponseSceneResultDto afterResult = executeSceneAfter(scene.getResponseScene(), lineInfo);
 		switch(afterResult.getResult()) {
 			case NEXT:
 				return executeScene(scene.getScene(), lineInfo);
 			case LOOP:
-				return executeScene(scene.getSceneAfter(), afterResult.getDummy());
+				return executeScene(scene.getResponseScene(), afterResult.getDummy());
 			default:
 				throw new WeeklyReportException("シーン処理結果で問題が発生しました");	
 		}
 	}
 	
-	private AfterSceneResultDto executeSceneAfter(String afterScene, LinePostInfoDto lineInfo) {
+	private ResponseSceneResultDto executeSceneAfter(String afterScene, LinePostInfoDto lineInfo) {
 		List<Method> targetScene = Arrays.asList(this.getClass().getDeclaredMethods())
 				.stream()
-				.filter(method -> method.isAnnotationPresent(AfterScene.class))
-				.filter(method -> ((AfterScene)method.getAnnotation(AfterScene.class)).after().equals(afterScene))
+				.filter(method -> method.isAnnotationPresent(ResponseScene.class))
+				.filter(method -> ((ResponseScene)method.getAnnotation(ResponseScene.class)).scene().equals(afterScene))
 				.collect(Collectors.toList());
 		
 		if (targetScene.isEmpty()) {
@@ -89,13 +89,13 @@ public abstract class AbstractChapterSceneService {
 			userInfo = userDao.getOne(lineInfo.getUserId());
 		}
 		
-		AfterSceneResultDto sceneResult = null;
+		ResponseSceneResultDto sceneResult = null;
 		try {
 			//TODO 戻り値の型検査
 			if (targetMethod.getParameterCount() == 2) {
-				sceneResult = (AfterSceneResultDto) targetMethod.invoke(this, lineInfo, userInfo);
+				sceneResult = (ResponseSceneResultDto) targetMethod.invoke(this, lineInfo, userInfo);
 			} else {
-				sceneResult = (AfterSceneResultDto) targetMethod.invoke(this, lineInfo);
+				sceneResult = (ResponseSceneResultDto) targetMethod.invoke(this, lineInfo);
 			}
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			System.out.println(e.getMessage());
@@ -148,7 +148,7 @@ public abstract class AbstractChapterSceneService {
 		String afterScene = nextScene.equals(LineBotConstant.CHAPTER_END) ?
 				LineBotConstant.UNKNOWN_SCENE : scene;
 		
-		return ChapterResultDto.builder().afterScene(afterScene).nextScene(nextScene).messages(sceneResult).build();
+		return ChapterResultDto.builder().responseScene(afterScene).nextScene(nextScene).messages(sceneResult).build();
 	}
 	
 	/**
@@ -156,7 +156,7 @@ public abstract class AbstractChapterSceneService {
 	 * @author katumi
 	 *
 	 */
-	public enum AfterResult {
+	public enum ResponseResult {
 		/**
 		 * 次のシーンへ進む
 		 */

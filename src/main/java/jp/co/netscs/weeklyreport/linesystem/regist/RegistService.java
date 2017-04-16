@@ -6,7 +6,7 @@ import com.linecorp.bot.model.message.Message;
 
 import jp.co.netscs.weeklyreport.linesystem.common.AbstractChapterSceneService;
 import jp.co.netscs.weeklyreport.linesystem.common.ChapterManager;
-import jp.co.netscs.weeklyreport.linesystem.common.dtos.AfterSceneResultDto;
+import jp.co.netscs.weeklyreport.linesystem.common.dtos.ResponseSceneResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
 
@@ -28,7 +28,7 @@ public abstract class RegistService extends AbstractChapterSceneService{
 	 * @param lineInfo
 	 * @return
 	 */
-	protected abstract AfterSceneResultDto startAfter(LinePostInfoDto lineInfo, UserEntity userInfo);
+	protected abstract ResponseSceneResultDto startAfter(LinePostInfoDto lineInfo, UserEntity userInfo);
 	
 	/**
 	 * グループ選択メソッド
@@ -42,7 +42,7 @@ public abstract class RegistService extends AbstractChapterSceneService{
 	 * @param lineInfo
 	 * @return
 	 */
-	protected abstract AfterSceneResultDto groupSelectAfter(LinePostInfoDto lineInfo, UserEntity userInfo);
+	protected abstract ResponseSceneResultDto groupSelectAfter(LinePostInfoDto lineInfo, UserEntity userInfo);
 	
 	/**
 	 * ユーザ名入力メソッド
@@ -56,7 +56,7 @@ public abstract class RegistService extends AbstractChapterSceneService{
 	 * @param lineInfo
 	 * @return
 	 */
-	protected abstract AfterSceneResultDto inputNameAfter(LinePostInfoDto lineInfo, UserEntity userInfo);
+	protected abstract ResponseSceneResultDto inputNameAfter(LinePostInfoDto lineInfo, UserEntity userInfo);
 	
 	/**
 	 * ユーザ入力内容確認メソッド
@@ -70,7 +70,7 @@ public abstract class RegistService extends AbstractChapterSceneService{
 	 * @param lineInfo
 	 * @return
 	 */
-	protected abstract AfterSceneResultDto confrimRegistAfter(LinePostInfoDto lineInfo, UserEntity userInfo);
+	protected abstract ResponseSceneResultDto confrimRegistAfter(LinePostInfoDto lineInfo, UserEntity userInfo);
 	
 	/**
 	 * ユーザ登録完了メソッド

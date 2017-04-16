@@ -34,7 +34,7 @@ public class WeeklyReportChapterServiceImpl implements WeeklyReportChapterServic
 		LineChapterDtoBuilder result = LineChapterDto.builder();
 		
 		if (!userDao.exists(lineInfo.getUserId())) {
-			return result.chapter(LineBotConstant.CHAPTER_REGIST).scene(LineBotConstant.REGIST_SCENE_START).sceneAfter(LineBotConstant.CHAPTER_REGIST).build();
+			return result.chapter(LineBotConstant.CHAPTER_REGIST).scene(LineBotConstant.REGIST_SCENE_START).responseScene(LineBotConstant.CHAPTER_REGIST).build();
 		}
 		
 		LineChapterDto keyword = manager.keywordMatchCapchar(lineInfo.getText());
@@ -43,7 +43,7 @@ public class WeeklyReportChapterServiceImpl implements WeeklyReportChapterServic
 		}
 		
 		LineSceneEntity chapterInfo =  lineSceneDao.getOne(lineInfo.getUserId());
-		result.scene(chapterInfo.getScene()).chapter(chapterInfo.getChapter()).sceneAfter(chapterInfo.getAfterScene());
+		result.scene(chapterInfo.getScene()).chapter(chapterInfo.getChapter()).responseScene(chapterInfo.getResponseScene());
 		return result.build();
 	}
 
