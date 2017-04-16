@@ -32,7 +32,8 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 	@Override
 	@Scene(sceneName = LineBotConstant.REPORT_SCENE_DATE, next = LineBotConstant.REPORT_SCENE_INPUTREPORT)
 	public List<Message> selectDate(LinePostInfoDto lineInfo, UserEntity userInfo) {
-		Message oneWeek = LineMessageUtils.generateOneWeekCarousel(LocalDate.now(), 0);
+		int offset = lineInfo.getText().equals("先週の日付を表示") ? 7 : 0;
+		Message oneWeek = LineMessageUtils.generateOneWeekCarousel(LocalDate.now(), offset);
 		return Arrays.asList(oneWeek);
 	}
 	

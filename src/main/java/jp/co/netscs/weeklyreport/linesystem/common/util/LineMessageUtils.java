@@ -1,6 +1,8 @@
 package jp.co.netscs.weeklyreport.linesystem.common.util;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Arrays;
 
 import com.linecorp.bot.model.action.MessageAction;
@@ -39,21 +41,26 @@ public final class LineMessageUtils {
 	}
 	
 	public static Message generateOneWeekCarousel(LocalDate date, int offset) {
+		LocalDate startDay = date.minusDays(offset).with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
 		CarouselTemplate oneWeek = new CarouselTemplate(
 				Arrays.asList(
                         new CarouselColumn(null, null, "登録する日付を選んでください。", Arrays.asList(
-                                new PostbackAction("2017/04/08",
-                                                   "2017/04/08"),
-                                new PostbackAction("2017/04/09",
-                                					"2017/04/09"),
-                                new PostbackAction("2017/04/10",
-                    								"2017/04/10")
+                                new PostbackAction(startDay.toString(),
+                    					startDay.toString()),
+                                new PostbackAction(startDay.plusDays(1).toString(),
+                    					startDay.plusDays(1).toString()),
+                                new PostbackAction(startDay.plusDays(2).toString(),
+                    					startDay.plusDays(2).toString()),
+                                new PostbackAction(startDay.plusDays(3).toString(),
+                    					startDay.plusDays(3).toString())
                         )),
                         new CarouselColumn(null, null, "登録する日付を選んでください。", Arrays.asList(
-                        		 new PostbackAction("2017/04/11",
-                        							"2017/04/11"),
-			                     new PostbackAction("2017/04/12",
-			                     					"2017/04/12"),
+                                new PostbackAction(startDay.plusDays(4).toString(),
+                    					startDay.plusDays(4).toString()),
+                                new PostbackAction(startDay.plusDays(5).toString(),
+                    					startDay.plusDays(5).toString()),
+                                new PostbackAction(startDay.plusDays(6).toString(),
+                    					startDay.plusDays(6).toString()),
 			                     new PostbackAction("先週の日付を表示",
 			         								"先週の日付を表示")
                 		))
