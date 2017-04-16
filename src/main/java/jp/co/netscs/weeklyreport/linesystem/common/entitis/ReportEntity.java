@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
