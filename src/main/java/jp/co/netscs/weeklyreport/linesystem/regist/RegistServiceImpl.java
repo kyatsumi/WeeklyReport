@@ -33,7 +33,7 @@ public class RegistServiceImpl extends RegistService {
 	}
 
 	@Override
-	@Scene(name = LineBotConstant.REGIST_SCENE_START, next = LineBotConstant.REGIST_SCENE_GROUPSELECT)
+	@Scene(sceneName = LineBotConstant.REGIST_SCENE_START, next = LineBotConstant.REGIST_SCENE_GROUPSELECT)
 	public List<Message> start(LinePostInfoDto lineInfo) {
 		UserEntity userInfo = UserEntity.builder().admin(false).group(null).lineId(lineInfo.getUserId()).name(null).build();
 		userDao.save(userInfo);
@@ -51,7 +51,7 @@ public class RegistServiceImpl extends RegistService {
 	}
 
 	@Override
-	@Scene(name = LineBotConstant.REGIST_SCENE_GROUPSELECT, next = LineBotConstant.REGIST_SCENE_INPUTNAME)
+	@Scene(sceneName = LineBotConstant.REGIST_SCENE_GROUPSELECT, next = LineBotConstant.REGIST_SCENE_INPUTNAME)
 	public List<Message> groupSelect(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		Message message = LineMessageUtils.generateConfirm("グループ選択", "所属グループを選択してください。", LineBotConstant.SCS_GROUP1, LineBotConstant.SCS_GROUP2);
 		return Arrays.asList(message);
@@ -66,7 +66,7 @@ public class RegistServiceImpl extends RegistService {
 	}
 
 	@Override
-	@Scene(name = LineBotConstant.REGIST_SCENE_INPUTNAME, next = LineBotConstant.REGIST_SCENE_CONFIRMREGIST)
+	@Scene(sceneName = LineBotConstant.REGIST_SCENE_INPUTNAME, next = LineBotConstant.REGIST_SCENE_CONFIRMREGIST)
 	public List<Message> inputName(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		return Arrays.asList(new TextMessage("名前を入力してください。"));
 	}
@@ -80,7 +80,7 @@ public class RegistServiceImpl extends RegistService {
 	}
 
 	@Override
-	@Scene(name = LineBotConstant.REGIST_SCENE_CONFIRMREGIST, next = LineBotConstant.REGIST_SCENE_REGISTCOMP)
+	@Scene(sceneName = LineBotConstant.REGIST_SCENE_CONFIRMREGIST, next = LineBotConstant.REGIST_SCENE_REGISTCOMP)
 	public List<Message> confrimRegist(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		Message message = LineMessageUtils.generateConfirm("登録内容確認", "ユーザ名:" + userInfo.getName() + "\nグループ:" + userInfo.getGroup() + "\n管理者権限:" + (userInfo.getAdmin() ? "あり":"なし") , "登録", "キャンセル");
 		return Arrays.asList(message);
@@ -93,7 +93,7 @@ public class RegistServiceImpl extends RegistService {
 	}
 
 	@Override
-	@Scene(name = LineBotConstant.REGIST_SCENE_REGISTCOMP)
+	@Scene(sceneName = LineBotConstant.REGIST_SCENE_REGISTCOMP)
 	public List<Message> registComplite(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		TextMessage text = null;
 		if (lineInfo.getText().equals("登録")) {

@@ -28,12 +28,12 @@ import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Scene {
 	/**
-	 * 呼び出される場面名を登録する
+	 * メソッドのシーン名を設定する。
 	 */
-	String name();
+	String sceneName();
 	
 	/**
-	 * 次に実行するシーンを決定する
+	 * 次に実行するシーン名を設定する。
 	 * 初期値は{@code LineBotConstant.CHAPTER_END}
 	 */
 	String next() default LineBotConstant.CHAPTER_END;

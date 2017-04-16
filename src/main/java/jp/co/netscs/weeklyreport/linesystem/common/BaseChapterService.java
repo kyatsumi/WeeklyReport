@@ -115,7 +115,7 @@ public abstract class BaseChapterService {
 		List<Method> targetScene = Arrays.asList(this.getClass().getDeclaredMethods())
 				.stream()
 				.filter(method -> method.isAnnotationPresent(Scene.class))
-				.filter(method -> ((Scene)method.getAnnotation(Scene.class)).name().equals(sceneName))
+				.filter(method -> ((Scene)method.getAnnotation(Scene.class)).sceneName().equals(sceneName))
 				.collect(Collectors.toList());
 			
 		if (targetScene.isEmpty()) {

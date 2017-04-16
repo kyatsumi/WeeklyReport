@@ -30,7 +30,7 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 
 	
 	@Override
-	@Scene(name = LineBotConstant.REPORT_SCENE_DATE, next = LineBotConstant.REPORT_SCENE_INPUTREPORT)
+	@Scene(sceneName = LineBotConstant.REPORT_SCENE_DATE, next = LineBotConstant.REPORT_SCENE_INPUTREPORT)
 	public List<Message> selectDate(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		Message oneWeek = LineMessageUtils.generateOneWeekCarousel(LocalDate.now(), 0);
 		return Arrays.asList(oneWeek);
@@ -46,7 +46,7 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 	}
 
 	@Override
-	@Scene(name = LineBotConstant.REPORT_SCENE_INPUTREPORT, next = LineBotConstant.REPORT_SCENE_CONFIRMREGIST)
+	@Scene(sceneName = LineBotConstant.REPORT_SCENE_INPUTREPORT, next = LineBotConstant.REPORT_SCENE_CONFIRMREGIST)
 	public List<Message> inputReport(LinePostInfoDto lineInfo) {
 		return Arrays.asList(new TextMessage("内容を入力してください。"));
 	}
@@ -58,7 +58,7 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 	}
 
 	@Override
-	@Scene(name = LineBotConstant.REPORT_SCENE_CONFIRMREGIST, next = LineBotConstant.REPORT_SCENE_REGISTCOMP)
+	@Scene(sceneName = LineBotConstant.REPORT_SCENE_CONFIRMREGIST, next = LineBotConstant.REPORT_SCENE_REGISTCOMP)
 	public List<Message> confrimReport(LinePostInfoDto lineInfo) {
 		Message message = LineMessageUtils.generateConfirm("登録内容確認", "日付:YYYY/MM/DD\n内容:" + lineInfo.getText(), "登録", "キャンセル");
 		return Arrays.asList(message);
@@ -70,7 +70,7 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 	}
 
 	@Override
-	@Scene(name = LineBotConstant.REPORT_SCENE_REGISTCOMP)
+	@Scene(sceneName = LineBotConstant.REPORT_SCENE_REGISTCOMP)
 	public List<Message> registComplite(LinePostInfoDto lineInfo) {
 		return Arrays.asList( new TextMessage("登録しました。"));
 	}
