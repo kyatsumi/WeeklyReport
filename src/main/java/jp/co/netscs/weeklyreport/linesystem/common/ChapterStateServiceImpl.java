@@ -14,7 +14,7 @@ import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 
 @Service
 @Transactional
-public class WeeklyReportChapterServiceImpl implements WeeklyReportChapterService {
+public class ChapterStateServiceImpl implements ChapterStateService {
 	
 	@Autowired
 	private UserDao userDao;

@@ -9,7 +9,7 @@ import lombok.NonNull;
  * @author SCS036
  *
  */
-public interface WeeklyReportChapterService {
+public interface ChapterStateService {
 	
 	/**
 	 * LineInfoを元にユーザのセクション情報を取得する

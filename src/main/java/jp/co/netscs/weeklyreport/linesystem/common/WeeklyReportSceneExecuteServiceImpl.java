@@ -29,7 +29,7 @@ public class WeeklyReportSceneExecuteServiceImpl implements WeeklyReportSceneExe
 
 
 	@Autowired
-	WeeklyReportChapterService chapterService;
+	ChapterStateService chapterService;
 	
 	@Autowired
 	LineSceneDao lineSeceneDao;
