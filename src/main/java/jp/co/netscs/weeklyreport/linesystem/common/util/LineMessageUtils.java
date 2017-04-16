@@ -68,6 +68,6 @@ public final class LineMessageUtils {
 	}
 	
 	public static String generateDayReportMessage(DayReportEntity report) {
-		return "日付:" + report.getReportEntity().getDate() + "\n内容:" + report.getReport();
+		return "日付:" + report.getReportEntity().getDate() + "\n" + report.getReport();
 	}
 }
