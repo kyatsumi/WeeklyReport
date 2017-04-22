@@ -9,6 +9,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TemplateMessage;
+import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.message.template.ConfirmTemplate;
@@ -121,9 +123,28 @@ public final class LineMessageUtils {
 		return new TemplateMessage("表示する週を選んでください。", oneWeek);
 	}
 	
-	public static Message convertOneWeekReports(List<DayReportEntity> reports) {
-		System.out.println(reports);
-		return null;
+	public static List<Message> convertOneWeekReports(List<DayReportEntity> reports) {
+		if (reports == null || reports.isEmpty()) {
+			return Arrays.asList(new TextMessage("内容が登録されていません"));
+		}
+		
+		List<Message> messages = new ArrayList<>();
+		String message = "";
+		for(DayReportEntity report : reports) {
+			message += report.viewDayReport();
+			if (message.length() > 200) {
+				messages.add(new TextMessage(message));
+				message = "";
+			} else {
+				message += "\n";
+			}
+		}
+		
+		if(!message.isEmpty()) {
+			messages.add(new TextMessage(message));
+		}
+		
+		return messages;
 	}
 	
 }

@@ -12,7 +12,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.linecorp.bot.model.message.Message;
-import com.linecorp.bot.model.message.TextMessage;
 
 import jp.co.netscs.weeklyreport.linesystem.common.ChapterManager;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Chapter;
@@ -80,8 +79,7 @@ public class ReportViewServiceImpl extends ReportViewService {
 		LocalDate startDate = DateUtils.string2LocalDate(lineInfo.getText());
 		List<DayReportEntity> oneWeekReports = dayReportDao.findByLineidAndDateBetweenOrderByDate(Date.valueOf(startDate),
 				Date.valueOf(startDate.plusDays(LineBotConstant.ONE_WEEK_DAYS)), userInfo.getLineId());
-		LineMessageUtils.convertOneWeekReports(oneWeekReports);
-		return Arrays.asList(new TextMessage("テスト実装"));
+		return LineMessageUtils.convertOneWeekReports(oneWeekReports);
 	}
 
 
