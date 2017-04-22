@@ -16,16 +16,21 @@ import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 
-@Chapter(name = LineBotConstant.CHAPTER_REPORTVIEW, startScene = LineBotConstant.REPORTVIEW_SCENE_VIEW)
+@Chapter(name = LineBotConstant.CHAPTER_REPORTVIEW, startScene = LineBotConstant.REPORTVIEW_SCENE_SELECT_WEEKS_VIEW)
 public class ReportViewServiceImpl extends ReportViewService {
 
+	@Autowired
 	DayReportDao dayReportDao;
 	
 	public ReportViewServiceImpl(@Autowired ChapterManager manager) {
 		super(manager);
 	}
-
-	@Override
+	
+	@Scene(sceneName = LineBotConstant.REPORTVIEW_SCENE_SELECT_WEEKS_VIEW, next = LineBotConstant.REPORTVIEW_SCENE_VIEW)
+	public List<Message> selectViewWeek(LinePostInfoDto lineInfo, UserEntity userInfo) {
+		return null;
+	}
+	
 	@Scene(sceneName = LineBotConstant.REPORTVIEW_SCENE_VIEW)
 	public List<Message> myReportView(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		Message message = new TextMessage("日付:2017/04/08\n17:30~18:00 自社にてミーティング\n18:30~20:30 新人歓迎会\n日付:2017/04/XX\nここに入力した内容を表示します。\n最大文字数は１日につき１６０文字です。");

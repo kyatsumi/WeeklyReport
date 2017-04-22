@@ -64,6 +64,11 @@ public class LineBotConstant {
 	public static final String CHAPTER_REPORTVIEW = "週報確認";
 	
 	/**
+	 * 週報確認:表示する週を選択
+	 */
+	public static final String REPORTVIEW_SCENE_SELECT_WEEKS_VIEW = "週報確認表示する週を選択";
+	
+	/**
 	 * 週報確認:週報内容表示
 	 */
 	public static final String REPORTVIEW_SCENE_VIEW = "週報確認(個人)";

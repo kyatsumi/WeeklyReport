@@ -15,6 +15,8 @@ public abstract class ReportViewService extends BaseChapterService {
 		super(manager);
 	}
 	
+	protected abstract List<Message> selectViewWeek(LinePostInfoDto lineInfo, UserEntity userInfo);
+	
 	protected abstract List<Message> myReportView(LinePostInfoDto lineInfo, UserEntity userInfo);
 
 }
