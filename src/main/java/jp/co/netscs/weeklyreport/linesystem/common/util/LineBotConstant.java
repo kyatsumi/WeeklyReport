@@ -14,11 +14,6 @@ public class LineBotConstant {
 	public static final String CHAPTER_REGIST = "ユーザ登録";
 	
 	/**
-	 * ユーザ登録：新規登録
-	 */
-	public static final String REGIST_SCENE_START = "ユーザ登録新規登録";
-	
-	/**
 	 * ユーザ登録：グループ選択
 	 */
 	public static final String REGIST_SCENE_GROUPSELECT = "ユーザ登録グループ選択";

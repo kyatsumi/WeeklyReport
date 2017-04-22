@@ -47,7 +47,6 @@ public abstract class BaseChapterService {
 	
 	/**
 	 * 章の状態から実行するシーンを決定する
-	 * ただし以下の場合はユーザ登録が実行される
 	 * 
 	 * @param chapterInfo
 	 * @param lineInfo
@@ -56,7 +55,9 @@ public abstract class BaseChapterService {
 	public ChapterResultDto execute(LineChapterDto chapterInfo, LinePostInfoDto lineInfo) {
 		System.out.println("chapterInfo = " + chapterInfo + " lineInfo = " + lineInfo);
 		
-		if (chapterInfo.getScene().equals(this.getStartSceneName()) || chapterInfo.getResponseScene().equals(LineBotConstant.CHAPTER_END)) {
+		if (chapterInfo.getScene().equals(this.getStartSceneName()) 
+				|| chapterInfo.getResponseScene().equals(LineBotConstant.CHAPTER_END)
+				|| chapterInfo.getResponseScene().equals("")) {
 			return executeScene(chapterInfo.getScene(), lineInfo);
 		}
 		
