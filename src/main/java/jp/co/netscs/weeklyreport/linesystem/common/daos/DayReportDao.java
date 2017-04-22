@@ -16,7 +16,7 @@ import jp.co.netscs.weeklyreport.linesystem.common.entitis.ReportEntity;
 @Repository
 public interface DayReportDao extends JpaRepository<DayReportEntity, ReportEntity> {
 	
-	@Query("select report from DayReport report where report.date between :startDate and :endDate and report.lineid = :lineid order by report.date")
+	@Query(value = "select * from DayReport where date between :startDate and :endDate and lineid = :lineid order by date", nativeQuery = true)
 	List<DayReportEntity> findByLineidAndDateBetweenOrderByDate(@Param("startDate") Date startDate, @Param("endDate")Date endDate, @Param("lineid")String lineid);
 
 }
