@@ -53,4 +53,12 @@ public class DayReportEntity implements Serializable {
 	 */
 	@Column(nullable = true)
 	private String adminComment;
+	
+	/**
+	 * レポートを出力する
+	 * @return
+	 */
+	public String viewDayReport() {
+		return "日付:" + this.reportEntity.getDate() + "\n" + this.report + "\n";
+	}
 }

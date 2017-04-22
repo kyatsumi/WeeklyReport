@@ -1,6 +1,7 @@
 package jp.co.netscs.weeklyreport.linesystem.common.util;
 
-import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.*;
+import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.LAST_WEEK_VIEW;
+import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.NEXT_WEEK_VIEW;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -14,8 +15,6 @@ import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.message.template.ConfirmTemplate;
-
-import jp.co.netscs.weeklyreport.linesystem.common.entitis.DayReportEntity;
 
 /**
  * このクラスはLineに返却するメッセージの作成を行うユーティリテクラスです
@@ -73,11 +72,7 @@ public final class LineMessageUtils {
 			                    		 NEXT_WEEK_VIEW + "," + offset)
                 		))
 				));
-		
 		return new TemplateMessage("登録する日付を選んでください。", oneWeek);
 	}
 	
-	public static String generateDayReportMessage(DayReportEntity report) {
-		return "日付:" + report.getReportEntity().getDate() + "\n" + report.getReport();
-	}
 }

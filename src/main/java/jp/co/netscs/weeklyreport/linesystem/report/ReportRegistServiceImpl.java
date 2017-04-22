@@ -26,6 +26,12 @@ import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineMessageUtils;
 
+/**
+ * 週報を登録する章
+ * @author katumi
+ *
+ */
+
 @Chapter(name = LineBotConstant.CHAPTER_REPORT, startScene = LineBotConstant.REPORT_SCENE_DATE)
 public class ReportRegistServiceImpl extends ReportRegistService {
 	
@@ -47,10 +53,12 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 			case NEXT_WEEK_VIEW: {
 				Integer offset = Integer.parseInt(text.split(",")[1]);
 				oneWeek = LineMessageUtils.generateOneWeekCarousel(LocalDate.now(), offset + ONE_WEEK_DAYS);
+				break;
 			}
 			case LAST_WEEK_VIEW: {
 				Integer offset = Integer.parseInt(text.split(",")[1]);
 				oneWeek = LineMessageUtils.generateOneWeekCarousel(LocalDate.now(), offset - ONE_WEEK_DAYS);
+				break;
 			}
 			default: {
 				oneWeek = LineMessageUtils.generateOneWeekCarousel(LocalDate.now(), 0);
@@ -89,7 +97,7 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 
 	@Scene(sceneName = LineBotConstant.REPORT_SCENE_CONFIRMREGIST, next = LineBotConstant.REPORT_SCENE_REGISTCOMP)
 	public List<Message> confrimReport(LinePostInfoDto lineInfo) {
-		String report = LineMessageUtils.generateDayReportMessage(reportMap.get(lineInfo.getUserId()));
+		String report = reportMap.get(lineInfo.getUserId()).viewDayReport();
 		Message message = new TextMessage(report);
 		Message message2 = LineMessageUtils.generateConfirm("上記の内容で登録しますか？", "上記の内容で登録しますか？", "登録", "キャンセル");
 		return Arrays.asList(message, message2);
@@ -97,11 +105,9 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 	
 	@ResponseScene(target = LineBotConstant.REPORT_SCENE_CONFIRMREGIST)
 	public ResponseSceneResultDto confrimReportAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
-		
 		if (lineInfo.getText().equals("登録")) {
 			dayReportDao.save(reportMap.get(lineInfo.getUserId()));
 		}
-		
 		return AFTER_RESULT_NEXT;
 	}
 
