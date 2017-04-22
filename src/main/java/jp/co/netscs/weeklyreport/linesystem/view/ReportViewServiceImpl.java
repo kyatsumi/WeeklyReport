@@ -1,11 +1,10 @@
 package jp.co.netscs.weeklyreport.linesystem.view;
 
 import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.LAST_WEEKS_VIEW;
-import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.LAST_WEEK_VIEW;
 import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.NEXT_WEEKS_VIEW;
-import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.NEXT_WEEK_VIEW;
 import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.ONE_WEEK_DAYS;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +21,9 @@ import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
 import jp.co.netscs.weeklyreport.linesystem.common.daos.DayReportDao;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.ResponseSceneResultDto;
+import jp.co.netscs.weeklyreport.linesystem.common.entitis.DayReportEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
+import jp.co.netscs.weeklyreport.linesystem.common.util.DateUtils;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineMessageUtils;
 
@@ -76,8 +77,11 @@ public class ReportViewServiceImpl extends ReportViewService {
 	
 	@Scene(sceneName = LineBotConstant.REPORTVIEW_SCENE_VIEW)
 	public List<Message> myReportView(LinePostInfoDto lineInfo, UserEntity userInfo) {
-		Message message = new TextMessage("日付:2017/04/08\n17:30~18:00 自社にてミーティング\n18:30~20:30 新人歓迎会\n日付:2017/04/XX\nここに入力した内容を表示します。\n最大文字数は１日につき１６０文字です。");
-		return Arrays.asList(message);
+		LocalDate startDate = DateUtils.string2LocalDate(lineInfo.getText());
+		List<DayReportEntity> oneWeekReports = dayReportDao.findByLineidAndDateBetweenOrderByDate(Date.valueOf(startDate),
+				Date.valueOf(startDate.plusDays(LineBotConstant.ONE_WEEK_DAYS)), userInfo.getLineId());
+		LineMessageUtils.convertOneWeekReports(oneWeekReports);
+		return Arrays.asList(new TextMessage("テスト実装"));
 	}
 
 

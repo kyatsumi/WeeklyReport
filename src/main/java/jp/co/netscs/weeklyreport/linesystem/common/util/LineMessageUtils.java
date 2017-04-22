@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Arrays;
+import java.util.List;
 
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.PostbackAction;
@@ -18,6 +19,8 @@ import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.message.template.ConfirmTemplate;
+
+import jp.co.netscs.weeklyreport.linesystem.common.entitis.DayReportEntity;
 
 /**
  * このクラスはLineに返却するメッセージの作成を行うユーティリテクラスです
@@ -116,6 +119,11 @@ public final class LineMessageUtils {
                 		))
 				));
 		return new TemplateMessage("表示する週を選んでください。", oneWeek);
+	}
+	
+	public static Message convertOneWeekReports(List<DayReportEntity> reports) {
+		System.out.println(reports);
+		return null;
 	}
 	
 }
