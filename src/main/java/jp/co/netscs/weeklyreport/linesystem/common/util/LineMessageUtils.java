@@ -104,9 +104,9 @@ public final class LineMessageUtils {
 		CarouselTemplate oneWeek = new CarouselTemplate(
 				Arrays.asList(
                         new CarouselColumn(null, null, "日報を表示する週を選んでください。", Arrays.asList(
-                                new PostbackAction(startDay.plusDays(8).toString() + "~" +  startDay.plusDays(14).format(MM_DD_FORMAT),
+                                new PostbackAction(startDay.plusDays(7).toString() + "~" +  startDay.plusDays(13).format(MM_DD_FORMAT),
                                 		startDay.plusDays(7).toString()),
-                                new PostbackAction(startDay.toString() + "~" +  startDay.plusDays(7).format(MM_DD_FORMAT),
+                                new PostbackAction(startDay.toString() + "~" +  startDay.plusDays(6).format(MM_DD_FORMAT),
                                 		startDay.toString()),
                                 new PostbackAction(startDay.minusDays(7).toString() + "~" +  startDay.minusDays(1).format(MM_DD_FORMAT),
                                 		startDay.minusDays(7).toString())
@@ -141,8 +141,8 @@ public final class LineMessageUtils {
 		}
 		
 		if(!message.isEmpty()) {
-			message.substring(0, message.length() - 2);
-			messages.add(new TextMessage(message));
+			
+			messages.add(new TextMessage(message.substring(0, message.length() - 2)));
 		}
 		
 		return messages;
