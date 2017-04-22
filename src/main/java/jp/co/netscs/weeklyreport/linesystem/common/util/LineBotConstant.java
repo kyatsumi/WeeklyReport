@@ -154,4 +154,14 @@ public class LineBotConstant {
 	 * １週間の長さ
 	 */
 	public static final Integer ONE_WEEK_DAYS = 7;
+	
+	/**
+	 * 次の４週間を表示
+	 */
+	public static final String NEXT_WEEKS_VIEW = "次の４週間を表示";
+	
+	/**
+	 * 前の４週間を表示
+	 */
+	public static final String LAST_WEEKS_VIEW = "前の４週間を表示";
 }
