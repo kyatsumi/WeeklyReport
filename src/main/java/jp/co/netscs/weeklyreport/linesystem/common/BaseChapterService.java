@@ -58,7 +58,7 @@ public abstract class BaseChapterService {
 		if (chapterInfo.getScene().equals(this.getStartSceneName()) 
 				|| chapterInfo.getResponseScene().equals(LineBotConstant.CHAPTER_END)
 				|| chapterInfo.getScene().equals("")) {
-			return executeScene(chapterInfo.getScene(), lineInfo);
+			return executeScene(this.getStartSceneName(), lineInfo);
 		}
 		
 		ResponseSceneResultDto afterResult = executeResponseScene(chapterInfo.getResponseScene(), lineInfo);
