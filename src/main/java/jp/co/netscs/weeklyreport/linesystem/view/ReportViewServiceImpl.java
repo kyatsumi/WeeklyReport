@@ -64,8 +64,8 @@ public class ReportViewServiceImpl extends ReportViewService {
 		String text = lineInfo.getText();
 		String selectText = text.split(",")[0];
 		switch (selectText) {
-			case NEXT_WEEK_VIEW: 
-			case LAST_WEEK_VIEW:
+			case NEXT_WEEKS_VIEW: 
+			case LAST_WEEKS_VIEW:
 				return ResponseSceneResultDto.builder().dummy(lineInfo).result(ResponseResult.LOOP).build();
 			default: {
 				return AFTER_RESULT_NEXT;
