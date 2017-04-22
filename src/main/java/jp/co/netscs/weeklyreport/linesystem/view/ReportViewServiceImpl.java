@@ -16,15 +16,12 @@ import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
 
 import jp.co.netscs.weeklyreport.linesystem.common.ChapterManager;
-import jp.co.netscs.weeklyreport.linesystem.common.BaseChapterService.ResponseResult;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Chapter;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.ResponseScene;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
 import jp.co.netscs.weeklyreport.linesystem.common.daos.DayReportDao;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.ResponseSceneResultDto;
-import jp.co.netscs.weeklyreport.linesystem.common.entitis.DayReportEntity;
-import jp.co.netscs.weeklyreport.linesystem.common.entitis.ReportEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineMessageUtils;
@@ -47,16 +44,16 @@ public class ReportViewServiceImpl extends ReportViewService {
 		switch (selectText) {
 			case NEXT_WEEKS_VIEW: {
 				Integer offset = Integer.parseInt(text.split(",")[1]);
-				weeks = LineMessageUtils.generateOneWeekCarousel(LocalDate.now(),  offset - (ONE_WEEK_DAYS * 2));
+				weeks = LineMessageUtils.generateWeeksCarousel(LocalDate.now(),  offset - (ONE_WEEK_DAYS * 2));
 				break;
 			}
 			case LAST_WEEKS_VIEW: {
 				Integer offset = Integer.parseInt(text.split(",")[1]);
-				weeks = LineMessageUtils.generateOneWeekCarousel(LocalDate.now(), offset + (ONE_WEEK_DAYS * 2));
+				weeks = LineMessageUtils.generateWeeksCarousel(LocalDate.now(), offset + (ONE_WEEK_DAYS * 2));
 				break;
 			}
 			default: {
-				weeks = LineMessageUtils.generateOneWeekCarousel(LocalDate.now(), 0);
+				weeks = LineMessageUtils.generateWeeksCarousel(LocalDate.now(), 0);
 			}
 		}
 		return Arrays.asList(weeks);
