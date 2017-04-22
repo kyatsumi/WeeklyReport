@@ -1,5 +1,7 @@
 package jp.co.netscs.weeklyreport.linesystem.common.util;
 
+import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.*;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
@@ -59,8 +61,16 @@ public final class LineMessageUtils {
                     					startDay.plusDays(3).toString()),
                                 new PostbackAction(startDay.plusDays(4).toString(),
                     					startDay.plusDays(4).toString()),
-			                     new PostbackAction("先週の日付を表示",
-			         								"先週の日付を表示")
+                                new PostbackAction(startDay.plusDays(5).toString(),
+                    					startDay.plusDays(5).toString())
+                		)),
+                        new CarouselColumn(null, null, "登録する日付を選んでください。", Arrays.asList(
+                                new PostbackAction(startDay.plusDays(6).toString(),
+                    					startDay.plusDays(6).toString()),
+			                     new PostbackAction(LAST_WEEK_VIEW,
+			                    		 LAST_WEEK_VIEW + "," + offset),
+			                     new PostbackAction(NEXT_WEEK_VIEW,
+			                    		 NEXT_WEEK_VIEW + "," + offset)
                 		))
 				));
 		

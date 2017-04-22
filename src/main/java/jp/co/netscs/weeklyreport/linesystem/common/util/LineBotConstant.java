@@ -130,4 +130,18 @@ public class LineBotConstant {
 	 */
 	public static final String NO = "いいえ";
 	
+	/**
+	 * 来週
+	 */
+	public static final String NEXT_WEEK_VIEW = "来週の日付を表示";
+	
+	/**
+	 * 先週
+	 */
+	public static final String LAST_WEEK_VIEW = "先週の日付を表示";
+	
+	/**
+	 * １週間の長さ
+	 */
+	public static final Integer ONE_WEEK_DAYS = 7;
 }
