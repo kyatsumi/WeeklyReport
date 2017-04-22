@@ -28,7 +28,7 @@ import jp.co.netscs.weeklyreport.linesystem.common.util.LineMessageUtils;
 
 @Chapter(name = LineBotConstant.CHAPTER_REPORTVIEW, startScene = LineBotConstant.REPORTVIEW_SCENE_SELECT_WEEKS_VIEW)
 public class ReportViewServiceImpl extends ReportViewService {
-
+	
 	@Autowired
 	DayReportDao dayReportDao;
 	
@@ -67,8 +67,9 @@ public class ReportViewServiceImpl extends ReportViewService {
 			case NEXT_WEEK_VIEW: 
 			case LAST_WEEK_VIEW:
 				return ResponseSceneResultDto.builder().dummy(lineInfo).result(ResponseResult.LOOP).build();
-			default:
+			default: {
 				return AFTER_RESULT_NEXT;
+			}
 		}
 	}
 	

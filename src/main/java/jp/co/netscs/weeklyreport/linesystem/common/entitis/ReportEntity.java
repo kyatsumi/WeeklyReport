@@ -1,6 +1,7 @@
 package jp.co.netscs.weeklyreport.linesystem.common.entitis;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -38,5 +39,5 @@ public class ReportEntity implements Serializable{
 	 * 登録日付
 	 */
 	@Column(nullable = false)
-	private String date;
+	private Date date;
 }

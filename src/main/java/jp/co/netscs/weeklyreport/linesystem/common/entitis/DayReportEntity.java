@@ -59,6 +59,6 @@ public class DayReportEntity implements Serializable {
 	 * @return
 	 */
 	public String viewDayReport() {
-		return "日付:" + this.reportEntity.getDate() + "\n" + this.report;
+		return "日付:" + this.reportEntity.getDate().toLocalDate().toString() + "\n" + this.report;
 	}
 }

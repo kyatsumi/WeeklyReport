@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.sql.Date;
 
 public final class DateUtils {
 
@@ -27,7 +27,7 @@ public final class DateUtils {
 	}
 	
 	public static Date localDate2Date(LocalDate localDate) {
-		  return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		  return Date.valueOf(localDate);
 	}
 	
 	public static Date string2Date(String date) {

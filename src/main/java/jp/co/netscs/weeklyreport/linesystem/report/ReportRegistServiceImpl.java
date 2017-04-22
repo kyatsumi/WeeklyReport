@@ -23,6 +23,7 @@ import jp.co.netscs.weeklyreport.linesystem.common.dtos.ResponseSceneResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.DayReportEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.ReportEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
+import jp.co.netscs.weeklyreport.linesystem.common.util.DateUtils;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineMessageUtils;
 
@@ -76,7 +77,7 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 			case LAST_WEEK_VIEW:
 				return ResponseSceneResultDto.builder().dummy(lineInfo).result(ResponseResult.LOOP).build();
 			default: {
-				DayReportEntity dayReport = DayReportEntity.builder().reportEntity(ReportEntity.builder().date(lineInfo.getText()).lineId(lineInfo.getUserId()).build()).build();
+				DayReportEntity dayReport = DayReportEntity.builder().reportEntity(ReportEntity.builder().date(DateUtils.string2Date(lineInfo.getText())).lineId(lineInfo.getUserId()).build()).build();
 				reportMap.put(lineInfo.getUserId(), dayReport);
 				return AFTER_RESULT_NEXT;
 			}
