@@ -34,7 +34,7 @@ public class ChapterStateServiceImpl implements ChapterStateService {
 		LineChapterDtoBuilder result = LineChapterDto.builder();
 		
 		if (!userDao.exists(lineInfo.getUserId())) {
-			return result.chapter(LineBotConstant.CHAPTER_REGIST).responseScene(LineBotConstant.CHAPTER_REGIST).scene("").build();
+			return result.chapter(LineBotConstant.CHAPTER_REGIST).responseScene("").scene("").build();
 		}
 		
 		LineChapterDto keyword = manager.keywordMatchCapchar(lineInfo.getText());
