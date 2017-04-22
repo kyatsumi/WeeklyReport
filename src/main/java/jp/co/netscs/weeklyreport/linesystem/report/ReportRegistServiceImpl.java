@@ -99,21 +99,22 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 	public List<Message> confrimReport(LinePostInfoDto lineInfo) {
 		String report = reportMap.get(lineInfo.getUserId()).viewDayReport();
 		Message message = new TextMessage(report);
-		Message message2 = LineMessageUtils.generateConfirm("上記の内容で登録しますか？", "上記の内容で登録しますか？", "登録", "キャンセル");
+		Message message2 = LineMessageUtils.generateConfirm("上記の内容で登録しますか？", "上記の内容で登録しますか？", REGIST, CANCEL);
 		return Arrays.asList(message, message2);
 	}
 	
 	@ResponseScene(target = LineBotConstant.REPORT_SCENE_CONFIRMREGIST)
 	public ResponseSceneResultDto confrimReportAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
-		if (lineInfo.getText().equals("登録")) {
-			dayReportDao.save(reportMap.get(lineInfo.getUserId()));
+		if (lineInfo.getText().equals(REGIST)) {
+			DayReportEntity report = reportMap.get(lineInfo.getUserId());
+			dayReportDao.save(report);
 		}
 		return AFTER_RESULT_NEXT;
 	}
 
 	@Scene(sceneName = LineBotConstant.REPORT_SCENE_REGISTCOMP)
 	public List<Message> registComplite(LinePostInfoDto lineInfo) {
-		String message = lineInfo.getText().equals("登録") ? "登録しました。" : "最初からやり直してください。";
+		String message = lineInfo.getText().equals(REGIST) ? "登録しました。" : "最初からやり直してください。";
 		return Arrays.asList( new TextMessage(message));
 	}
 }

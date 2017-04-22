@@ -131,6 +131,16 @@ public class LineBotConstant {
 	public static final String NO = "いいえ";
 	
 	/**
+	 * Lineの選択肢用定数:登録
+	 */
+	public static final String REGIST = "登録";
+	
+	/**
+	 * Lineの選択肢用定数:キャンセル
+	 */
+	public static final String CANCEL = "キャンセル";
+	
+	/**
 	 * 来週
 	 */
 	public static final String NEXT_WEEK_VIEW = "来週の日付を表示";
