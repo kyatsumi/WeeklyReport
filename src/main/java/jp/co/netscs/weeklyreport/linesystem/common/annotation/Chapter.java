@@ -9,13 +9,19 @@ import java.lang.annotation.Target;
 import org.springframework.stereotype.Service;
 
 /**
- * このアノテーションはセクションサービスであることを示す<br>
- * ユーザのセクションが登録の場合このクラスが呼び出されるように設定ができる<br>
- * 使い方の例を以下に示す<br>
- * {@code @Section(LineBotConstant.SCTION_REGIST)}<br>
- * public class RegstService {<br>
- *  //code<br>
- * }<br>
+ * このアノテーションが付与されたクラスはチャプターであることを示す<br>
+ * 使用方法のサンプル<br>
+ * <blockquote><pre>
+ * {@code @Chapter(name= チャプター名を指定, startScene= 最初のシーン名を指定)}
+ * public class SampleChapterImpl extends SampleChapter {
+ * 		{@code @Scene(sceneName= 最初のシーン名を指定)}
+ * 		public List{@code <Message>} 最初のシーン() {
+ * 		//なんらかのコードを書く
+ * 		} 
+ * }
+ * </pre></blockquote>
+ * 最初のシーン名に指定したメソッドが存在しない場合はエラーが発生する<br>
+ * @see jp.co.netscs.weeklyreport.linesystem.common.BaseChapterService
  * @author SCS036
  *
  */
@@ -26,9 +32,15 @@ import org.springframework.stereotype.Service;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Chapter {
 	/**
-	 * @return　セクション名
+	 * Lineで入力された内容が等しい場合この章の{@code startScene}に指定したのが呼び出される
+	 * @return　チャプター名
 	 */
 	public String name();
 	
+	/**
+	 * 章の１番最初のシーン<br>
+	 * 前の章が終了した場合やLineでチャプター名が入力された場合にこの名前のシーンが実行される
+	 * @return
+	 */
 	public String startScene();
 }
