@@ -1,12 +1,14 @@
 package jp.co.netscs.weeklyreport.linesystem.common.util;
 
-import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.LAST_WEEK_VIEW;
-import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.NEXT_WEEK_VIEW;
 import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.LAST_WEEKS_VIEW;
+import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.LAST_WEEK_VIEW;
 import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.NEXT_WEEKS_VIEW;
+import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.NEXT_WEEK_VIEW;
 
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Arrays;
 
@@ -24,6 +26,8 @@ import com.linecorp.bot.model.message.template.ConfirmTemplate;
  *
  */
 public final class LineMessageUtils {
+	
+	private static final DateTimeFormatter MM_DD_FORMAT = DateTimeFormatter.ofPattern("MM-dd");
 	
 	/**
 	 * 
@@ -96,15 +100,15 @@ public final class LineMessageUtils {
 		CarouselTemplate oneWeek = new CarouselTemplate(
 				Arrays.asList(
                         new CarouselColumn(null, null, "日報を表示する週を選んでください。", Arrays.asList(
-                                new PostbackAction(startDay.plusDays(8).toString() + "~" +  startDay.plusDays(14).toString(),
+                                new PostbackAction(startDay.plusDays(8).toString() + "~" +  startDay.plusDays(14).format(MM_DD_FORMAT),
                                 		startDay.plusDays(7).toString()),
-                                new PostbackAction(startDay.toString() + "~" +  startDay.plusDays(7).toString(),
+                                new PostbackAction(startDay.toString() + "~" +  startDay.plusDays(7).format(MM_DD_FORMAT),
                                 		startDay.toString()),
-                                new PostbackAction(startDay.minusDays(7).toString() + "~" +  startDay.minusDays(1).toString(),
+                                new PostbackAction(startDay.minusDays(7).toString() + "~" +  startDay.minusDays(1).format(MM_DD_FORMAT),
                                 		startDay.minusDays(7).toString())
                         )),
                         new CarouselColumn(null, null, "日報を表示する週を選んでください。", Arrays.asList(
-                                new PostbackAction(startDay.minusDays(14).toString() + "~" +  startDay.minusDays(8).toString(),
+                                new PostbackAction(startDay.minusDays(14).toString() + "~" +  startDay.minusDays(8).format(MM_DD_FORMAT),
                                 		startDay.minusDays(14).toString()),
 			                     new PostbackAction(LAST_WEEKS_VIEW,
 			                    		 LAST_WEEKS_VIEW + "," + offset),
