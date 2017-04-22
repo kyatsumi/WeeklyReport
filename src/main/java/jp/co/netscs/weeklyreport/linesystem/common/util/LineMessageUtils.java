@@ -141,6 +141,7 @@ public final class LineMessageUtils {
 		}
 		
 		if(!message.isEmpty()) {
+			message.substring(0, message.length() - 2);
 			messages.add(new TextMessage(message));
 		}
 		

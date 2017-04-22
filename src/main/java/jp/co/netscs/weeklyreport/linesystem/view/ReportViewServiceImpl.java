@@ -82,9 +82,4 @@ public class ReportViewServiceImpl extends ReportViewService {
 		return LineMessageUtils.convertOneWeekReports(oneWeekReports);
 	}
 
-
-	
-	
-	
-
 }
