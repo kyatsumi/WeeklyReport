@@ -15,27 +15,13 @@ public abstract class RegistService extends BaseChapterService{
 	protected RegistService(ChapterManager manager) {
 		super(manager);
 	}
-
-	/**
-	 * 新規登録メソッド
-	 * @param lineInfo
-	 * @return
-	 */
-	protected abstract List<Message> start(LinePostInfoDto lineInfo);
-	
-	/**
-	 * 新規登録の返答処理メソッド
-	 * @param lineInfo
-	 * @return
-	 */
-	protected abstract ResponseSceneResultDto startAfter(LinePostInfoDto lineInfo, UserEntity userInfo);
 	
 	/**
 	 * グループ選択メソッド
 	 * @param lineInfo
 	 * @return
 	 */
-	protected abstract List<Message> groupSelect(LinePostInfoDto lineInfo, UserEntity userInfo);
+	protected abstract List<Message> groupSelect(LinePostInfoDto lineInfo);
 	
 	/**
 	 * グループ選択の返答処理メソッド

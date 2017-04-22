@@ -22,7 +22,7 @@ import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineMessageUtils;
 
 @Transactional
-@Chapter(name = LineBotConstant.CHAPTER_REGIST, startScene = LineBotConstant.REGIST_SCENE_START)
+@Chapter(name = LineBotConstant.CHAPTER_REGIST, startScene = LineBotConstant.REGIST_SCENE_GROUPSELECT)
 public class RegistServiceImpl extends RegistService {
 
 	@Autowired
@@ -33,28 +33,13 @@ public class RegistServiceImpl extends RegistService {
 	}
 
 	@Override
-	@Scene(sceneName = LineBotConstant.REGIST_SCENE_START, next = LineBotConstant.REGIST_SCENE_GROUPSELECT)
-	public List<Message> start(LinePostInfoDto lineInfo) {
+	@Scene(sceneName = LineBotConstant.REGIST_SCENE_GROUPSELECT, next = LineBotConstant.REGIST_SCENE_INPUTNAME)
+	public List<Message> groupSelect(LinePostInfoDto lineInfo) {
 		UserEntity userInfo = UserEntity.builder().admin(false).group(null).lineId(lineInfo.getUserId()).name(null).build();
 		userDao.save(userInfo);
-		Message welcome = new TextMessage("ようこそエス・シー・エス週報BOTへ");
-		Message message = LineMessageUtils.generateConfirm("ユーザ登録", "新規登録を行います。\n管理者権限が必要ですか？", LineBotConstant.YES, LineBotConstant.NO);
-		return Arrays.asList(welcome, message);
-	}
-	
-	@Override
-	@ResponseScene(target = LineBotConstant.REGIST_SCENE_START)
-	public ResponseSceneResultDto startAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
-		userInfo.setAdmin(lineInfo.getText().equals("はい"));
-		userDao.save(userInfo);
-		return AFTER_RESULT_NEXT;
-	}
-
-	@Override
-	@Scene(sceneName = LineBotConstant.REGIST_SCENE_GROUPSELECT, next = LineBotConstant.REGIST_SCENE_INPUTNAME)
-	public List<Message> groupSelect(LinePostInfoDto lineInfo, UserEntity userInfo) {
+		Message welcome = new TextMessage("ようこそエス・シー・エス週報BOTへ\nユーザ登録を行います");
 		Message message = LineMessageUtils.generateConfirm("グループ選択", "所属グループを選択してください。", LineBotConstant.SCS_GROUP1, LineBotConstant.SCS_GROUP2);
-		return Arrays.asList(message);
+		return Arrays.asList(welcome, message);
 	}
 	
 	@Override
