@@ -28,7 +28,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Builder
-@Table(name="LineScene")
+@Table(name="line_scene")
 public class LineSceneEntity implements Serializable {
 	
 	/**
