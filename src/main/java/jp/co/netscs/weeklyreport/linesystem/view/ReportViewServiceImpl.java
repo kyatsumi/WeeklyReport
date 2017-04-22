@@ -60,7 +60,7 @@ public class ReportViewServiceImpl extends ReportViewService {
 	}
 	
 	@ResponseScene(target = LineBotConstant.REPORTVIEW_SCENE_SELECT_WEEKS_VIEW)
-	protected ResponseSceneResultDto selectViewWeekAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
+	public ResponseSceneResultDto selectViewWeekAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		String text = lineInfo.getText();
 		String selectText = text.split(",")[0];
 		switch (selectText) {
