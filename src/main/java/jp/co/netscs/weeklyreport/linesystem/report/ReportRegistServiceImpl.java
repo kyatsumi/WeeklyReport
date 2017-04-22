@@ -52,12 +52,12 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 		switch (selectText) {
 			case NEXT_WEEK_VIEW: {
 				Integer offset = Integer.parseInt(text.split(",")[1]);
-				oneWeek = LineMessageUtils.generateOneWeekCarousel(LocalDate.now(), offset + ONE_WEEK_DAYS);
+				oneWeek = LineMessageUtils.generateOneWeekCarousel(LocalDate.now(), offset - ONE_WEEK_DAYS);
 				break;
 			}
 			case LAST_WEEK_VIEW: {
 				Integer offset = Integer.parseInt(text.split(",")[1]);
-				oneWeek = LineMessageUtils.generateOneWeekCarousel(LocalDate.now(), offset - ONE_WEEK_DAYS);
+				oneWeek = LineMessageUtils.generateOneWeekCarousel(LocalDate.now(), offset + ONE_WEEK_DAYS);
 				break;
 			}
 			default: {
