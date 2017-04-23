@@ -37,7 +37,7 @@ public class ChapterStateServiceImpl implements ChapterStateService {
 			return result.chapter(LineBotConstant.CHAPTER_REGIST).responseScene("").scene("").build();
 		}
 		
-		LineChapterDto keyword = manager.keywordMatchCapchar(lineInfo.getText());
+		LineChapterDto keyword = manager.getCapcharStartStatus(lineInfo.getText());
 		if (keyword != null) {
 			return keyword;
 		}

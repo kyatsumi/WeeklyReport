@@ -9,12 +9,14 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.linecorp.bot.model.message.Message;
 
 import jp.co.netscs.weeklyreport.linesystem.common.ChapterManager;
-import jp.co.netscs.weeklyreport.linesystem.common.annotation.Chapter;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.ResponseScene;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
 import jp.co.netscs.weeklyreport.linesystem.common.daos.DayReportDao;
@@ -26,7 +28,8 @@ import jp.co.netscs.weeklyreport.linesystem.common.util.DateUtils;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineMessageUtils;
 
-@Chapter(name = LineBotConstant.CHAPTER_REPORTVIEW, startScene = LineBotConstant.REPORTVIEW_SCENE_SELECT_WEEKS_VIEW)
+@Transactional
+@Service
 public class ReportViewServiceImpl extends ReportViewService {
 	
 	@Autowired
@@ -80,6 +83,16 @@ public class ReportViewServiceImpl extends ReportViewService {
 		List<DayReportEntity> oneWeekReports = dayReportDao.findByOneWeekReport(userInfo.getLineId(), Date.valueOf(startDate),
 				Date.valueOf(startDate.plusDays(LineBotConstant.ONE_WEEK_DAYS - 1)));
 		return LineMessageUtils.convertOneWeekReports(oneWeekReports);
+	}
+
+	@Override
+	public String getChapterName() {
+		return LineBotConstant.CHAPTER_REPORTVIEW;
+	}
+
+	@Override
+	public String getStartSceneName() {
+		return LineBotConstant.REPORTVIEW_SCENE_SELECT_WEEKS_VIEW;
 	}
 
 }

@@ -10,16 +10,19 @@ import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 
 /**
  * このアノテーションは１つのシーン処理であることを示す<br>
- * ユーザのセクションが登録でシーンが新規登録の場合startメソッドが呼び出されるように設定する使い方は以下<br>
- * {@code @Section(LineBotConstant.CHAPTER_REGIST)}<br>
- * public class RegstService {<br>
+ * このアノテーションを付与したメソッドの戻り値は{@code List<Message>}であること<br>
+ * このアノテーションを付与したメソッドの引数の型は{@code LinePostInfoDto,UserEntity}どちらか及び両方であること<br>
+ * サンプルは以下
+ * <blockquote><pre>
+ * {@code @Service}
+ * public class SampleServiceImpl extends SampleService{<br>
  * 
- *  {@code @Scene(LineBotConstant.REGIST_SCENE_START) }<br>
- *  public List＜Message＞ start(LinePostInfoDto dto) {<br>
- *  	//code<br>
- *  }<br>
- *  
- * }<br>
+ *  {@code @Scene(LineBotConstant.REGIST_SCENE_START) }
+ *  public List＜Message＞ start(LinePostInfoDto dto, UserEntity user) {
+ *  	//more code....
+ *  }
+ * }
+ * </pre></blockquote>
  * @author SCS036
  *
  */

@@ -1,6 +1,10 @@
 package jp.co.netscs.weeklyreport.linesystem.report;
 
-import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.*;
+import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.CANCEL;
+import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.LAST_WEEK_VIEW;
+import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.NEXT_WEEK_VIEW;
+import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.ONE_WEEK_DAYS;
+import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.REGIST;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -8,13 +12,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
 
 import jp.co.netscs.weeklyreport.linesystem.common.ChapterManager;
-import jp.co.netscs.weeklyreport.linesystem.common.annotation.Chapter;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.ResponseScene;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
 import jp.co.netscs.weeklyreport.linesystem.common.daos.DayReportDao;
@@ -33,7 +39,8 @@ import jp.co.netscs.weeklyreport.linesystem.common.util.LineMessageUtils;
  *
  */
 
-@Chapter(name = LineBotConstant.CHAPTER_REPORT, startScene = LineBotConstant.REPORT_SCENE_DATE)
+@Transactional
+@Service
 public class ReportRegistServiceImpl extends ReportRegistService {
 	
 	private Map<String,DayReportEntity> reportMap = new HashMap<>();
@@ -121,5 +128,15 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 	public List<Message> registComplite(LinePostInfoDto lineInfo) {
 		String message = lineInfo.getText().equals(REGIST) ? "登録しました。" : "最初からやり直してください。";
 		return Arrays.asList( new TextMessage(message));
+	}
+
+	@Override
+	public String getChapterName() {
+		return LineBotConstant.CHAPTER_REPORT;
+	}
+
+	@Override
+	public String getStartSceneName() {
+		return LineBotConstant.REPORT_SCENE_DATE;
 	}
 }

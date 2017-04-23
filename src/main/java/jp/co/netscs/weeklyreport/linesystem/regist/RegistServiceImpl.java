@@ -6,23 +6,23 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
 
 import jp.co.netscs.weeklyreport.linesystem.common.ChapterManager;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.ResponseScene;
-import jp.co.netscs.weeklyreport.linesystem.common.annotation.Chapter;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
 import jp.co.netscs.weeklyreport.linesystem.common.daos.UserDao;
-import jp.co.netscs.weeklyreport.linesystem.common.dtos.ResponseSceneResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
+import jp.co.netscs.weeklyreport.linesystem.common.dtos.ResponseSceneResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineMessageUtils;
 
 @Transactional
-@Chapter(name = LineBotConstant.CHAPTER_REGIST, startScene = LineBotConstant.REGIST_SCENE_GROUPSELECT)
+@Service
 public class RegistServiceImpl extends RegistService {
 
 	@Autowired
@@ -84,6 +84,16 @@ public class RegistServiceImpl extends RegistService {
 			userDao.delete(userInfo);
 		}
 		return Arrays.asList(text);
+	}
+
+	@Override
+	public String getChapterName() {
+		return LineBotConstant.CHAPTER_REGIST;
+	}
+
+	@Override
+	public String getStartSceneName() {
+		return LineBotConstant.REGIST_SCENE_GROUPSELECT;
 	}
 
 }

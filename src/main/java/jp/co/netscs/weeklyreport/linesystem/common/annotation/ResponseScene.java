@@ -7,7 +7,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * シーン処理実行後に入力があった場合の情報を受け取る
+ * シーン処理実行後に入力があった場合の情報を受け取る<br>
+ * このアノテーションを付与したメソッドの戻り値は必ず{@code ResponseSceneResultDto}であること<br>
  * @author SCS036
  *
  */

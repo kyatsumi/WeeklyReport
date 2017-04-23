@@ -6,8 +6,8 @@ public interface ChapterManager {
 	
 	public BaseChapterService targetChapter(String chapterName);
 	
-	public void registSection(BaseChapterService target);
+	public void registChapter(BaseChapterService target);
 	
-	public LineChapterDto keywordMatchCapchar(String keyword);
+	public LineChapterDto getCapcharStartStatus(String chapterName);
 
 }

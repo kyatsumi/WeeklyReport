@@ -11,14 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.linecorp.bot.model.message.Message;
 
-import jp.co.netscs.weeklyreport.linesystem.common.annotation.Chapter;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.ResponseScene;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
 import jp.co.netscs.weeklyreport.linesystem.common.daos.UserDao;
-import jp.co.netscs.weeklyreport.linesystem.common.dtos.ResponseSceneResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.ChapterResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LineChapterDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
+import jp.co.netscs.weeklyreport.linesystem.common.dtos.ResponseSceneResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.exception.WeeklyReportException;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
@@ -42,7 +41,7 @@ public abstract class BaseChapterService {
 		if (manager == null) {
 			throw new NullPointerException("マネージャーがnull");
 		}
-		manager.registSection(this);
+		manager.registChapter(this);
 	}
 	
 	/**
@@ -155,10 +154,17 @@ public abstract class BaseChapterService {
 		return ChapterResultDto.builder().responseScene(responseSceneName).nextScene(nextSceneName).messages(sceneResult).build();
 	}
 	
+	/**
+	 * チャプター名を指定する
+	 * @return
+	 */
+	public abstract String getChapterName();
 	
-	private final String getStartSceneName() {
-		return this.getClass().getDeclaredAnnotation(Chapter.class).startScene();
-	}
+	/**
+	 * このチャプターの最初のシーン名を指定する
+	 * @return
+	 */
+	public abstract String getStartSceneName();
 	
 	/**
 	 * AfterSceneの実行結果
