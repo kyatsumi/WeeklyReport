@@ -36,27 +36,27 @@ public class LineBotConstant {
 	/**
 	 * 機能名：週報登録
 	 */
-	public static final String CHAPTER_REPORT = "週報登録";
+	public static final String CHAPTER_REPORT = "日報登録";
 	
 	/**
 	 * 週報登録:週報登録日付選択
 	 */
-	public static final String REPORT_SCENE_DATE = "週報日付選択";
+	public static final String REPORT_SCENE_DATE = "日報日付選択";
 	
 	/**
 	 * 週報登録:週報内容入力
 	 */
-	public static final String REPORT_SCENE_INPUTREPORT = "週報内容入力";
+	public static final String REPORT_SCENE_INPUTREPORT = "日報内容入力";
 
 	/**
 	 * 週報登録:週報入力内容確認
 	 */
-	public static final String REPORT_SCENE_CONFIRMREGIST = "週報入力内容確認";
+	public static final String REPORT_SCENE_CONFIRMREGIST = "日報入力内容確認";
 	
 	/**
 	 * 週報登録:週報登録結果
 	 */
-	public static final String REPORT_SCENE_REGISTCOMP = "週報登録完了";
+	public static final String REPORT_SCENE_REGISTCOMP = "日報登録完了";
 	
 	/**
 	 * 機能名：週報確認
