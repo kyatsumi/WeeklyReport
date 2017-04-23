@@ -11,13 +11,11 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter
 @ToString
 @EqualsAndHashCode
 @Builder
@@ -32,7 +30,7 @@ public class ReportEntity implements Serializable{
 	/**
 	 * Line Messageing APIのユーザID
 	 */
-	@Column(length=33, nullable = false)
+	@Column(length=33, nullable = false, name = "lineid")
 	private String lineId;
 	
 	/**
