@@ -84,15 +84,4 @@ public class ReportViewServiceImpl extends ReportViewService {
 				Date.valueOf(startDate.plusDays(LineBotConstant.ONE_WEEK_DAYS - 1)));
 		return LineMessageUtils.convertOneWeekReports(oneWeekReports);
 	}
-
-	@Override
-	public String getChapterName() {
-		return LineBotConstant.CHAPTER_REPORTVIEW;
-	}
-
-	@Override
-	public String getStartSceneName() {
-		return LineBotConstant.REPORTVIEW_SCENE_SELECT_WEEKS_VIEW;
-	}
-
 }

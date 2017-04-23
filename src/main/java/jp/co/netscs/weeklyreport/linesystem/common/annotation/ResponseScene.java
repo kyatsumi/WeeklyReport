@@ -24,7 +24,7 @@ public @interface ResponseScene {
 	String target();
 	
 	/**
-	 * このパラメタをtrueにした場合postback以外から要求が来た場合に<br>
+	 * このパラメタをtrueにした場合postback以外から要求が来た場合に
 	 * messageの文言をユーザに返信する。<br>
 	 */
 	boolean postbackOnly() default false;

@@ -88,14 +88,4 @@ public class RegistServiceImpl extends RegistService {
 		return Arrays.asList(text);
 	}
 
-	@Override
-	public String getChapterName() {
-		return LineBotConstant.CHAPTER_REGIST;
-	}
-
-	@Override
-	public String getStartSceneName() {
-		return LineBotConstant.REGIST_SCENE_GROUPSELECT;
-	}
-
 }

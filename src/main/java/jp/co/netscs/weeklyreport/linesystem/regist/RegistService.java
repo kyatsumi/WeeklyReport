@@ -9,11 +9,22 @@ import jp.co.netscs.weeklyreport.linesystem.common.ChapterManager;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.ResponseSceneResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
+import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 
 public abstract class RegistService extends BaseChapterService{
 
 	protected RegistService(ChapterManager manager) {
 		super(manager);
+	}
+	
+	@Override
+	public String getChapterName() {
+		return LineBotConstant.CHAPTER_REGIST;
+	}
+
+	@Override
+	public String getStartSceneName() {
+		return LineBotConstant.REGIST_SCENE_GROUPSELECT;
 	}
 	
 	/**

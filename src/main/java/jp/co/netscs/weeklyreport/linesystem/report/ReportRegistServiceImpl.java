@@ -129,14 +129,4 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 		String message = lineInfo.getText().equals(REGIST) ? "登録しました。" : "最初からやり直してください。";
 		return Arrays.asList( new TextMessage(message));
 	}
-
-	@Override
-	public String getChapterName() {
-		return LineBotConstant.CHAPTER_REPORT;
-	}
-
-	@Override
-	public String getStartSceneName() {
-		return LineBotConstant.REPORT_SCENE_DATE;
-	}
 }
