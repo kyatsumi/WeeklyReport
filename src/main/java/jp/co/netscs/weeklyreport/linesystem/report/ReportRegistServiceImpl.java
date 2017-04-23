@@ -77,7 +77,9 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 			case LAST_WEEK_VIEW:
 				return ResponseSceneResultDto.builder().dummy(lineInfo).result(ResponseResult.LOOP).build();
 			default: {
-				DayReportEntity dayReport = DayReportEntity.builder().reportEntity(ReportEntity.builder().date(DateUtils.string2Date(lineInfo.getText())).lineId(lineInfo.getUserId()).build()).build();
+				ReportEntity reportInfo = ReportEntity.builder()
+						.date(DateUtils.string2Date(lineInfo.getText())).lineId(lineInfo.getUserId()).build();
+				DayReportEntity dayReport = DayReportEntity.builder().reportEntity(reportInfo).build();
 				reportMap.put(lineInfo.getUserId(), dayReport);
 				return AFTER_RESULT_NEXT;
 			}
@@ -92,7 +94,9 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 	@ResponseScene(target = LineBotConstant.REPORT_SCENE_INPUTREPORT)
 	public ResponseSceneResultDto inputReportAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		DayReportEntity dayReport = reportMap.get(lineInfo.getUserId());
-		dayReport.setReport(lineInfo.getText());
+		DayReportEntity updateEntity = DayReportEntity.builder()
+				.report(lineInfo.getText()).adminComment(null).reportEntity(dayReport.getReportEntity()).build();
+		reportMap.put(lineInfo.getUserId(), updateEntity);
 		return AFTER_RESULT_NEXT;
 	}
 
