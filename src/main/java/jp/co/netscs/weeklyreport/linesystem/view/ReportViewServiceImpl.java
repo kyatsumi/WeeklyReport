@@ -62,7 +62,7 @@ public class ReportViewServiceImpl extends ReportViewService {
 		return Arrays.asList(weeks);
 	}
 	
-	@ResponseScene(target = LineBotConstant.REPORTVIEW_SCENE_SELECT_WEEKS_VIEW)
+	@ResponseScene(target = LineBotConstant.REPORTVIEW_SCENE_SELECT_WEEKS_VIEW, postbackOnly = true)
 	public ResponseSceneResultDto selectViewWeekAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		String text = lineInfo.getText();
 		String selectText = text.split(",")[0];

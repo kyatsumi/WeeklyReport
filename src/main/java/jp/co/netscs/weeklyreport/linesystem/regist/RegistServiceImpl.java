@@ -79,7 +79,7 @@ public class RegistServiceImpl extends RegistService {
 	@Scene(sceneName = LineBotConstant.REGIST_SCENE_REGISTCOMP)
 	public List<Message> registComplite(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		TextMessage text = null;
-		if (lineInfo.getText().equals("登録")) {
+		if (lineInfo.getText().equals(REGIST)) {
 			text = new TextMessage("登録が完了しました。");
 		} else {
 			text = new TextMessage("最初からやり直してください。");

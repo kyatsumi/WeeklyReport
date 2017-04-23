@@ -75,7 +75,7 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 		return Arrays.asList(oneWeek);
 	}
 	
-	@ResponseScene(target = LineBotConstant.REPORT_SCENE_DATE)
+	@ResponseScene(target = LineBotConstant.REPORT_SCENE_DATE, postbackOnly = true)
 	public ResponseSceneResultDto selectDateAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		String text = lineInfo.getText();
 		String selectText = text.split(",")[0];
@@ -115,7 +115,7 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 		return Arrays.asList(message, message2);
 	}
 	
-	@ResponseScene(target = LineBotConstant.REPORT_SCENE_CONFIRMREGIST)
+	@ResponseScene(target = LineBotConstant.REPORT_SCENE_CONFIRMREGIST, postbackOnly = true)
 	public ResponseSceneResultDto confrimReportAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		if (lineInfo.getText().equals(REGIST)) {
 			DayReportEntity report = reportMap.get(lineInfo.getUserId());
