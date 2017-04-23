@@ -84,9 +84,14 @@ public class LineBotConstant {
 	public static final String GROUP_REPORTVIEW_SCENE_SELECTUSER = "週報確認対象一覧";
 	
 	/**
+	 * 全体の週報確認：確認対象者一覧
+	 */
+	public static final String GROUP_REPORTVIEW_SCENE_SELECT_DATE = "週報確認日付選択";
+	
+	/**
 	 * 全体の週報確認:週報内容表示
 	 */
-	public static final String TEAMREPORTVIEW_SCENE_VIEW = "週報確認(全体)";
+	public static final String GROUP_REPORTVIEW_SCENE_VIEW = "週報確認(全体)";
 	
 	/**
 	 * 終了したチャプター
