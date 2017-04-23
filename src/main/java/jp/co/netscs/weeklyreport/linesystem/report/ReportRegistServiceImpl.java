@@ -82,13 +82,13 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 		switch (selectText) {
 			case NEXT_WEEK_VIEW: 
 			case LAST_WEEK_VIEW:
-				return ResponseSceneResultDto.builder().dummy(lineInfo).result(ResponseResult.LOOP).build();
+				return ResponseSceneResultDto.builder().dummy(lineInfo).statusCode(ResponseStatusCode.LOOP).build();
 			default: {
 				ReportEntity reportInfo = ReportEntity.builder()
 						.date(DateUtils.string2Date(lineInfo.getText())).lineId(lineInfo.getUserId()).build();
 				DayReportEntity dayReport = DayReportEntity.builder().reportEntity(reportInfo).build();
 				reportMap.put(lineInfo.getUserId(), dayReport);
-				return AFTER_RESULT_NEXT;
+				return RESULT_NEXT;
 			}
 		}
 	}
@@ -104,7 +104,7 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 		DayReportEntity updateEntity = DayReportEntity.builder()
 				.report(lineInfo.getText()).adminComment(null).reportEntity(dayReport.getReportEntity()).build();
 		reportMap.put(lineInfo.getUserId(), updateEntity);
-		return AFTER_RESULT_NEXT;
+		return RESULT_NEXT;
 	}
 
 	@Scene(sceneName = LineBotConstant.REPORT_SCENE_CONFIRMREGIST, next = LineBotConstant.REPORT_SCENE_REGISTCOMP)
@@ -121,7 +121,7 @@ public class ReportRegistServiceImpl extends ReportRegistService {
 			DayReportEntity report = reportMap.get(lineInfo.getUserId());
 			dayReportDao.save(report);
 		}
-		return AFTER_RESULT_NEXT;
+		return RESULT_NEXT;
 	}
 
 	@Scene(sceneName = LineBotConstant.REPORT_SCENE_REGISTCOMP)

@@ -30,8 +30,6 @@ import jp.co.netscs.weeklyreport.linesystem.common.entitis.DayReportEntity;
  */
 public final class LineMessageUtils {
 	
-	private static final DateTimeFormatter MM_DD_FORMAT = DateTimeFormatter.ofPattern("MM-dd");
-	
 	/**
 	 * 
 	 * @param title
@@ -91,6 +89,9 @@ public final class LineMessageUtils {
 				));
 		return new TemplateMessage("登録する日付を選んでください。", oneWeek);
 	}
+	
+	//Lineの仕様でpostbackのメッセージが２０文字以内にしなければならず、日付の終わりをMM-DDの形式にして文字数を範囲内にした
+	private static final DateTimeFormatter MM_DD_FORMAT = DateTimeFormatter.ofPattern("MM-dd");
 	
 	/**
 	 * 

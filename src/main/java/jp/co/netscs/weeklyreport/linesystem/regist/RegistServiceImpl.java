@@ -1,5 +1,8 @@
 package jp.co.netscs.weeklyreport.linesystem.regist;
 
+import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.REGIST;
+import static jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant.CANCEL;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,13 +44,12 @@ public class RegistServiceImpl extends RegistService {
 		return Arrays.asList(welcome, message);
 	}
 	
-	@Override
-	@ResponseScene(target = LineBotConstant.REGIST_SCENE_GROUPSELECT)
+	@ResponseScene(target = LineBotConstant.REGIST_SCENE_GROUPSELECT, postbackOnly = true)
 	public ResponseSceneResultDto groupSelectAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		UserEntity updateUser = UserEntity.builder()
 				.lineId(userInfo.getLineId()).name(null).group(lineInfo.getText()).admin(false).build();
 		userDao.save(updateUser);
-		return AFTER_RESULT_NEXT;
+		return RESULT_NEXT;
 	}
 
 	@Scene(sceneName = LineBotConstant.REGIST_SCENE_INPUTNAME, next = LineBotConstant.REGIST_SCENE_CONFIRMREGIST)
@@ -60,18 +62,18 @@ public class RegistServiceImpl extends RegistService {
 		UserEntity updateUser = UserEntity.builder()
 				.lineId(userInfo.getLineId()).name(lineInfo.getText()).group(userInfo.getGroup()).admin(false).build();
 		userDao.save(updateUser);
-		return AFTER_RESULT_NEXT;
+		return RESULT_NEXT;
 	}
 
 	@Scene(sceneName = LineBotConstant.REGIST_SCENE_CONFIRMREGIST, next = LineBotConstant.REGIST_SCENE_REGISTCOMP)
 	public List<Message> confrimRegist(LinePostInfoDto lineInfo, UserEntity userInfo) {
-		Message message = LineMessageUtils.generateConfirm("登録内容確認", "ユーザ名:" + userInfo.getName() + "\nグループ:" + userInfo.getGroup() , "登録", "キャンセル");
+		Message message = LineMessageUtils.generateConfirm("登録内容確認", "ユーザ名:" + userInfo.getName() + "\nグループ:" + userInfo.getGroup() , REGIST, CANCEL);
 		return Arrays.asList(message);
 	}
 	
-	@ResponseScene(target = LineBotConstant.REGIST_SCENE_CONFIRMREGIST)
+	@ResponseScene(target = LineBotConstant.REGIST_SCENE_CONFIRMREGIST, postbackOnly = true)
 	public ResponseSceneResultDto confrimRegistAfter(LinePostInfoDto lineInfo, UserEntity userInfo) {
-		return AFTER_RESULT_NEXT;
+		return RESULT_NEXT;
 	}
 
 	@Scene(sceneName = LineBotConstant.REGIST_SCENE_REGISTCOMP)

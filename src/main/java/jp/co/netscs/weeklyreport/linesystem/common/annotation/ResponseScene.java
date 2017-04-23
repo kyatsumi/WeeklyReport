@@ -23,4 +23,14 @@ public @interface ResponseScene {
 	 */
 	String target();
 	
+	/**
+	 * このパラメタをtrueにした場合postback以外から要求が来た場合に<br>
+	 * messageの文言をユーザに返信する。<br>
+	 */
+	boolean postbackOnly() default false;
+	
+	/**
+	 * postbackOnlyがtrueの場合にpostback以外からきた時に表示するメッセージ
+	 */
+	String message() default "選択肢から選び直してください。";
 }

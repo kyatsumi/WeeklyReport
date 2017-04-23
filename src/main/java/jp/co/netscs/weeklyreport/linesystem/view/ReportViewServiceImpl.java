@@ -69,9 +69,9 @@ public class ReportViewServiceImpl extends ReportViewService {
 		switch (selectText) {
 			case NEXT_WEEKS_VIEW: 
 			case LAST_WEEKS_VIEW:
-				return ResponseSceneResultDto.builder().dummy(lineInfo).result(ResponseResult.LOOP).build();
+				return ResponseSceneResultDto.builder().dummy(lineInfo).statusCode(ResponseStatusCode.LOOP).build();
 			default: {
-				return AFTER_RESULT_NEXT;
+				return RESULT_NEXT;
 			}
 		}
 	}

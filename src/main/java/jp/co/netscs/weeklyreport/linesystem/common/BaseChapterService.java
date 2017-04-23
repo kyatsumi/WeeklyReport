@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.linecorp.bot.model.message.Message;
+import com.linecorp.bot.model.message.TextMessage;
 
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.ResponseScene;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
@@ -32,7 +33,8 @@ import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 @Transactional
 public abstract class BaseChapterService {
 	
-	protected static final ResponseSceneResultDto AFTER_RESULT_NEXT = new ResponseSceneResultDto(ResponseResult.NEXT, null);
+	/**レスポンスシーンのステータスコード：NEXT*/
+	protected static final ResponseSceneResultDto RESULT_NEXT = new ResponseSceneResultDto(ResponseStatusCode.NEXT, null, null);
 	
 	@Autowired
 	UserDao userDao;
@@ -61,16 +63,25 @@ public abstract class BaseChapterService {
 		}
 		
 		ResponseSceneResultDto afterResult = executeResponseScene(chapterInfo.getResponseScene(), lineInfo);
-		switch(afterResult.getResult()) {
+		switch(afterResult.getStatusCode()) {
 			case NEXT:
 				return executeScene(chapterInfo.getScene(), lineInfo);
 			case LOOP:
 				return executeScene(chapterInfo.getResponseScene(), afterResult.getDummy());
+			case NON_POSTBACK: {
+				return ChapterResultDto.builder().messages(afterResult.getMessage()).nextScene(chapterInfo.getScene()).responseScene(chapterInfo.getResponseScene()).build();
+			}
 			default:
 				throw new WeeklyReportException("シーン処理結果に不正な値が入っています。");	
 		}
 	}
 	
+	/**
+	 * レスポンスシーンの呼び出しメソッド
+	 * @param responseSceneName
+	 * @param lineInfo
+	 * @return
+	 */
 	private ResponseSceneResultDto executeResponseScene(String responseSceneName, LinePostInfoDto lineInfo) {
 		List<Method> targetScene = Arrays.asList(this.getClass().getDeclaredMethods())
 				.stream()
@@ -79,37 +90,49 @@ public abstract class BaseChapterService {
 				.collect(Collectors.toList());
 		
 		if (targetScene.isEmpty()) {
-			return AFTER_RESULT_NEXT;
+			return RESULT_NEXT;
 		}
 		
 		if (targetScene.size() > 1) {
 			throw new RuntimeException("結果処理シーン名が重複して存在します : " + responseSceneName);
 		}
 		
+		//実行対象のメソッド
 		Method targetMethod = targetScene.get(0);
+		//postbackOnlyの処理
+		ResponseScene metaData = targetMethod.getAnnotation(ResponseScene.class);
+		if (metaData.postbackOnly() && metaData.postbackOnly() != lineInfo.isPostback()) {
+			List<Message> message = Arrays.asList(new TextMessage(metaData.message()));
+			return ResponseSceneResultDto.builder().message(message).statusCode(ResponseStatusCode.NON_POSTBACK).build();
+		}
+		
 		
 		UserEntity userInfo = new UserEntity();
 		if (userDao.exists(lineInfo.getUserId())) {
 			userInfo = userDao.getOne(lineInfo.getUserId());
 		}
 		
-		ResponseSceneResultDto sceneResult = null;
 		try {
-			//TODO 戻り値の型検査
+			ResponseSceneResultDto sceneResult = null;
 			if (targetMethod.getParameterCount() == 2) {
 				sceneResult = (ResponseSceneResultDto) targetMethod.invoke(this, lineInfo, userInfo);
 			} else {
 				sceneResult = (ResponseSceneResultDto) targetMethod.invoke(this, lineInfo);
 			}
+			return sceneResult;
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			System.out.println(e.getMessage());
 			throw new WeeklyReportException("シーンメソッドの呼び出しに失敗しました。");
 		}
 		
-		return sceneResult;
 	}
 	
-
+	/**
+	 * シーンの呼び出しメソッド
+	 * @param sceneName
+	 * @param lineInfo
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	private ChapterResultDto executeScene(String sceneName, LinePostInfoDto lineInfo) {
 		List<Method> targetScene = Arrays.asList(this.getClass().getDeclaredMethods())
@@ -119,11 +142,11 @@ public abstract class BaseChapterService {
 				.collect(Collectors.toList());
 			
 		if (targetScene.isEmpty()) {
-			throw new RuntimeException("指定されたシーンメソッドが存在しません。");
+			throw new WeeklyReportException("指定されたシーンメソッドが存在しません。");
 		}
 		
 		if (targetScene.size() > 1) {
-			throw new RuntimeException("シーン名が重複したメソッドが存在します : " + sceneName);
+			throw new WeeklyReportException("シーン名が重複したメソッドが存在します : " + sceneName);
 		}
 		
 		Method targetMethod = targetScene.get(0);
@@ -171,7 +194,7 @@ public abstract class BaseChapterService {
 	 * @author katumi
 	 *
 	 */
-	public enum ResponseResult {
+	public enum ResponseStatusCode {
 		/**
 		 * 次のシーンへ進む
 		 */
@@ -179,6 +202,10 @@ public abstract class BaseChapterService {
 		/**
 		 * ダミー情報を使い前回のシーンを再度実行
 		 */
-		LOOP
+		LOOP,
+		/**
+		 * postback以外の要求がきた場合に指定する<br>
+		 */
+		NON_POSTBACK
 	}
 }
