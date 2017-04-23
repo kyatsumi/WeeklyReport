@@ -78,7 +78,7 @@ public class ReportViewServiceImpl extends ReportViewService {
 	public List<Message> myReportView(LinePostInfoDto lineInfo, UserEntity userInfo) {
 		LocalDate startDate = DateUtils.string2LocalDate(lineInfo.getText());
 		List<DayReportEntity> oneWeekReports = dayReportDao.findByLineidAndDateBetweenOrderByDate(Date.valueOf(startDate),
-				Date.valueOf(startDate.plusDays(LineBotConstant.ONE_WEEK_DAYS)), userInfo.getLineId());
+				Date.valueOf(startDate.plusDays(LineBotConstant.ONE_WEEK_DAYS - 1)), userInfo.getLineId());
 		return LineMessageUtils.convertOneWeekReports(oneWeekReports);
 	}
 
