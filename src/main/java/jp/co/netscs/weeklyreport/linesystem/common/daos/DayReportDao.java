@@ -19,7 +19,7 @@ public interface DayReportDao extends JpaRepository<DayReportEntity, ReportEntit
 	@Query(value = "SELECT * FROM day_report WHERE date BETWEEN :startDate AND :endDate AND line_id = :lineid ORDER BY date", nativeQuery = true)
 	List<DayReportEntity> findByLineidAndDateBetweenOrderByDate(@Param("startDate") Date startDate, @Param("endDate")Date endDate, @Param("lineid")String lineid);
 	
-	List<DayReportEntity> findByLineidAndDateBetweenOrderByDate(String lineid, Date startDate, Date endDate);
+	List<DayReportEntity> findByLineIdAndDateBetweenOrderByDate(String lineid, Date startDate, Date endDate);
 
 
 }
