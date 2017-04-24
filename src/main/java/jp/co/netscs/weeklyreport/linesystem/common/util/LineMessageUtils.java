@@ -12,7 +12,9 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.linecorp.bot.model.action.Action;
 import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TemplateMessage;
@@ -22,6 +24,7 @@ import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.message.template.ConfirmTemplate;
 
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.DayReportEntity;
+import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
 
 /**
  * このクラスはLineに返却するメッセージの作成を行うユーティリテクラスです
@@ -136,15 +139,28 @@ public final class LineMessageUtils {
 				messages.add(new TextMessage(message));
 				message = "";
 			} else {
-				message += "\n";
+				message += "\n\n";
 			}
 		}
 		
 		if(!message.isEmpty()) {
-			messages.add(new TextMessage(message.substring(0, message.length() - 1)));
+			messages.add(new TextMessage(message.substring(0, message.length() - 2)));
 		}
 		
 		return messages;
+	}
+	
+	public static Message generateMenbersCarousel(List<UserEntity> users) {
+		List<Action> actions = users.stream().map(user -> new PostbackAction(user.getName(), user.getLineId())).collect(Collectors.toList());
+		return new TemplateMessage("表示するユーザを選択してください。", new CarouselTemplate( generateCarousels("確認するユーザを選択してください。", actions)));
+	}
+	
+	private static List<CarouselColumn> generateCarousels(String message,List<Action> actions) {
+		if (actions.size() > 3) {
+			return Arrays.asList(new CarouselColumn(null, null, message, actions.subList(0, 2)));
+		}
+		
+		return Arrays.asList(new CarouselColumn(null, null, message, actions));
 	}
 	
 }

@@ -11,22 +11,28 @@ import com.linecorp.bot.model.message.Message;
 import jp.co.netscs.weeklyreport.linesystem.common.ChapterManager;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.ResponseScene;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
+import jp.co.netscs.weeklyreport.linesystem.common.daos.UserDao;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.LinePostInfoDto;
 import jp.co.netscs.weeklyreport.linesystem.common.dtos.ResponseSceneResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
+import jp.co.netscs.weeklyreport.linesystem.common.util.LineMessageUtils;
 
 @Service
 public class GroupReportViewServiceImpl extends GroupReportViewService {
 
+	@Autowired
+	UserDao userDao;
+	
 	public GroupReportViewServiceImpl(@Autowired ChapterManager manager) {
 		super(manager);
 	}
 
 	@Scene(sceneName = LineBotConstant.GROUP_REPORTVIEW_SCENE_SELECTUSER, next = LineBotConstant.GROUP_REPORTVIEW_SCENE_SELECT_DATE)
 	public List<Message> selectViewMember(LinePostInfoDto lineInfo) {
-		
-		return Arrays.asList();
+		List<UserEntity> users = userDao.findAllByOrderByLineId();
+		Message message = LineMessageUtils.generateMenbersCarousel(users);
+		return Arrays.asList(message);
 	}
 
 	@ResponseScene(target = LineBotConstant.GROUP_REPORTVIEW_SCENE_SELECTUSER, postbackOnly = true)
