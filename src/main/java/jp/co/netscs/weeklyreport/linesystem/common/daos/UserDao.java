@@ -12,6 +12,6 @@ import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
 @Repository
 public interface UserDao extends JpaRepository<UserEntity, String> {
 	
-	List<UserEntity> findAllByOrderBylineid();
+	List<UserEntity> findAllByOrderBylineId();
 
 }
