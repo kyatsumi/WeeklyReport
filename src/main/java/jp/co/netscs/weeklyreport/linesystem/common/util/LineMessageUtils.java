@@ -45,8 +45,8 @@ public final class LineMessageUtils {
 		
         ConfirmTemplate confirmTemplate = new ConfirmTemplate(
         		subTitle,
-                new PostbackAction(yes, yes),
-                new PostbackAction(no, no)
+                new PostbackAction(yes, yes, yes),
+                new PostbackAction(no, no, no)
         );
         TemplateMessage templateMessage = new TemplateMessage(title, confirmTemplate);
 		
@@ -127,12 +127,16 @@ public final class LineMessageUtils {
 	}
 	
 	public static List<Message> convertOneWeekReports(List<DayReportEntity> reports) {
+		return convertOneWeekReports(reports, "");
+	}
+	
+	public static List<Message> convertOneWeekReports(List<DayReportEntity> reports, String title) {
 		if (reports == null || reports.isEmpty()) {
 			return Arrays.asList(new TextMessage("内容が登録されていません"));
 		}
 		
 		List<Message> messages = new ArrayList<>();
-		String message = "";
+		String message = title;
 		for(DayReportEntity report : reports) {
 			message += report.viewDayReport();
 			if (message.length() > 200) {
