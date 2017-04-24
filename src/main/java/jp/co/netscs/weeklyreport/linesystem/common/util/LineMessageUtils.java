@@ -161,10 +161,22 @@ public final class LineMessageUtils {
 	
 	private static List<CarouselColumn> generateCarousels(String message,List<Action> actions) {
 		if (actions.size() > 3) {
-			return Arrays.asList(new CarouselColumn(null, null, message, actions.subList(0, 2)));
 		}
 		
-		return Arrays.asList(new CarouselColumn(null, null, message, actions));
+		switch (actions.size()) {
+			case 1:
+			case 2:
+			case 3:
+				return Arrays.asList(new CarouselColumn(null, null, message, actions));
+			case 4:
+				return Arrays.asList(new CarouselColumn(null, null, message, actions.subList(0, 1)), new CarouselColumn(null, null, message, actions.subList(2, 3)));
+			case 5:
+				List<Action> subActions = actions.subList(3, 4);
+				subActions.add(new PostbackAction("すべてのユーザ","すべてのユーザ"));
+				return Arrays.asList(new CarouselColumn(null, null, message, actions.subList(0, 2)), new CarouselColumn(null, null, message, actions.subList(3, 4)));
+			default :
+				return Arrays.asList(new CarouselColumn(null, null, message, actions.subList(0, 2)));
+		}
 	}
 	
 }

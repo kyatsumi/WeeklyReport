@@ -15,9 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.linecorp.bot.model.message.Message;
+import com.linecorp.bot.model.message.TextMessage;
 
 import jp.co.netscs.weeklyreport.linesystem.common.ChapterManager;
-import jp.co.netscs.weeklyreport.linesystem.common.BaseChapterService.ResponseStatusCode;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.ResponseScene;
 import jp.co.netscs.weeklyreport.linesystem.common.annotation.Scene;
 import jp.co.netscs.weeklyreport.linesystem.common.daos.DayReportDao;
@@ -54,6 +54,9 @@ public class GroupReportViewServiceImpl extends GroupReportViewService {
 
 	@ResponseScene(target = LineBotConstant.GROUP_REPORTVIEW_SCENE_SELECTUSER, postbackOnly = true)
 	public ResponseSceneResultDto selectViewMemberAfter(LinePostInfoDto lineInfo) {
+		if (lineInfo.getText().equals("すべてのユーザ")) {
+			return ResponseSceneResultDto.builder().statusCode(ResponseStatusCode.NON_POSTBACK).message(Arrays.asList(new TextMessage("この機能は未実装です"))).build();
+		}
 		selectUserMap.put(lineInfo.getUserId(), lineInfo.getText());
 		return RESULT_NEXT;
 	}
