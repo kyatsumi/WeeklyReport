@@ -45,8 +45,8 @@ public final class LineMessageUtils {
 		
         ConfirmTemplate confirmTemplate = new ConfirmTemplate(
         		subTitle,
-                new PostbackAction(yes, yes, yes),
-                new PostbackAction(no, no, no)
+                new PostbackAction(yes, yes),
+                new PostbackAction(no, no)
         );
         TemplateMessage templateMessage = new TemplateMessage(title, confirmTemplate);
 		
