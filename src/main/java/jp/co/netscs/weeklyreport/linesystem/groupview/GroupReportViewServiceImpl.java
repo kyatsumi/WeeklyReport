@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.linecorp.bot.model.message.Message;
 
@@ -15,6 +16,7 @@ import jp.co.netscs.weeklyreport.linesystem.common.dtos.ResponseSceneResultDto;
 import jp.co.netscs.weeklyreport.linesystem.common.entitis.UserEntity;
 import jp.co.netscs.weeklyreport.linesystem.common.util.LineBotConstant;
 
+@Service
 public class GroupReportViewServiceImpl extends GroupReportViewService {
 
 	public GroupReportViewServiceImpl(@Autowired ChapterManager manager) {
